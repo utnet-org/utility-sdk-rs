@@ -1,0 +1,28 @@
+---
+source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+expression: pretty_print_syn_str(&actual).unwrap()
+---
+#[cfg(target_arch = "wasm32")]
+#[no_mangle]
+pub extern "C" fn method() {
+    ::unc_sdk::env::setup_panic_hook();
+    if ::unc_sdk::env::current_account_id() != ::unc_sdk::env::predecessor_account_id()
+    {
+        ::unc_sdk::env::panic_str("Method method is private");
+    }
+    let data: ::std::vec::Vec<u8> = match ::unc_sdk::env::promise_result(0u64) {
+        ::unc_sdk::PromiseResult::Successful(x) => x,
+        _ => ::unc_sdk::env::panic_str("Callback computation 0 was not successful"),
+    };
+    let mut x: u64 = ::unc_sdk::serde_json::from_slice(&data)
+        .expect("Failed to deserialize callback using JSON");
+    let data: ::std::vec::Vec<u8> = match ::unc_sdk::env::promise_result(1u64) {
+        ::unc_sdk::PromiseResult::Successful(x) => x,
+        _ => ::unc_sdk::env::panic_str("Callback computation 1 was not successful"),
+    };
+    let y: ::std::string::String = ::unc_sdk::serde_json::from_slice(&data)
+        .expect("Failed to deserialize callback using JSON");
+    let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
+    contract.method(&mut x, y);
+}
+

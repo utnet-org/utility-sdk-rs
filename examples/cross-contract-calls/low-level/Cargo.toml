@@ -1,0 +1,11 @@
+[package]
+name = "cross-contract-low-level"
+version = "0.1.0"
+authors = ["Unc Inc <hello@utility.com>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+unc-sdk = { path = "../../../unc-sdk" }

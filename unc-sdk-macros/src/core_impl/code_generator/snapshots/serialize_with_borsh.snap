@@ -1,0 +1,60 @@
+---
+source: unc-sdk-macros/src/core_impl/code_generator/item_trait_info.rs
+expression: pretty_print_syn_str(&actual).unwrap()
+---
+pub mod test {
+    use super::*;
+    #[must_use]
+    pub struct TestExt {
+        pub(crate) account_id: ::unc_sdk::AccountId,
+        pub(crate) deposit: ::unc_sdk::UncToken,
+        pub(crate) static_gas: ::unc_sdk::Gas,
+        pub(crate) gas_weight: ::unc_sdk::GasWeight,
+    }
+    impl TestExt {
+        pub fn with_attached_deposit(mut self, amount: ::unc_sdk::UncToken) -> Self {
+            self.deposit = amount;
+            self
+        }
+        pub fn with_static_gas(mut self, static_gas: ::unc_sdk::Gas) -> Self {
+            self.static_gas = static_gas;
+            self
+        }
+        pub fn with_unused_gas_weight(mut self, gas_weight: u64) -> Self {
+            self.gas_weight = ::unc_sdk::GasWeight(gas_weight);
+            self
+        }
+    }
+    /// API for calling this contract's functions in a subsequent execution.
+    pub fn ext(account_id: ::unc_sdk::AccountId) -> TestExt {
+        TestExt {
+            account_id,
+            deposit: ::unc_sdk::UncToken::from_unc(0),
+            static_gas: ::unc_sdk::Gas::from_gas(0),
+            gas_weight: ::unc_sdk::GasWeight::default(),
+        }
+    }
+    impl TestExt {
+        pub fn test(self, v: Vec<String>) -> ::unc_sdk::Promise {
+            let __args = {
+                #[derive(::unc_sdk::borsh::BorshSerialize)]
+                #[borsh(crate = "::unc_sdk::borsh")]
+                struct Input<'uncinput> {
+                    v: &'uncinput Vec<String>,
+                }
+                let __args = Input { v: &v };
+                ::unc_sdk::borsh::to_vec(&__args)
+                    .expect("Failed to serialize the cross contract args using Borsh.")
+            };
+            ::unc_sdk::Promise::new(self.account_id)
+                .function_call_weight(
+                    ::std::string::String::from("test"),
+                    __args,
+                    self.deposit,
+                    self.static_gas,
+                    self.gas_weight,
+                )
+        }
+    }
+}
+

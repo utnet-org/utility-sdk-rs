@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [
+    "unc-sdk",
+    "unc-sdk-macros",
+    "unc-contract-standards",
+    "unc-sys",
+]
+exclude = ["examples/"]
+
+[workspace.package]
+version = "0.1.0"
+
+# Special triple # comment for ci.
+[patch.crates-io]
+### borsh = { git = "https://github.com/unc/borsh-rs", branch = "master" }
+### unc-vm-logic = { git = "https://github.com/unc/unc", branch = "master" }
+### unc-primitives-core = { git = "https://github.com/unc/unc", branch = "master" }

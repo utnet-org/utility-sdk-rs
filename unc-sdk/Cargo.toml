@@ -1,0 +1,77 @@
+[package]
+name = "unc-sdk"
+version.workspace = true
+authors = ["Unc Inc <max@utility.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+categories = ["wasm"]
+repository = "https://github.com/unc/utility-sdk-rs"
+homepage = "https://unc-sdk.io"
+description = """
+Rust library for writing UNC smart contracts.
+"""
+
+[[test]]
+name = "compilation_tests"
+path = "compilation_tests/all.rs"
+required-features = ["abi", "unstable"]
+
+[dependencies]
+# Provide unc_bidgen macros.
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+unc-sdk-macros = { path = "../unc-sdk-macros", version = "~0.1.0" }
+unc-sys = { path = "../unc-sys", version = "0.1.0" }
+base64 = "0.22.0"
+borsh = { version = "1.0.0", features = ["derive"] }
+bs58 = "0.5"
+
+# Used for caching, might be worth porting only functionality needed.
+once_cell = { version = "1.17", default-features = false }
+
+unc-account-id = { version="0.1.0", features = ["serde", "borsh"] }
+unc-gas = { version = "0.1.0", features = ["serde", "borsh"] }
+unc-token = { version = "0.3.0", features = ["serde", "borsh"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wee_alloc = { version = "0.4.5", default-features = false, optional = true }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+schemars = { version = "0.8.8", optional = true }
+unc-abi = { version = "0.1.0", features = ["__chunked-entries"], optional = true }
+unc-vm-runner = { version = "0.1.0", optional = true }
+unc-primitives-core = { version = "0.1.0", optional = true }
+unc-primitives = { version = "0.1.0", optional = true }
+unc-crypto = { version = "0.1.0", optional = true }
+unc-parameters = { version = "0.1.0", optional = true }
+
+[dev-dependencies]
+unc-sdk = { path = ".", features = ["legacy", "unit-testing"] }
+rand = "0.8.4"
+trybuild = "1.0"
+rustversion = "1.0"
+rand_xorshift = "0.3"
+quickcheck = "1.0"
+arbitrary = { version = "1.2.3", features = ["derive"] }
+derive_arbitrary = "1.2.3"
+hex = { version = "0.4.3", features = ["serde"] }
+getrandom = { version = "0.2", features = ["js"] }
+rand_chacha = "0.3.1"
+unc-rng = "0.1.0"
+unc-abi = { version = "0.1.0", features = ["__chunked-entries"] }
+symbolic-debuginfo = "12"
+
+[features]
+default = ["wee_alloc"]
+expensive-debug = []
+unstable = []
+legacy = []
+abi = ["borsh/unstable__schema", "unc-abi", "schemars", "unc-sdk-macros/abi", "unc-account-id/abi", "unc-gas/abi", "unc-token/abi"]
+unit-testing = ["unc-vm-runner", "unc-primitives-core", "unc-primitives", "unc-crypto", "unc-parameters"]
+
+__abi-embed = ["unc-sdk-macros/__abi-embed"]
+__abi-generate = ["abi", "unc-sdk-macros/__abi-generate"]
+
+[package.metadata.docs.rs]
+features = ["unstable", "legacy"]

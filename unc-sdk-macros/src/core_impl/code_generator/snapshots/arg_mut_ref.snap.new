@@ -1,0 +1,21 @@
+---
+source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+assertion_line: 137
+expression: pretty_print_syn_str(&actual).unwrap()
+---
+#[cfg(target_arch = "wasm32")]
+#[no_mangle]
+pub extern "C" fn method() {
+    ::unc_sdk::env::setup_panic_hook();
+    #[derive(::unc_sdk::serde::Deserialize)]
+    #[serde(crate = "::unc_sdk::serde")]
+    struct Input {
+        k: u64,
+    }
+    let Input { mut k }: Input = ::unc_sdk::serde_json::from_slice(
+            &::unc_sdk::env::input().expect("Expected input since method has arguments."),
+        )
+        .expect("Failed to deserialize input from JSON.");
+    let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
+    contract.method(&mut k);
+}

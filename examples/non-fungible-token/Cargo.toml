@@ -1,0 +1,29 @@
+[package]
+name = "non-fungible-token-wrapper"
+version = "0.0.2"
+authors = ["Unc Inc <hello@utility.com>"]
+edition = "2021"
+
+[dev-dependencies]
+anyhow = "1.0"
+unc-contract-standards = { path = "../../unc-contract-standards" }
+unc-sdk = { path = "../../unc-sdk" }
+tokio = { version = "1.14", features = ["full"] }
+unc-workspaces = { version = "0.1.0", default-features = false, features = ["install"] }
+
+[profile.release]
+codegen-units = 1
+# Tell `rustc` to optimize for small code size.
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = true
+
+[workspace]
+# remember to include a member for each contract
+members = [
+  "nft",
+  "test-approval-receiver",
+  "test-token-receiver",
+]

@@ -1,0 +1,30 @@
+---
+source: unc-sdk-macros/src/core_impl/abi/abi_generator.rs
+expression: pretty_print_fn_body_syn_str(actual)
+---
+    ::unc_sdk::__private::AbiFunction {
+        name: ::std::string::String::from("f3"),
+        doc: ::std::option::Option::Some(
+            ::std::string::String::from(" I am a function."),
+        ),
+        kind: ::unc_sdk::__private::AbiFunctionKind::Call,
+        modifiers: ::std::vec![],
+        params: ::unc_sdk::__private::AbiParameters::Json {
+            args: ::std::vec![
+                ::unc_sdk::__private::AbiJsonParameter { name :
+                ::std::string::String::from("arg0"), type_schema : gen.subschema_for:: <
+                FancyStruct > (), }, ::unc_sdk::__private::AbiJsonParameter { name :
+                ::std::string::String::from("arg1"), type_schema : gen.subschema_for:: <
+                u64 > (), }
+            ],
+        },
+        callbacks: ::std::vec![],
+        callbacks_vec: ::std::option::Option::None,
+        result: ::std::option::Option::Some(::unc_sdk::__private::AbiType::Json {
+            type_schema: gen
+                .subschema_for::<
+                    <Result<IsOk, Error> as unc_sdk::__private::ResultTypeExt>::Okay,
+                >(),
+        }),
+    }
+

@@ -1,0 +1,16 @@
+---
+source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+expression: pretty_print_syn_str(&actual).unwrap()
+---
+#[cfg(target_arch = "wasm32")]
+#[no_mangle]
+pub extern "C" fn method() {
+    ::unc_sdk::env::setup_panic_hook();
+    if ::unc_sdk::env::attached_deposit().as_yoctounc() != 0 {
+        ::unc_sdk::env::panic_str("Method method doesn't accept deposit");
+    }
+    let mut contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
+    contract.method();
+    ::unc_sdk::env::state_write(&contract);
+}
+

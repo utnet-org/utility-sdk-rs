@@ -1,0 +1,29 @@
+---
+source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+assertion_line: 242
+expression: pretty_print_syn_str(&actual).unwrap()
+---
+#[cfg(target_arch = "wasm32")]
+#[no_mangle]
+pub extern "C" fn method() {
+    ::unc_sdk::env::setup_panic_hook();
+    if ::unc_sdk::env::attached_deposit().as_yoctounc() != 0 {
+        ::unc_sdk::env::panic_str("Method method doesn't accept deposit");
+    }
+    #[derive(::unc_sdk::borsh::BorshDeserialize)]
+    #[borsh(crate = "::unc_sdk::borsh")]
+    struct Input {
+        k: u64,
+        m: Bar,
+    }
+    let Input { k, m }: Input = ::unc_sdk::borsh::BorshDeserialize::try_from_slice(
+            &::unc_sdk::env::input().expect("Expected input since method has arguments."),
+        )
+        .expect("Failed to deserialize input from Borsh.");
+    let mut contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
+    let result = contract.method(k, m);
+    let result = ::unc_sdk::borsh::to_vec(&result)
+        .expect("Failed to serialize the return value using Borsh.");
+    ::unc_sdk::env::value_return(&result);
+    ::unc_sdk::env::state_write(&contract);
+}

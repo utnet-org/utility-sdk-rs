@@ -1,0 +1,17 @@
+[workspace]
+# Use `unc-sdk` crate CHANGELOG as top-level one
+changelog_update = false
+
+[[package]]
+name = "unc-sdk"
+changelog_update = true
+changelog_path = "./CHANGELOG.md"
+changelog_include = ["unc-sdk-macros"]
+
+[[package]]
+name = "unc-contract-standards"
+changelog_update = true
+
+[[package]]
+name = "unc-sys"
+changelog_update = true
