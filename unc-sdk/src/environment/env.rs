@@ -223,14 +223,14 @@ pub fn storage_usage() -> StorageUsage {
 pub fn account_balance() -> UncToken {
     let data = [0u8; size_of::<UncToken>()];
     unsafe { sys::account_balance(data.as_ptr() as u64) };
-    UncToken::from_yoctounc(u128::from_le_bytes(data))
+    UncToken::from_attounc(u128::from_le_bytes(data))
 }
 
 /// The balance locked for potential validator staking.
 pub fn account_locked_balance() -> UncToken {
     let data = [0u8; size_of::<UncToken>()];
     unsafe { sys::account_locked_balance(data.as_ptr() as u64) };
-    UncToken::from_yoctounc(u128::from_le_bytes(data))
+    UncToken::from_attounc(u128::from_le_bytes(data))
 }
 
 /// The balance that was attached to the call that will be immediately deposited before the
@@ -238,7 +238,7 @@ pub fn account_locked_balance() -> UncToken {
 pub fn attached_deposit() -> UncToken {
     let data = [0u8; size_of::<UncToken>()];
     unsafe { sys::attached_deposit(data.as_ptr() as u64) };
-    UncToken::from_yoctounc(u128::from_le_bytes(data))
+    UncToken::from_attounc(u128::from_le_bytes(data))
 }
 
 /// The amount of gas attached to the call that can be used to pay for the gas fees.
@@ -509,7 +509,7 @@ pub fn promise_create(
             function_name.as_ptr() as _,
             arguments.len() as _,
             arguments.as_ptr() as _,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
             gas.as_gas(),
         ))
     }
@@ -534,7 +534,7 @@ pub fn promise_then(
             function_name.as_ptr() as _,
             arguments.len() as _,
             arguments.as_ptr() as _,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
             gas.as_gas(),
         ))
     }
@@ -596,7 +596,7 @@ pub fn promise_batch_action_function_call(
             function_name.as_ptr() as _,
             arguments.len() as _,
             arguments.as_ptr() as _,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
             gas.as_gas(),
         )
     }
@@ -617,7 +617,7 @@ pub fn promise_batch_action_function_call_weight(
             function_name.as_ptr() as _,
             arguments.len() as _,
             arguments.as_ptr() as _,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
             gas.as_gas(),
             weight.0,
         )
@@ -628,7 +628,7 @@ pub fn promise_batch_action_transfer(promise_index: PromiseIndex, amount: UncTok
     unsafe {
         sys::promise_batch_action_transfer(
             promise_index.0,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
         )
     }
 }
@@ -641,7 +641,7 @@ pub fn promise_batch_action_stake(
     unsafe {
         sys::promise_batch_action_stake(
             promise_index.0,
-            &amount.as_yoctounc() as *const u128 as _,
+            &amount.as_attounc() as *const u128 as _,
             public_key.as_bytes().len() as _,
             public_key.as_bytes().as_ptr() as _,
         )
@@ -780,14 +780,14 @@ pub fn validator_stake(account_id: &AccountId) -> UncToken {
     unsafe {
         sys::validator_stake(account_id.len() as _, account_id.as_ptr() as _, data.as_ptr() as u64)
     };
-    UncToken::from_yoctounc(u128::from_le_bytes(data))
+    UncToken::from_attounc(u128::from_le_bytes(data))
 }
 
 /// Returns the total stake of validators in the current epoch.
 pub fn validator_total_stake() -> UncToken {
     let data = [0u8; size_of::<UncToken>()];
     unsafe { sys::validator_total_stake(data.as_ptr() as u64) };
-    UncToken::from_yoctounc(u128::from_le_bytes(data))
+    UncToken::from_attounc(u128::from_le_bytes(data))
 }
 
 // #####################
@@ -939,7 +939,7 @@ pub fn state_exists() -> bool {
 /// TODO: will be using the host function when it will be available.
 
 pub fn storage_byte_cost() -> UncToken {
-    UncToken::from_yoctounc(10_000_000_000_000_000_000u128)
+    UncToken::from_attounc(10_000_000_000_000_000_000u128)
 }
 
 // ##################

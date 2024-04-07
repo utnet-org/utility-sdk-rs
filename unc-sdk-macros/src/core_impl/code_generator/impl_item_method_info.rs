@@ -143,7 +143,7 @@ impl ImplItemMethodInfo {
             // If method is not payable, do a check to make sure that it doesn't consume deposit
             let error = format!("Method {} doesn't accept deposit", self.attr_signature_info.ident);
             quote! {
-                if ::unc_sdk::env::attached_deposit().as_yoctounc() != 0 {
+                if ::unc_sdk::env::attached_deposit().as_attounc() != 0 {
                     ::unc_sdk::env::panic_str(#error);
                 }
             }

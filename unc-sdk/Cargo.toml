@@ -21,7 +21,7 @@ required-features = ["abi", "unstable"]
 # Provide unc_bidgen macros.
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-unc-sdk-macros = { path = "../unc-sdk-macros", version = "~0.1.0" }
+unc-sdk-macros = { path = "../unc-sdk-macros", version = "0.7.0" }
 unc-sys = { path = "../unc-sys", version = "0.1.0" }
 base64 = "0.22.0"
 borsh = { version = "1.0.0", features = ["derive"] }
@@ -32,7 +32,7 @@ once_cell = { version = "1.17", default-features = false }
 
 unc-account-id = { version="0.1.0", features = ["serde", "borsh"] }
 unc-gas = { version = "0.1.0", features = ["serde", "borsh"] }
-unc-token = { version = "0.3.0", features = ["serde", "borsh"] }
+unc-token = { version = "0.4.0", features = ["serde", "borsh"] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wee_alloc = { version = "0.4.5", default-features = false, optional = true }
@@ -40,11 +40,11 @@ wee_alloc = { version = "0.4.5", default-features = false, optional = true }
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 schemars = { version = "0.8.8", optional = true }
 unc-abi = { version = "0.1.0", features = ["__chunked-entries"], optional = true }
-unc-vm-runner = { version = "0.1.0", optional = true }
-unc-primitives-core = { version = "0.1.0", optional = true }
-unc-primitives = { version = "0.1.0", optional = true }
-unc-crypto = { version = "0.1.0", optional = true }
-unc-parameters = { version = "0.1.0", optional = true }
+unc-vm-runner = { version = "0.7.0", optional = true }
+unc-primitives-core = { version = "0.7.1", optional = true }
+unc-primitives = { version = "0.7.0", optional = true }
+unc-crypto = { version = "0.7.1", optional = true }
+unc-parameters = { version = "0.7.1", optional = true }
 
 [dev-dependencies]
 unc-sdk = { path = ".", features = ["legacy", "unit-testing"] }

@@ -234,7 +234,7 @@ mod tests {
 
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(1))
+            .attached_deposit(UncToken::from_attounc(1))
             .predecessor_account_id(accounts(2))
             .build());
         let transfer_amount = TOTAL_SUPPLY / 3;

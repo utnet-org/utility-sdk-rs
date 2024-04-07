@@ -116,17 +116,17 @@ mod tests {
     #[test]
     fn basic() {
         let mut contract = VersionedContract::default();
-        set_predecessor_and_deposit(bob(), UncToken::from_yoctounc(8));
+        set_predecessor_and_deposit(bob(), UncToken::from_attounc(8));
         contract.deposit();
 
-        set_predecessor_and_deposit(alice(), UncToken::from_yoctounc(10));
+        set_predecessor_and_deposit(alice(), UncToken::from_attounc(10));
         contract.deposit();
 
-        set_predecessor_and_deposit(bob(), UncToken::from_yoctounc(20));
+        set_predecessor_and_deposit(bob(), UncToken::from_attounc(20));
         contract.deposit();
 
-        assert_eq!(contract.get_deposit(&alice()), Some(&UncToken::from_yoctounc(10)));
-        assert_eq!(contract.get_deposit(&bob()), Some(&UncToken::from_yoctounc(28)));
+        assert_eq!(contract.get_deposit(&alice()), Some(&UncToken::from_attounc(10)));
+        assert_eq!(contract.get_deposit(&bob()), Some(&UncToken::from_attounc(28)));
         assert_eq!(contract.get_nonce(), 3);
     }
 
@@ -134,18 +134,18 @@ mod tests {
     fn contract_v0_interactions() {
         let mut contract = {
             let mut funders = UnorderedMap::new(b"f");
-            funders.insert(bob(), UncToken::from_yoctounc(8));
+            funders.insert(bob(), UncToken::from_attounc(8));
             VersionedContract::V0(ContractV0 { funders })
         };
         assert_eq!(contract.get_nonce(), 0);
         assert!(matches!(contract, VersionedContract::V0(_)));
 
-        set_predecessor_and_deposit(alice(), UncToken::from_yoctounc(1000));
+        set_predecessor_and_deposit(alice(), UncToken::from_attounc(1000));
         contract.deposit();
 
         assert!(matches!(contract, VersionedContract::V1(_)));
         assert_eq!(contract.get_nonce(), 1);
-        assert_eq!(contract.get_deposit(&alice()), Some(&UncToken::from_yoctounc(1000)));
-        assert_eq!(contract.get_deposit(&bob()), Some(&UncToken::from_yoctounc(8)));
+        assert_eq!(contract.get_deposit(&alice()), Some(&UncToken::from_attounc(1000)));
+        assert_eq!(contract.get_deposit(&bob()), Some(&UncToken::from_attounc(8)));
     }
 }

@@ -270,7 +270,7 @@ Get your fully configured development environment in under 1 minute using [GitHu
 - Implement new iterator for `collections::Vec` to optimize for `nth` and `count`. [PR 634](https://github.com/unc/utility-sdk-rs/pull/634)
   - This is useful specifically for things like pagination, where `.skip(x)` will not load the first `x` elements anymore
   - Does not affect any `store` collections, which are already optimized, this just optimizes the legacy `collections` that use `Vec`
-- Add consts for unc, yocto, and tgas. [PR 640](https://github.com/unc/utility-sdk-rs/pull/640).
+- Add consts for unc, atto, and tgas. [PR 640](https://github.com/unc/utility-sdk-rs/pull/640).
   - `unc_sdk::ONE_NEAR`, `unc_sdk::ONE_YOCTO`, `unc_sdk::Gas::ONE_TERA`
 - Update SDK dependencies for `unccore` crates used for mocking (`0.10`) and `borsh` (`0.9`)
 - Implemented `Debug` for all `collection` and `store` types. [PR 647](https://github.com/unc/utility-sdk-rs/pull/647)

@@ -7,7 +7,7 @@ expression: pretty_print_syn_str(&actual).unwrap()
 #[no_mangle]
 pub extern "C" fn method() {
     ::unc_sdk::env::setup_panic_hook();
-    if ::unc_sdk::env::attached_deposit().as_yoctounc() != 0 {
+    if ::unc_sdk::env::attached_deposit().as_attounc() != 0 {
         ::unc_sdk::env::panic_str("Method method doesn't accept deposit");
     }
     #[derive(::unc_sdk::borsh::BorshDeserialize)]

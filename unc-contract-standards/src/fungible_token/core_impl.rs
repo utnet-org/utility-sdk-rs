@@ -6,7 +6,7 @@ use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::collections::LookupMap;
 use unc_sdk::json_types::U128;
 use unc_sdk::{
-    assert_one_yocto, env, log, require, AccountId, Gas, IntoStorageKey, PromiseOrValue,
+    assert_one_atto, env, log, require, AccountId, Gas, IntoStorageKey, PromiseOrValue,
     PromiseResult, StorageUsage,
 };
 
@@ -122,7 +122,7 @@ impl FungibleToken {
 
 impl FungibleTokenCore for FungibleToken {
     fn ft_transfer(&mut self, receiver_id: AccountId, amount: U128, memo: Option<String>) {
-        assert_one_yocto();
+        assert_one_atto();
         let sender_id = env::predecessor_account_id();
         let amount: Balance = amount.into();
         self.internal_transfer(&sender_id, &receiver_id, amount, memo);
@@ -135,7 +135,7 @@ impl FungibleTokenCore for FungibleToken {
         memo: Option<String>,
         msg: String,
     ) -> PromiseOrValue<U128> {
-        assert_one_yocto();
+        assert_one_atto();
         require!(env::prepaid_gas() > GAS_FOR_FT_TRANSFER_CALL, "More gas is required");
         let sender_id = env::predecessor_account_id();
         let amount: Balance = amount.into();

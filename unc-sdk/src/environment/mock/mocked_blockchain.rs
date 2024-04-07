@@ -71,7 +71,7 @@ impl MockedBlockchain {
         let context = sdk_context_to_vm_context(context);
         ext.fake_trie = storage;
         ext.validators =
-            validators.into_iter().map(|(k, v)| (k.parse().unwrap(), (0, v.as_yoctounc()))).collect();
+            validators.into_iter().map(|(k, v)| (k.parse().unwrap(), (0, v.as_attounc()))).collect();
         let memory = memory_opt.unwrap_or_else(|| Box::<MockedMemory>::default());
         let promise_results = Box::new(promise_results.into_iter().map(From::from).collect());
         let config = Box::new(config);
@@ -155,10 +155,10 @@ fn sdk_context_to_vm_context(context: VMContext) -> unc_vm_runner::logic::VMCont
         block_height: context.block_index,
         block_timestamp: context.block_timestamp,
         epoch_height: context.epoch_height,
-        account_balance: context.account_balance.as_yoctounc(),
-        account_locked_balance: context.account_locked_balance.as_yoctounc(),
+        account_balance: context.account_balance.as_attounc(),
+        account_locked_balance: context.account_locked_balance.as_attounc(),
         storage_usage: context.storage_usage,
-        attached_deposit: context.attached_deposit.as_yoctounc(),
+        attached_deposit: context.attached_deposit.as_attounc(),
         prepaid_gas: context.prepaid_gas.as_gas(),
         random_seed: context.random_seed.to_vec(),
         view_config: context.view_config,
@@ -567,11 +567,11 @@ mod mock_chain {
     }
     #[no_mangle]
     extern "C" fn validator_stake(account_id_len: u64, account_id_ptr: u64, stake_ptr: u64) {
-        with_mock_interface(|b| b.validator_frozen(account_id_len, account_id_ptr, stake_ptr))
+        with_mock_interface(|b| b.validator_stake(account_id_len, account_id_ptr, stake_ptr))
     }
     #[no_mangle]
     extern "C" fn validator_total_stake(stake_ptr: u64) {
-        with_mock_interface(|b| b.validator_total_frozen(stake_ptr))
+        with_mock_interface(|b| b.validator_total_stake(stake_ptr))
     }
     #[no_mangle]
     extern "C" fn alt_bn128_g1_multiexp(value_len: u64, value_ptr: u64, register_id: u64) {

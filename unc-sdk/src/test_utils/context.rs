@@ -91,7 +91,7 @@ impl VMContextBuilder {
                 block_index: 0,
                 block_timestamp: 0,
                 epoch_height: 0,
-                account_balance: UncToken::from_yoctounc(10u128.pow(26)),
+                account_balance: UncToken::from_attounc(10u128.pow(26)),
                 account_locked_balance: UncToken::from_unc(0),
                 storage_usage: 1024 * 300,
                 attached_deposit: UncToken::from_unc(0),

@@ -30,7 +30,7 @@ async fn init(
 
 #[tokio::test]
 async fn test_owner_initial_state() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
@@ -64,8 +64,8 @@ async fn test_owner_initial_state() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_set_allowance() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
-    let allowance_amount = U128::from(UncToken::from_unc(100).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
+    let allowance_amount = U128::from(UncToken::from_unc(100).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
@@ -97,8 +97,8 @@ async fn test_set_allowance() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_fail_set_allowance_self() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
-    let allowance_amount = U128::from(UncToken::from_unc(100).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
+    let allowance_amount = U128::from(UncToken::from_unc(100).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
@@ -116,8 +116,8 @@ async fn test_fail_set_allowance_self() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_lock_owner() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
-    let lock_amount = U128::from(UncToken::from_unc(100).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
+    let lock_amount = U128::from(UncToken::from_unc(100).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
@@ -152,7 +152,7 @@ async fn test_lock_owner() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_fail_lock() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
@@ -166,7 +166,7 @@ async fn test_fail_lock() -> anyhow::Result<()> {
 
     let res = contract
         .call("lock")
-        .args_json((contract.id(), U128::from(UncToken::from_unc(10001).as_yoctounc())))
+        .args_json((contract.id(), U128::from(UncToken::from_unc(10001).as_attounc())))
         .max_gas()
         .transact()
         .await;
@@ -174,7 +174,7 @@ async fn test_fail_lock() -> anyhow::Result<()> {
 
     let res = alice
         .call(contract.id(), "lock")
-        .args_json((contract.id(), U128::from(UncToken::from_unc(10).as_yoctounc())))
+        .args_json((contract.id(), U128::from(UncToken::from_unc(10).as_attounc())))
         .max_gas()
         .transact()
         .await;
@@ -185,8 +185,8 @@ async fn test_fail_lock() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_unlock_owner() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
-    let lock_amount = U128::from(UncToken::from_unc(100).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
+    let lock_amount = U128::from(UncToken::from_unc(100).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
@@ -229,7 +229,7 @@ async fn test_unlock_owner() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_fail_unlock() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
@@ -243,7 +243,7 @@ async fn test_fail_unlock() -> anyhow::Result<()> {
 
     let res = contract
         .call("unlock")
-        .args_json((contract.id(), U128::from(UncToken::from_unc(1).as_yoctounc())))
+        .args_json((contract.id(), U128::from(UncToken::from_unc(1).as_attounc())))
         .max_gas()
         .transact()
         .await;
@@ -254,8 +254,8 @@ async fn test_fail_unlock() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_simple_transfer() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
-    let transfer_amount = U128::from(UncToken::from_unc(100).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
+    let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
@@ -287,7 +287,7 @@ async fn test_simple_transfer() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn test_fail_transfer() -> anyhow::Result<()> {
-    let initial_balance = U128::from(UncToken::from_unc(10000).as_yoctounc());
+    let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let worker = unc_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
@@ -301,7 +301,7 @@ async fn test_fail_transfer() -> anyhow::Result<()> {
 
     let res = contract
         .call("transfer")
-        .args_json((alice.id(), U128::from(UncToken::from_unc(10001).as_yoctounc())))
+        .args_json((alice.id(), U128::from(UncToken::from_unc(10001).as_attounc())))
         .max_gas()
         .transact()
         .await;

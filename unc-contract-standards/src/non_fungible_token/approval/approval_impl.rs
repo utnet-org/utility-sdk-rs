@@ -4,11 +4,11 @@ use crate::non_fungible_token::approval::ext_nft_approval_receiver;
 use crate::non_fungible_token::approval::NonFungibleTokenApproval;
 use crate::non_fungible_token::token::TokenId;
 use crate::non_fungible_token::utils::{
-    assert_at_least_one_yocto, bytes_for_approved_account_id, refund_approved_account_ids,
+    assert_at_least_one_atto, bytes_for_approved_account_id, refund_approved_account_ids,
     refund_approved_account_ids_iter, refund_deposit,
 };
 use crate::non_fungible_token::NonFungibleToken;
-use unc_sdk::{assert_one_yocto, env, require, AccountId, Gas, Promise};
+use unc_sdk::{assert_one_atto, env, require, AccountId, Gas, Promise};
 
 const GAS_FOR_NFT_APPROVE: Gas = Gas::from_tgas(10);
 
@@ -27,7 +27,7 @@ impl NonFungibleTokenApproval for NonFungibleToken {
         account_id: AccountId,
         msg: Option<String>,
     ) -> Option<Promise> {
-        assert_at_least_one_yocto();
+        assert_at_least_one_atto();
         let approvals_by_id = self
             .approvals_by_id
             .as_mut()
@@ -65,7 +65,7 @@ impl NonFungibleTokenApproval for NonFungibleToken {
     }
 
     fn nft_revoke(&mut self, token_id: TokenId, account_id: AccountId) {
-        assert_one_yocto();
+        assert_one_atto();
         let approvals_by_id = self.approvals_by_id.as_mut().unwrap_or_else(|| {
             env::panic_str("NFT does not support Approval Management");
         });
@@ -95,7 +95,7 @@ impl NonFungibleTokenApproval for NonFungibleToken {
     }
 
     fn nft_revoke_all(&mut self, token_id: TokenId) {
-        assert_one_yocto();
+        assert_one_atto();
         let approvals_by_id = self.approvals_by_id.as_mut().unwrap_or_else(|| {
             env::panic_str("NFT does not support Approval Management");
         });

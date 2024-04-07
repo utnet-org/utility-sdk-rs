@@ -1,6 +1,6 @@
 use crate::fungible_token::{Balance, FungibleToken};
 use crate::storage_management::{StorageBalance, StorageBalanceBounds, StorageManagement};
-use unc_sdk::{assert_one_yocto, env, log, AccountId, UncToken, Promise};
+use unc_sdk::{assert_one_atto, env, log, AccountId, UncToken, Promise};
 
 impl FungibleToken {
     /// Internal method that returns the Account ID and the balance in case the account was
@@ -9,7 +9,7 @@ impl FungibleToken {
         &mut self,
         force: Option<bool>,
     ) -> Option<(AccountId, Balance)> {
-        assert_one_yocto();
+        assert_one_atto();
         let account_id = env::predecessor_account_id();
         let force = force.unwrap_or(false);
         if let Some(balance) = self.accounts.get(&account_id) {
@@ -17,7 +17,7 @@ impl FungibleToken {
                 self.accounts.remove(&account_id);
                 self.total_supply -= balance;
                 Promise::new(account_id.clone()).transfer(
-                    self.storage_balance_bounds().min.saturating_add(UncToken::from_yoctounc(1)),
+                    self.storage_balance_bounds().min.saturating_add(UncToken::from_attounc(1)),
                 );
                 Some((account_id, balance))
             } else {
@@ -80,7 +80,7 @@ impl StorageManagement for FungibleToken {
     /// * never transfers Ⓝ to caller
     /// * returns a `storage_balance` struct if `amount` is 0
     fn storage_withdraw(&mut self, amount: Option<UncToken>) -> StorageBalance {
-        assert_one_yocto();
+        assert_one_atto();
         let predecessor_account_id = env::predecessor_account_id();
         if let Some(storage_balance) = self.internal_storage_balance_of(&predecessor_account_id) {
             match amount {

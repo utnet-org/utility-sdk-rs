@@ -25,7 +25,7 @@ impl Allowance {
 
     /// This will return an None if you try to pass a zero value balance
     pub fn limited(balance: UncToken) -> Option<Allowance> {
-        NonZeroU128::new(balance.as_yoctounc()).map(Allowance::Limited)
+        NonZeroU128::new(balance.as_attounc()).map(Allowance::Limited)
     }
 }
 
@@ -217,10 +217,10 @@ impl PromiseJoint {
 /// ```no_run
 /// # use unc_sdk::{Promise, env, test_utils::VMContextBuilder, testing_env, Gas, UncToken};
 /// # testing_env!(VMContextBuilder::new().signer_account_id("bob_unc".parse().unwrap())
-/// #               .account_balance(UncToken::from_yoctounc(1000)).prepaid_gas(Gas::from_gas(1_000_000)).build());
+/// #               .account_balance(UncToken::from_attounc(1000)).prepaid_gas(Gas::from_gas(1_000_000)).build());
 /// Promise::new("bob_unc".parse().unwrap())
 ///   .create_account()
-///   .transfer(UncToken::from_yoctounc(1000))
+///   .transfer(UncToken::from_attounc(1000))
 ///   .add_full_access_key(env::signer_account_pk());
 /// ```
 pub struct Promise {
@@ -669,7 +669,7 @@ mod tests {
                     receipt_index: _,
                 }
                 if p == public_key
-                    && a.unwrap() == UncToken::from_yoctounc(allowance)
+                    && a.unwrap() == UncToken::from_attounc(allowance)
                     && r == receiver_id
                     && method_names.clone() == function_names.split(',').collect::<Vec<_>>()
                     && (nonce.is_none() || Some(n) == nonce)
@@ -740,7 +740,7 @@ mod tests {
         testing_env!(VMContextBuilder::new().signer_account_id(alice()).build());
 
         let public_key: PublicKey = pk();
-        let allowance = UncToken::from_yoctounc(100);
+        let allowance = UncToken::from_attounc(100);
         let receiver_id = bob();
         let function_names = "method_a,method_b".to_string();
 
@@ -756,7 +756,7 @@ mod tests {
 
         assert!(has_add_key_with_function_call(
             public_key,
-            allowance.as_yoctounc(),
+            allowance.as_attounc(),
             receiver_id,
             function_names,
             None
@@ -797,7 +797,7 @@ mod tests {
         testing_env!(VMContextBuilder::new().signer_account_id(alice()).build());
 
         let public_key: PublicKey = pk();
-        let allowance = UncToken::from_yoctounc(100);
+        let allowance = UncToken::from_attounc(100);
         let receiver_id = bob();
         let function_names = "method_a,method_b".to_string();
         let nonce = 42;
@@ -815,7 +815,7 @@ mod tests {
 
         assert!(has_add_key_with_function_call(
             public_key,
-            allowance.as_yoctounc(),
+            allowance.as_attounc(),
             receiver_id,
             function_names,
             Some(nonce)

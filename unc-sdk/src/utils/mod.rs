@@ -83,11 +83,11 @@ pub fn assert_self() {
     require!(env::predecessor_account_id() == env::current_account_id(), "Method is private");
 }
 
-/// Assert that 1 yoctoNEAR was attached.
-pub fn assert_one_yocto() {
+/// Assert that 1 attoNEAR was attached.
+pub fn assert_one_atto() {
     require!(
-        env::attached_deposit() == UncToken::from_yoctounc(1),
-        "Requires attached deposit of exactly 1 yoctoNEAR"
+        env::attached_deposit() == UncToken::from_attounc(1),
+        "Requires attached deposit of exactly 1 attoNEAR"
     )
 }
 

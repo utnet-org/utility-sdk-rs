@@ -16,7 +16,7 @@ impl FactoryContract {
     pub fn deploy_status_message(&self, account_id: AccountId, amount: U128) {
         let promise_idx = env::promise_batch_create(&account_id);
         env::promise_batch_action_create_account(promise_idx);
-        env::promise_batch_action_transfer(promise_idx, UncToken::from_yoctounc(amount.0));
+        env::promise_batch_action_transfer(promise_idx, UncToken::from_attounc(amount.0));
         env::promise_batch_action_add_key_with_full_access(
             promise_idx,
             &env::signer_account_pk(),

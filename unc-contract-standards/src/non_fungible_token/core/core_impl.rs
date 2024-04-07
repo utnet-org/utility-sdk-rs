@@ -10,7 +10,7 @@ use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::collections::{LookupMap, TreeMap, UnorderedSet};
 use unc_sdk::json_types::Base64VecU8;
 use unc_sdk::{
-    assert_one_yocto, env, require, AccountId, BorshStorageKey, Gas, IntoStorageKey,
+    assert_one_atto, env, require, AccountId, BorshStorageKey, Gas, IntoStorageKey,
     PromiseOrValue, PromiseResult, StorageUsage,
 };
 use std::collections::HashMap;
@@ -272,7 +272,7 @@ impl NonFungibleToken {
     ///
     /// Requirements:
     /// * Caller must be the `owner_id` set during contract initialization.
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security purposes.
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security purposes.
     /// * If contract is using Metadata extension (by having provided `metadata_prefix` during
     ///   contract initialization), `token_metadata` must be given.
     /// * token_id must be unique
@@ -380,7 +380,7 @@ impl NonFungibleTokenCore for NonFungibleToken {
         approval_id: Option<u64>,
         memo: Option<String>,
     ) {
-        assert_one_yocto();
+        assert_one_atto();
         let sender_id = env::predecessor_account_id();
         self.internal_transfer(&sender_id, &receiver_id, &token_id, approval_id, memo);
     }
@@ -393,7 +393,7 @@ impl NonFungibleTokenCore for NonFungibleToken {
         memo: Option<String>,
         msg: String,
     ) -> PromiseOrValue<bool> {
-        assert_one_yocto();
+        assert_one_atto();
         require!(env::prepaid_gas() > GAS_FOR_NFT_TRANSFER_CALL, "More gas is required");
         let sender_id = env::predecessor_account_id();
         let (old_owner, old_approvals) =

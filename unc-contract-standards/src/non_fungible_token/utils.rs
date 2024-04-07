@@ -33,11 +33,11 @@ pub fn refund_deposit_to_account(storage_used: u64, account_id: AccountId) {
 
     require!(
         required_cost <= attached_deposit,
-        format!("Must attach {} yoctoNEAR to cover storage", required_cost)
+        format!("Must attach {} attoNEAR to cover storage", required_cost)
     );
 
     let refund = attached_deposit.saturating_sub(required_cost);
-    if refund.as_yoctounc() > 1 {
+    if refund.as_attounc() > 1 {
         Promise::new(account_id).transfer(refund);
     }
 }
@@ -47,10 +47,10 @@ pub fn refund_deposit(storage_used: u64) {
     refund_deposit_to_account(storage_used, env::predecessor_account_id())
 }
 
-/// Assert that at least 1 yoctoNEAR was attached.
-pub(crate) fn assert_at_least_one_yocto() {
+/// Assert that at least 1 attoNEAR was attached.
+pub(crate) fn assert_at_least_one_atto() {
     require!(
-        env::attached_deposit() >= UncToken::from_yoctounc(1),
-        "Requires attached deposit of at least 1 yoctoNEAR"
+        env::attached_deposit() >= UncToken::from_attounc(1),
+        "Requires attached deposit of at least 1 attoNEAR"
     )
 }

@@ -120,16 +120,16 @@ impl From<LogicMockAction> for MockAction {
                 receipt_index,
                 method_name,
                 args,
-                attached_deposit: UncToken::from_yoctounc(attached_deposit),
+                attached_deposit: UncToken::from_attounc(attached_deposit),
                 prepaid_gas: Gas::from_gas(prepaid_gas),
                 gas_weight,
             },
             LogicMockAction::Transfer { receipt_index, deposit } => {
-                MockAction::Transfer { receipt_index, deposit: UncToken::from_yoctounc(deposit) }
+                MockAction::Transfer { receipt_index, deposit: UncToken::from_attounc(deposit) }
             }
             LogicMockAction::Stake { receipt_index, stake, public_key } => MockAction::Stake {
                 receipt_index,
-                stake: UncToken::from_yoctounc(stake),
+                stake: UncToken::from_attounc(stake),
                 public_key,
             },
             LogicMockAction::DeleteAccount { receipt_index, beneficiary_id } => {
@@ -149,7 +149,7 @@ impl From<LogicMockAction> for MockAction {
                 receipt_index,
                 public_key,
                 nonce,
-                allowance: allowance.map(UncToken::from_yoctounc),
+                allowance: allowance.map(UncToken::from_attounc),
                 receiver_id,
                 method_names: map_vec_str(method_names),
             },

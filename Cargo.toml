@@ -9,10 +9,10 @@ members = [
 exclude = ["examples/"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.7.0"
 
 # Special triple # comment for ci.
 [patch.crates-io]
-### borsh = { git = "https://github.com/unc/borsh-rs", branch = "master" }
-### unc-vm-logic = { git = "https://github.com/unc/unc", branch = "master" }
-### unc-primitives-core = { git = "https://github.com/unc/unc", branch = "master" }
+### borsh = { git = "https://github.com/unet/borsh-rs", branch = "master" }
+### unc-vm-logic = { git = "https://github.com/unet/utility", branch = "master" }
+### unc-primitives-core = { git = "https://github.com/unet/utility", branch = "master" }

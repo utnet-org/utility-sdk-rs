@@ -229,7 +229,7 @@ mod tests {
 
     use super::*;
 
-    const MINT_STORAGE_COST: UncToken = UncToken::from_yoctounc(5870000000000000000000u128);
+    const MINT_STORAGE_COST: UncToken = UncToken::from_attounc(5870000000000000000000u128);
 
     fn get_context(predecessor_account_id: AccountId) -> VMContextBuilder {
         let mut builder = VMContextBuilder::new();
@@ -310,7 +310,7 @@ mod tests {
 
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(1))
+            .attached_deposit(UncToken::from_attounc(1))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_transfer(accounts(1), token_id.clone(), None, None);
@@ -348,7 +348,7 @@ mod tests {
         // alice approves bob
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(150000000000000000000u128))
+            .attached_deposit(UncToken::from_attounc(150000000000000000000u128))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_approve(token_id.clone(), accounts(1), None);
@@ -379,7 +379,7 @@ mod tests {
         // alice approves bob
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(150000000000000000000))
+            .attached_deposit(UncToken::from_attounc(150000000000000000000))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_approve(token_id.clone(), accounts(1), None);
@@ -387,7 +387,7 @@ mod tests {
         // alice revokes bob
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(1))
+            .attached_deposit(UncToken::from_attounc(1))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_revoke(token_id.clone(), accounts(1));
@@ -417,7 +417,7 @@ mod tests {
         // alice approves bob
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(150000000000000000000))
+            .attached_deposit(UncToken::from_attounc(150000000000000000000))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_approve(token_id.clone(), accounts(1), None);
@@ -425,7 +425,7 @@ mod tests {
         // alice revokes bob
         testing_env!(context
             .storage_usage(env::storage_usage())
-            .attached_deposit(UncToken::from_yoctounc(1))
+            .attached_deposit(UncToken::from_attounc(1))
             .predecessor_account_id(accounts(0))
             .build());
         contract.nft_revoke_all(token_id.clone());

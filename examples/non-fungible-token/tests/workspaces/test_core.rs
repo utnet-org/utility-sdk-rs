@@ -3,7 +3,7 @@ use unc_contract_standards::non_fungible_token::Token;
 
 use unc_workspaces::types::UncToken;
 
-const ONE_YOCTO: UncToken = UncToken::from_yoctounc(1);
+const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
 
 #[tokio::test]
 async fn simulate_simple_transfer() -> anyhow::Result<()> {
