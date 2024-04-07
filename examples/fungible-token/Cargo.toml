@@ -8,7 +8,7 @@ edition = "2021"
 anyhow = "1.0"
 unc-sdk = { path = "../../unc-sdk", features = ["unit-testing"] }
 tokio = { version = "1.14", features = ["full"] }
-unc-workspaces = { version = "0.1.0", default-features = false, features = ["install"] }
+unc-workspaces = { version = "0.7.2", default-features = false, features = ["install"] }
 
 [profile.release]
 codegen-units = 1
