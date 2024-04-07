@@ -1,11 +1,11 @@
 [package]
 name = "unc-sys"
-version = "0.1.0"
+version = "0.7.0"
 authors = ["Unc Inc <hello@unc.org>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 categories = ["wasm"]
-repository = "https://github.com/utility/utility-sdk-rs"
+repository = "https://github.com/utility/unc-sdk-rs"
 homepage = "https://unc-sdk.io"
 description = """
 Syscall definitions for builtin functions of the UNC runtime.
