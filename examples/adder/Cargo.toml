@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 unc-sdk = { path = "../../unc-sdk" }
 
 [dev-dependencies]
-unc-workspaces = { version = "0.1.0", default-features = false, features = ["install"] }
+unc-workspaces = { version = "0.7.1", default-features = false, features = ["install"] }
 serde_json = "1.0"
 tokio = { version = "1.14", features = ["full"] }
 anyhow = "1.0"
