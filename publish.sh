@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-for p in unc-sdk-macros unc-sdk unc-contract-standards
+for p in unc-sys unc-sdk-macros unc-sdk unc-contract-standards
 do
 pushd ./${p}
 cargo publish
