@@ -9,7 +9,7 @@ repository = "https://github.com/utility/utility-sdk-rs"
 homepage = "https://unc-sdk.io"
 documentation = "https://docs.rs/unc-contract-standards"
 description = """
-UNC smart contracts standard library.
+Utility smart contracts standard library.
 """
 
 [dependencies]
