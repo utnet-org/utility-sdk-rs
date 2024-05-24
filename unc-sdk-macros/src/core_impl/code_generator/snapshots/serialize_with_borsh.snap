@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/item_trait_info.rs
+assertion_line: 72
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 pub mod test {
@@ -57,4 +58,3 @@ pub mod test {
         }
     }
 }
-

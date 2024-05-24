@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/ext.rs
+assertion_line: 166
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 #[must_use]
@@ -32,4 +33,3 @@ pub fn ext(account_id: ::unc_sdk::AccountId) -> TestExt {
         gas_weight: ::unc_sdk::GasWeight::default(),
     }
 }
-

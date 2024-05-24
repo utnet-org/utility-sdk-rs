@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/ext.rs
+assertion_line: 183
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 #[cfg(target_os = "linux")]
@@ -14,4 +15,3 @@ pub fn method(self) -> ::unc_sdk::Promise {
             self.gas_weight,
         )
 }
-

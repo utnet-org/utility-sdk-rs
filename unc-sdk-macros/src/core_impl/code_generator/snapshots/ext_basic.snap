@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/item_trait_info.rs
+assertion_line: 56
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 pub mod external_cross_contract {
@@ -68,4 +69,3 @@ pub mod external_cross_contract {
         }
     }
 }
-

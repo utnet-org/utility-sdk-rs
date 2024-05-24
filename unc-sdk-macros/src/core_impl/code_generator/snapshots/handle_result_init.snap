@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+assertion_line: 321
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 #[cfg(target_arch = "wasm32")]
@@ -20,4 +21,3 @@ pub extern "C" fn new() {
         ::std::result::Result::Err(err) => ::unc_sdk::FunctionError::panic(&err),
     }
 }
-

@@ -1,13 +1,13 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/item_impl_info.rs
+assertion_line: 148
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 #[cfg(target_arch = "wasm32")]
 #[no_mangle]
 pub extern "C" fn method() {
     ::unc_sdk::env::setup_panic_hook();
-    if ::unc_sdk::env::current_account_id() != ::unc_sdk::env::predecessor_account_id()
-    {
+    if ::unc_sdk::env::current_account_id() != ::unc_sdk::env::predecessor_account_id() {
         ::unc_sdk::env::panic_str("Method method is private");
     }
     #[derive(::unc_sdk::serde::Deserialize)]
@@ -16,8 +16,7 @@ pub extern "C" fn method() {
         y: ::std::string::String,
     }
     let Input { y }: Input = ::unc_sdk::serde_json::from_slice(
-            &::unc_sdk::env::input()
-                .expect("Expected input since method has arguments."),
+            &::unc_sdk::env::input().expect("Expected input since method has arguments."),
         )
         .expect("Failed to deserialize input from JSON.");
     let data: ::std::vec::Vec<u8> = match ::unc_sdk::env::promise_result(0u64) {
@@ -35,4 +34,3 @@ pub extern "C" fn method() {
     let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
     contract.method(&mut x, y, z);
 }
-

@@ -1,5 +1,6 @@
 ---
 source: unc-sdk-macros/src/core_impl/code_generator/ext.rs
+assertion_line: 195
 expression: pretty_print_syn_str(&actual).unwrap()
 ---
 pub fn method(self, k: &String) -> ::unc_sdk::Promise {
@@ -22,4 +23,3 @@ pub fn method(self, k: &String) -> ::unc_sdk::Promise {
             self.gas_weight,
         )
 }
-
