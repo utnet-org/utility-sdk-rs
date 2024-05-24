@@ -64,7 +64,7 @@ where
 }
 
 //? Manual implementations needed only because borsh derive is leaking field types
-// https://github.com/unc/borsh-rs/issues/41
+// https://github.com/utnet-org/borsh-rs/issues/41
 impl<K, V, H> BorshSerialize for TreeMap<K, V, H>
 where
     K: BorshSerialize + Ord,

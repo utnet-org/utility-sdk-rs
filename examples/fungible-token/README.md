@@ -4,7 +4,7 @@ Fungible Token (FT)
 Example implementation of a [Fungible Token] contract which uses [unc-contract-standards].
 
   [Fungible Token]: https://nomicon.io/Standards/Tokens/FungibleTokenCore.html
-  [unc-contract-standards]: https://github.com/unc/utility-sdk-rs/tree/master/unc-contract-standards
+  [unc-contract-standards]: https://github.com/utnet-org/utility-sdk-rs/tree/master/unc-contract-standards
 
 NOTES:
  - The maximum balance value is limited by U128 (2**128 - 1).
@@ -27,7 +27,7 @@ cargo test --package fungible-token -- --nocapture
 
 ### `1.0.0`
 
-- Switched form using [NEP-21](https://github.com/unc/NEPs/pull/21) to [NEP-141](https://github.com/unc/NEPs/issues/141).
+- Switched form using [NEP-21](https://github.com/utnet-org/NEPs/pull/21) to [NEP-141](https://github.com/utnet-org/NEPs/issues/141).
 
 ### `0.3.0`
 

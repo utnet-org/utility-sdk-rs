@@ -15,21 +15,21 @@
     <a href="https://docs.rs/unc-sdk"><img src="https://docs.rs/unc-sdk/badge.svg" alt="Reference Documentation" /></a>
     <a href="https://blog.rust-lang.org/2023/08/24/Rust-1.72.0.html"><img src="https://img.shields.io/badge/rustc-1.72+-lightgray.svg" alt="MSRV" /></a>
     <a href="https://discord.gg/gBtUFKR"><img src="https://img.shields.io/discord/490367152054992913.svg" alt="Join the community on Discord" /></a>
-    <a href="https://github.com/unc/utility-sdk-rs/actions"><img src="https://github.com/utnet-org/utility-sdk-rs/actions/workflows/test.yml/badge.svg" alt="GitHub Actions Build" /></a>
+    <a href="https://github.com/utnet-org/utility-sdk-rs/actions"><img src="https://github.com/utnet-org/utility-sdk-rs/actions/workflows/test.yml/badge.svg" alt="GitHub Actions Build" /></a>
   </p>
 
    <h3>
-      <a href="https://github.com/unc/utility-sdk-rs#features">Features</a>
+      <a href="https://github.com/utnet-org/utility-sdk-rs#features">Features</a>
       <span> | </span>
-      <a href="https://github.com/unc/utility-sdk-rs#pre-requisites">Pre-requisites</a>
+      <a href="https://github.com/utnet-org/utility-sdk-rs#pre-requisites">Pre-requisites</a>
       <span> | </span>
-      <a href="https://github.com/unc/utility-sdk-rs#writing-rust-contract">Writing Rust Contract</a>
+      <a href="https://github.com/utnet-org/utility-sdk-rs#writing-rust-contract">Writing Rust Contract</a>
       <span> | </span>
-      <a href="https://github.com/unc/utility-sdk-rs#building-rust-contract">Building Rust Contract</a>
+      <a href="https://github.com/utnet-org/utility-sdk-rs#building-rust-contract">Building Rust Contract</a>
       <span> | </span>
       <a href="https://docs.rs/unc-sdk">Reference Documentation</a>
       <span> | </span>
-      <a href="https://github.com/unc/utility-sdk-rs#contributing">Contributing</a>
+      <a href="https://github.com/utnet-org/utility-sdk-rs#contributing">Contributing</a>
     </h3>
 </div>
 
@@ -239,9 +239,9 @@ The general workflow is the following:
 
 ## Building Rust Contract
 
-### [cargo-unc](https://github.com/unc/cargo-unc)
+### [cargo-unc](https://github.com/utnet-org/cargo-unc)
 
-This can be used as an alternative, to allow building while also generating an [abi](https://github.com/unc/abi)
+This can be used as an alternative, to allow building while also generating an [abi](https://github.com/utnet-org/abi)
 
 ```bash
 # Install the unc extension if you haven't already
@@ -263,11 +263,11 @@ Since WebAssembly compiler includes a bunch of debug information into the binary
 different on different machines. To be able to compile the binary in a reproducible way, we added a Dockerfile
 that allows to compile the binary.
 
-**Use [contract-builder](https://github.com/unc/utility-sdk-rs/tree/master/contract-builder)**
+**Use [contract-builder](https://github.com/utnet-org/utility-sdk-rs/tree/master/contract-builder)**
 
 ## UNC contract standards
 
-[`unc-contract-standards` crate](https://github.com/unc/utility-sdk-rs/tree/master/unc-contract-standards) provides a set of interfaces and implementations for UNC's contract standards:
+[`unc-contract-standards` crate](https://github.com/utnet-org/utility-sdk-rs/tree/master/unc-contract-standards) provides a set of interfaces and implementations for UNC's contract standards:
 
 * Upgradability
 * Fungible Token (NEP-141). See [example usage](examples/fungible-token)
@@ -279,7 +279,7 @@ that allows to compile the binary.
 
 This crate follows [Cargo's semver guidelines](https://doc.rust-lang.org/cargo/reference/semver.html).
 
-State breaking changes (low-level serialization format of any data type) will be avoided at all costs. If a change like this were to happen, it would come with a major version and come with a compiler error. If you encounter one that does not, [open an issue](https://github.com/unc/utility-sdk-rs/issues/new)!
+State breaking changes (low-level serialization format of any data type) will be avoided at all costs. If a change like this were to happen, it would come with a major version and come with a compiler error. If you encounter one that does not, [open an issue](https://github.com/utnet-org/utility-sdk-rs/issues/new)!
 
 ### MSRV
 

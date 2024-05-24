@@ -5,7 +5,7 @@ fn main() {
         } else {
             println!("cargo:warning=the `__abi-embed` feature flag is private and should not be activated manually, ignoring");
             println!(
-                "cargo:warning=\x1b[1mhelp\x1b[0m: consider using https://github.com/unc/cargo-unc"
+                "cargo:warning=\x1b[1mhelp\x1b[0m: consider using https://github.com/utnet-org/cargo-unc"
             );
         }
     }

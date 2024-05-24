@@ -1204,7 +1204,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_g1_multiexp() {
-        // Originated from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
+        // Originated from https://github.com/utnet-org/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
         let buffer = [
             16, 238, 91, 161, 241, 22, 172, 158, 138, 252, 202, 212, 136, 37, 110, 231, 118, 220,
             8, 45, 14, 153, 125, 217, 227, 87, 238, 238, 31, 138, 226, 8, 238, 185, 12, 155, 93,
@@ -1227,7 +1227,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_g1_sum() {
-        // Originated from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
+        // Originated from https://github.com/utnet-org/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
         let buffer = [
             0, 11, 49, 94, 29, 152, 111, 116, 138, 248, 2, 184, 8, 159, 80, 169, 45, 149, 48, 32,
             49, 37, 6, 133, 105, 171, 194, 120, 44, 195, 17, 180, 35, 137, 154, 4, 192, 211, 244,
@@ -1248,7 +1248,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_pairing_check() {
-        // Taken from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L239-L250
+        // Taken from https://github.com/utnet-org/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L239-L250
         let valid_pair = [
             117, 10, 217, 99, 113, 78, 234, 67, 183, 90, 26, 58, 200, 86, 195, 123, 42, 184, 213,
             88, 224, 248, 18, 200, 108, 6, 181, 6, 28, 17, 99, 7, 36, 134, 53, 115, 192, 180, 3,
@@ -1274,7 +1274,7 @@ mod tests {
         ];
         assert!(super::alt_bn128_pairing_check(&valid_pair));
 
-        // Taken from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L254-L265
+        // Taken from https://github.com/utnet-org/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L254-L265
         let invalid_pair = [
             117, 10, 217, 99, 113, 78, 234, 67, 183, 90, 26, 58, 200, 86, 195, 123, 42, 184, 213,
             88, 224, 248, 18, 200, 108, 6, 181, 6, 28, 17, 99, 7, 36, 134, 53, 115, 192, 180, 3,

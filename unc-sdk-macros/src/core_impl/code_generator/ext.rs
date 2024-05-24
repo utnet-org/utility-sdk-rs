@@ -65,7 +65,7 @@ pub(crate) fn generate_ext_structs(
 ///
 /// However, some attributes should be forwarded and they are defined here.
 ///
-/// [#959]: https://github.com/unc/utility-sdk-rs/pull/959
+/// [#959]: https://github.com/utnet-org/utility-sdk-rs/pull/959
 const FN_ATTRIBUTES_TO_FORWARD: [&str; 1] = [
     // Allow some contract methods to be feature gated, for example:
     //

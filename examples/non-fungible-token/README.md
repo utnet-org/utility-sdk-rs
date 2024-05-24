@@ -4,7 +4,7 @@ Non-fungible Token (NFT)
 Example implementation of a [non-fungible token] contract which uses [unc-contract-standards].
 
   [non-fungible token]: https://nomicon.io/Standards/NonFungibleToken/README.html
-  [unc-contract-standards]: https://github.com/unc/utility-sdk-rs/tree/master/unc-contract-standards
+  [unc-contract-standards]: https://github.com/utnet-org/utility-sdk-rs/tree/master/unc-contract-standards
 
 NOTES:
 
