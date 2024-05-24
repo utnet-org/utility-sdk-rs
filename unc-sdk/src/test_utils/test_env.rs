@@ -2,15 +2,15 @@ use crate::test_utils::VMContextBuilder;
 use crate::{test_vm_config, testing_env, AccountId};
 
 pub fn alice() -> AccountId {
-    "alice.unc".parse().unwrap()
+    "alice".parse().unwrap()
 }
 
 pub fn bob() -> AccountId {
-    "bob.unc".parse().unwrap()
+    "bob".parse().unwrap()
 }
 
 pub fn carol() -> AccountId {
-    "carol.unc".parse().unwrap()
+    "carol".parse().unwrap()
 }
 
 /// Updates the blockchain interface with the config passed in.
