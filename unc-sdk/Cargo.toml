@@ -1,15 +1,15 @@
 [package]
 name = "unc-sdk"
 version.workspace = true
-authors = ["Utility Inc <hello@unet.com>"]
+authors = ["hello Inc <hello@utnet.org>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 categories = ["wasm"]
-repository = "https://github.com/utility/unc-sdk-rs"
+repository = "https://github.com/utnet-org/utility-sdk-rs"
 homepage = "https://unc-sdk.io"
 description = """
-Rust library for writing UNC smart contracts.
+Rust library for writing Utility smart contracts.
 """
 
 [[test]]
@@ -31,20 +31,20 @@ bs58 = "0.5"
 once_cell = { version = "1.17", default-features = false }
 
 unc-account-id = { version="0.7.2", features = ["serde", "borsh"] }
-unc-gas = { version = "0.1.0", features = ["serde", "borsh"] }
-unc-token = { version = "0.4.0", features = ["serde", "borsh"] }
+unc-gas = { version = "0.10.0", features = ["serde", "borsh"] }
+unc-token = { version = "0.10.0", features = ["serde", "borsh"] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wee_alloc = { version = "0.4.5", default-features = false, optional = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 schemars = { version = "0.8.8", optional = true }
-unc-abi = { version = "0.1.0", features = ["__chunked-entries"], optional = true }
-unc-vm-runner = { version = "0.7.3", optional = true }
-unc-primitives-core = { version = "0.7.3", optional = true }
-unc-primitives = { version = "0.7.3", optional = true }
-unc-crypto = { version = "0.7.3", optional = true }
-unc-parameters = { version = "0.7.3", optional = true }
+unc-abi = { version = "0.10.2", features = ["__chunked-entries"], optional = true }
+unc-vm-runner = { version = "0.10.2", optional = true }
+unc-primitives-core = { version = "0.10.2", optional = true }
+unc-primitives = { version = "0.10.2", optional = true }
+unc-crypto = { version = "0.10.2", optional = true }
+unc-parameters = { version = "0.10.2", optional = true }
 
 [dev-dependencies]
 unc-sdk = { path = ".", features = ["legacy", "unit-testing"] }
@@ -59,7 +59,7 @@ hex = { version = "0.4.3", features = ["serde"] }
 getrandom = { version = "0.2", features = ["js"] }
 rand_chacha = "0.3.1"
 unc-rng = "0.1.0"
-unc-abi = { version = "0.1.0", features = ["__chunked-entries"] }
+unc-abi = { version = "0.10.2", features = ["__chunked-entries"] }
 symbolic-debuginfo = "12"
 
 [features]

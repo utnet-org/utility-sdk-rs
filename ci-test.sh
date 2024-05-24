@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "${NEAR_RELEASE}" == "true" ]]; then
+if [[ "${UTILITY_RELEASE}" == "true" ]]; then
     echo "Test with release version of borsh and unc-vm-logic"
     sed -n '/^borsh/p' unc-sdk/Cargo.toml 
     sed -n '/^unc-vm-logic/p' unc-sdk/Cargo.toml
