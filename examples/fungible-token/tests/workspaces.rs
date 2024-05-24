@@ -3,14 +3,14 @@ use utility_workspaces::operations::Function;
 use utility_workspaces::result::ValueOrReceiptId;
 use utility_workspaces::{types::UncToken, Account, AccountId, Contract, DevNetwork, Worker};
 
-const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
+const ONE_ATTO: UncToken = UncToken::from_attounc(1);
 
 async fn register_user(contract: &Contract, account_id: &AccountId) -> anyhow::Result<()> {
     let res = contract
         .call("storage_deposit")
         .args_json((account_id, Option::<bool>::None))
         .max_gas()
-        .deposit(unc_sdk::env::storage_byte_cost().saturating_mul(125))
+        .deposit(unc_sdk::env::storage_byte_cost().saturating_mul(UncToken::from_attounc(125)))
         .transact()
         .await?;
     assert!(res.is_success());
@@ -262,7 +262,7 @@ async fn test_simple_transfer() -> anyhow::Result<()> {
         .call("ft_transfer")
         .args_json((alice.id(), transfer_amount, Option::<bool>::None))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -287,7 +287,7 @@ async fn test_close_account_empty_balance() -> anyhow::Result<()> {
         .call(contract.id(), "storage_unregister")
         .args_json((Option::<bool>::None,))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.json::<bool>()?);
@@ -305,7 +305,7 @@ async fn test_close_account_non_empty_balance() -> anyhow::Result<()> {
         .call("storage_unregister")
         .args_json((Option::<bool>::None,))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await;
     assert!(format!("{:?}", res)
@@ -315,7 +315,7 @@ async fn test_close_account_non_empty_balance() -> anyhow::Result<()> {
         .call("storage_unregister")
         .args_json((Some(false),))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await;
     assert!(format!("{:?}", res)
@@ -334,7 +334,7 @@ async fn simulate_close_account_force_non_empty_balance() -> anyhow::Result<()> 
         .call("storage_unregister")
         .args_json((Some(true),))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -361,13 +361,13 @@ async fn simulate_transfer_call_with_burned_amount() -> anyhow::Result<()> {
         .call(
             Function::new("ft_transfer_call")
                 .args_json((defi_contract.id(), transfer_amount, Option::<String>::None, "10"))
-                .deposit(ONE_YOCTO)
+                .deposit(ONE_ATTO)
                 .gas(unc_sdk::Gas::from_tgas(150)),
         )
         .call(
             Function::new("storage_unregister")
                 .args_json((Some(true),))
-                .deposit(ONE_YOCTO)
+                .deposit(ONE_ATTO)
                 .gas(unc_sdk::Gas::from_tgas(150)),
         )
         .transact()
@@ -417,7 +417,7 @@ async fn simulate_transfer_call_with_immediate_return_and_no_refund() -> anyhow:
         .call("ft_transfer_call")
         .args_json((defi_contract.id(), transfer_amount, Option::<String>::None, "take-my-money"))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -449,7 +449,7 @@ async fn simulate_transfer_call_when_called_contract_not_registered_with_ft() ->
         .call("ft_transfer_call")
         .args_json((defi_contract.id(), transfer_amount, Option::<String>::None, "take-my-money"))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_failure());
@@ -489,7 +489,7 @@ async fn simulate_transfer_call_with_promise_and_refund() -> anyhow::Result<()> 
             refund_amount.0.to_string(),
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -528,7 +528,7 @@ async fn simulate_transfer_call_promise_panics_for_a_full_refund() -> anyhow::Re
             "no parsey as integer big panic oh no".to_string(),
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());

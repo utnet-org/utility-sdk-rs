@@ -3,7 +3,7 @@ use unc_contract_standards::non_fungible_token::Token;
 
 use utility_workspaces::types::UncToken;
 
-const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
+const ONE_ATTO: UncToken = UncToken::from_attounc(1);
 
 #[tokio::test]
 async fn simulate_simple_transfer() -> anyhow::Result<()> {
@@ -18,7 +18,7 @@ async fn simulate_simple_transfer() -> anyhow::Result<()> {
         .call("nft_transfer")
         .args_json((alice.id(), TOKEN_ID, Option::<u64>::None, Some("simple transfer".to_string())))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -48,7 +48,7 @@ async fn simulate_transfer_call_fast_return_to_sender() -> anyhow::Result<()> {
             "return-it-now",
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -75,7 +75,7 @@ async fn simulate_transfer_call_slow_return_to_sender() -> anyhow::Result<()> {
             "return-it-later",
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -102,7 +102,7 @@ async fn simulate_transfer_call_fast_keep_with_sender() -> anyhow::Result<()> {
             "keep-it-now",
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -130,7 +130,7 @@ async fn simulate_transfer_call_slow_keep_with_sender() -> anyhow::Result<()> {
             "keep-it-later",
         ))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -157,7 +157,7 @@ async fn simulate_transfer_call_receiver_panics() -> anyhow::Result<()> {
             "incorrect message",
         ))
         .gas(unc_sdk::Gas::from_gas(35_000_000_000_000 + 1))
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -188,7 +188,7 @@ async fn simulate_transfer_call_receiver_panics_and_nft_resolve_transfer_produce
             "incorrect message",
         ))
         .gas(unc_sdk::Gas::from_tgas(30))
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_failure());
@@ -213,7 +213,7 @@ async fn simulate_simple_transfer_no_logs_on_failure() -> anyhow::Result<()> {
         // transfer to the current owner should fail and not print log
         .args_json((nft_contract.id(), TOKEN_ID, Option::<u64>::None, Some("simple transfer")))
         .gas(unc_sdk::Gas::from_tgas(200))
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_failure());

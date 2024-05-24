@@ -265,7 +265,7 @@ that allows to compile the binary.
 
 **Use [contract-builder](https://github.com/utnet-org/utility-sdk-rs/tree/master/contract-builder)**
 
-## UNC contract standards
+## Utility contract standards
 
 [`unc-contract-standards` crate](https://github.com/utnet-org/utility-sdk-rs/tree/master/unc-contract-standards) provides a set of interfaces and implementations for UNC's contract standards:
 

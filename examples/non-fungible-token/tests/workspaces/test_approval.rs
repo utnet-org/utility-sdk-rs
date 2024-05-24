@@ -9,7 +9,7 @@ use std::convert::TryFrom;
 pub const TOKEN_ID: &str = "0";
 
 const ONE_NEAR: UncToken = UncToken::from_unc(1);
-const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
+const ONE_ATTO: UncToken = UncToken::from_attounc(1);
 
 #[tokio::test]
 async fn simulate_simple_approve() -> anyhow::Result<()> {
@@ -123,7 +123,7 @@ async fn simulate_approval_with_call() -> anyhow::Result<()> {
         .call("nft_approve")
         .args_json((TOKEN_ID, approval_receiver_contract.id(), Some(msg.clone())))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert_eq!(res.json::<String>()?, msg);
@@ -151,7 +151,7 @@ async fn simulate_approved_account_transfers_token() -> anyhow::Result<()> {
         .call(nft_contract.id(), "nft_transfer")
         .args_json((alice.id(), TOKEN_ID, Some(1u64), Some("gotcha! bahahaha".to_string())))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -194,7 +194,7 @@ async fn simulate_revoke() -> anyhow::Result<()> {
         .call("nft_revoke")
         .args_json((TOKEN_ID, alice.id()))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -222,7 +222,7 @@ async fn simulate_revoke() -> anyhow::Result<()> {
         .call("nft_revoke")
         .args_json((TOKEN_ID, token_receiver_contract.id()))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());
@@ -278,7 +278,7 @@ async fn simulate_revoke_all() -> anyhow::Result<()> {
         .call("nft_revoke_all")
         .args_json((TOKEN_ID,))
         .max_gas()
-        .deposit(ONE_YOCTO)
+        .deposit(ONE_ATTO)
         .transact()
         .await?;
     assert!(res.is_success());

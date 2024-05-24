@@ -1,6 +1,6 @@
 [package]
 name = "unc-sys"
-version = "0.7.5"
+version.workspace = true
 authors = ["Hello Inc <hello@utnet.org>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"

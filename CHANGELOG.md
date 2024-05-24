@@ -316,7 +316,7 @@ Get your fully configured development environment in under 1 minute using [GitHu
   - This is useful specifically for things like pagination, where `.skip(x)` will not load the first `x` elements anymore
   - Does not affect any `store` collections, which are already optimized, this just optimizes the legacy `collections` that use `Vec`
 - Add consts for unc, atto, and tgas. [PR 640](https://github.com/utnet-org/utility-sdk-rs/pull/640).
-  - `unc_sdk::ONE_NEAR`, `unc_sdk::ONE_YOCTO`, `unc_sdk::Gas::ONE_TERA`
+  - `unc_sdk::ONE_NEAR`, `unc_sdk::ONE_ATTO`, `unc_sdk::Gas::ONE_TERA`
 - Update SDK dependencies for `unccore` crates used for mocking (`0.10`) and `borsh` (`0.9`)
 - Implemented `Debug` for all `collection` and `store` types. [PR 647](https://github.com/utnet-org/utility-sdk-rs/pull/647)
 - Added new internal mint function to allow specifying or ignoring refund. [PR 618](https://github.com/utnet-org/utility-sdk-rs/pull/618)
