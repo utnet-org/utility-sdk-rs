@@ -8,7 +8,7 @@ use std::num::NonZeroU128;
 use std::rc::Rc;
 
 use crate::env::migrate_to_allowance;
-use crate::{AccountId, Gas, GasWeight, UncToken, PromiseIndex, PublicKey};
+use crate::{AccountId, Gas, GasWeight, PromiseIndex, PublicKey, UncToken};
 
 /// Allow an access key to spend either an unlimited or limited amount of gas
 // This wrapper prevents incorrect construction
@@ -623,8 +623,8 @@ mod tests {
     use crate::test_utils::get_created_receipts;
     use crate::test_utils::test_env::{alice, bob};
     use crate::{
-        test_utils::VMContextBuilder, testing_env, AccountId, Allowance, UncToken, Promise,
-        PublicKey,
+        test_utils::VMContextBuilder, testing_env, AccountId, Allowance, Promise, PublicKey,
+        UncToken,
     };
 
     fn pk() -> PublicKey {

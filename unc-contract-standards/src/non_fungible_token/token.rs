@@ -1,7 +1,7 @@
 use crate::non_fungible_token::metadata::TokenMetadata;
+use std::collections::HashMap;
 use unc_sdk::serde::{Deserialize, Serialize};
 use unc_sdk::{AccountId, UncSchema};
-use std::collections::HashMap;
 /// Note that token IDs for NFTs are strings on UNC. It's still fine to use autoincrementing numbers as unique IDs if desired, but they should be stringified. This is to make IDs more future-proof as chain-agnostic conventions and standards arise, and allows for more flexibility with considerations like bridging NFTs across chains, etc.
 pub type TokenId = String;
 

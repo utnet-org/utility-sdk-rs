@@ -8,8 +8,8 @@
 extern crate quickcheck;
 
 pub use unc_sdk_macros::{
-    ext_contract, unc_bindgen, BorshStorageKey, EventMetadata, FunctionError, UncSchema,
-    PanicOnDefault,
+    ext_contract, unc_bindgen, BorshStorageKey, EventMetadata, FunctionError, PanicOnDefault,
+    UncSchema,
 };
 
 pub mod store;

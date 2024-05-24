@@ -6,15 +6,15 @@ use crate::non_fungible_token::events::{NftMint, NftTransfer};
 use crate::non_fungible_token::metadata::TokenMetadata;
 use crate::non_fungible_token::token::{Token, TokenId};
 use crate::non_fungible_token::utils::{refund_approved_account_ids, refund_deposit_to_account};
+use std::collections::HashMap;
+use std::ops::Deref;
 use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::collections::{LookupMap, TreeMap, UnorderedSet};
 use unc_sdk::json_types::Base64VecU8;
 use unc_sdk::{
-    assert_one_atto, env, require, AccountId, BorshStorageKey, Gas, IntoStorageKey,
-    PromiseOrValue, PromiseResult, StorageUsage,
+    assert_one_atto, env, require, AccountId, BorshStorageKey, Gas, IntoStorageKey, PromiseOrValue,
+    PromiseResult, StorageUsage,
 };
-use std::collections::HashMap;
-use std::ops::Deref;
 
 const GAS_FOR_RESOLVE_TRANSFER: Gas = Gas::from_tgas(5);
 const GAS_FOR_NFT_TRANSFER_CALL: Gas = Gas::from_tgas(30);

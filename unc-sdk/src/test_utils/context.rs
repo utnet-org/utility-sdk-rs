@@ -1,10 +1,10 @@
 use crate::mock::MockedBlockchain;
 use crate::test_utils::test_env::*;
 use crate::{test_vm_config, AccountId};
-use crate::{BlockHeight, EpochHeight, Gas, UncToken, PromiseResult, PublicKey, StorageUsage};
+use crate::{BlockHeight, EpochHeight, Gas, PromiseResult, PublicKey, StorageUsage, UncToken};
+use std::convert::TryInto;
 use unc_parameters::RuntimeFeesConfig;
 use unc_primitives_core::config::ViewConfig;
-use std::convert::TryInto;
 
 /// Returns a pre-defined account_id from a list of 6.
 pub fn accounts(id: usize) -> AccountId {

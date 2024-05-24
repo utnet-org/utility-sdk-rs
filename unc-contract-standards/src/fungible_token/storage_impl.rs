@@ -1,6 +1,6 @@
 use crate::fungible_token::{Balance, FungibleToken};
 use crate::storage_management::{StorageBalance, StorageBalanceBounds, StorageManagement};
-use unc_sdk::{assert_one_atto, env, log, AccountId, UncToken, Promise};
+use unc_sdk::{assert_one_atto, env, log, AccountId, Promise, UncToken};
 
 impl FungibleToken {
     /// Internal method that returns the Account ID and the balance in case the account was

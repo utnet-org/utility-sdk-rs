@@ -8,15 +8,7 @@ pub const NFT_METADATA_SPEC: &str = "nft-1.0.0";
 
 /// Metadata for the NFT contract itself.
 #[derive(
-    Clone,
-    Debug,
-    PartialEq,
-    Eq,
-    BorshDeserialize,
-    BorshSerialize,
-    Serialize,
-    Deserialize,
-    UncSchema,
+    Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, Serialize, Deserialize, UncSchema,
 )]
 #[serde(crate = "unc_sdk::serde")]
 #[borsh(crate = "unc_sdk::borsh")]

@@ -12,7 +12,7 @@ use std::{convert::TryFrom, mem::MaybeUninit};
 use crate::mock::MockedBlockchain;
 use crate::promise::Allowance;
 use crate::types::{
-    AccountId, BlockHeight, Gas, UncToken, PromiseIndex, PromiseResult, PublicKey, StorageUsage,
+    AccountId, BlockHeight, Gas, PromiseIndex, PromiseResult, PublicKey, StorageUsage, UncToken,
 };
 use crate::{GasWeight, PromiseError};
 use unc_sys as sys;

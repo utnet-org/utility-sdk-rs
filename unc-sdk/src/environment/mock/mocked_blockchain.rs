@@ -3,15 +3,15 @@ use crate::mock::MockAction;
 // TODO replace with unc_vm_logic::mocks::mock_memory::MockedMemory after updating version from 0.17
 use crate::mock::mocked_memory::MockedMemory;
 use crate::test_utils::VMContextBuilder;
-use crate::types::{UncToken, PromiseResult};
+use crate::types::{PromiseResult, UncToken};
 use crate::VMContext;
+use std::cell::RefCell;
+use std::collections::HashMap;
 use unc_parameters::{RuntimeConfigStore, RuntimeFeesConfig};
 use unc_primitives_core::version::PROTOCOL_VERSION;
 use unc_vm_runner::logic::mocks::mock_external::MockedExternal;
 use unc_vm_runner::logic::types::{PromiseResult as VmPromiseResult, ReceiptIndex};
 use unc_vm_runner::logic::{External, MemoryLike, VMLogic};
-use std::cell::RefCell;
-use std::collections::HashMap;
 
 /// Mocked blockchain that can be used in the tests for the smart contracts.
 /// It implements `BlockchainInterface` by redirecting calls to `VMLogic`. It unwraps errors of
@@ -70,8 +70,10 @@ impl MockedBlockchain {
         let mut ext = Box::new(MockedExternal::new());
         let context = sdk_context_to_vm_context(context);
         ext.fake_trie = storage;
-        ext.validators =
-            validators.into_iter().map(|(k, v)| (k.parse().unwrap(), (0, v.as_attounc()))).collect();
+        ext.validators = validators
+            .into_iter()
+            .map(|(k, v)| (k.parse().unwrap(), (0, v.as_attounc())))
+            .collect();
         let memory = memory_opt.unwrap_or_else(|| Box::<MockedMemory>::default());
         let promise_results = Box::new(promise_results.into_iter().map(From::from).collect());
         let config = Box::new(config);

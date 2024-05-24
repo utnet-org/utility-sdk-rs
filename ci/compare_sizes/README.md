@@ -2,7 +2,7 @@
 
 This is a script to compare example contract sizes between the current non-main branch and `main`, and then produce a markdown report.
 
-# Usage
+## Usage
 
 The script is mostly triggered in PRs by posting `/compare` in a comment. For details, check out [the workflow](../../.github/workflows/compare_sizes.yml).
 
