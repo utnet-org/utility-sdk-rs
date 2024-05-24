@@ -1,11 +1,11 @@
-use unc_workspaces::types::{AccountId, UncToken};
+use utility_workspaces::types::{AccountId, UncToken};
 use test_case::test_case;
 
 #[test_case("factory_contract_high_level")]
 #[test_case("factory_contract_low_level")]
 #[tokio::test]
 async fn test_deploy_status_message(contract_name: &str) -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let contract =
         worker.dev_deploy(&std::fs::read(format!("res/{}.wasm", contract_name))?).await?;
 

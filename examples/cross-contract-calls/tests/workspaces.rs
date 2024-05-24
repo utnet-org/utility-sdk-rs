@@ -4,7 +4,7 @@ use test_case::test_case;
 #[test_case("cross_contract_low_level")]
 #[tokio::test]
 async fn test_factorial(contract_name: &str) -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let contract =
         worker.dev_deploy(&std::fs::read(format!("res/{}.wasm", contract_name))?).await?;
 

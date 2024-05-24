@@ -1,7 +1,7 @@
 [package]
 name = "adder"
 version = "0.1.0"
-authors = ["Unc Inc <hello@unc.com>"]
+authors = ["Hello Inc <hello@utnet.org>"]
 edition = "2021"
 
 [lib]
@@ -11,11 +11,11 @@ crate-type = ["cdylib"]
 unc-sdk = { path = "../../unc-sdk" }
 
 [dev-dependencies]
-unc-workspaces = { version = "0.7.2", default-features = false, features = ["install"] }
+utility-workspaces = { version = "0.9.0", default-features = false, features = ["install"] }
 serde_json = "1.0"
 tokio = { version = "1.14", features = ["full"] }
 anyhow = "1.0"
-unc-abi = "0.1.0"
+unc-abi = "0.10.2"
 zstd = "0.11"
 
 [profile.release]

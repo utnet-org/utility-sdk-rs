@@ -1,5 +1,5 @@
 use unc_sdk::json_types::U128;
-use unc_workspaces::{Account, Contract, DevNetwork, Worker, types::UncToken};
+use utility_workspaces::{Account, Contract, DevNetwork, Worker, types::UncToken};
 
 async fn init(
     worker: &Worker<impl DevNetwork>,
@@ -31,7 +31,7 @@ async fn init(
 #[tokio::test]
 async fn test_owner_initial_state() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
     let res = contract.call("get_total_supply").view().await?;
@@ -66,7 +66,7 @@ async fn test_owner_initial_state() -> anyhow::Result<()> {
 async fn test_set_allowance() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let allowance_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -99,7 +99,7 @@ async fn test_set_allowance() -> anyhow::Result<()> {
 async fn test_fail_set_allowance_self() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let allowance_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -118,7 +118,7 @@ async fn test_fail_set_allowance_self() -> anyhow::Result<()> {
 async fn test_lock_owner() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let lock_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -153,7 +153,7 @@ async fn test_lock_owner() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_fail_lock() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -187,7 +187,7 @@ async fn test_fail_lock() -> anyhow::Result<()> {
 async fn test_unlock_owner() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let lock_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -230,7 +230,7 @@ async fn test_unlock_owner() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_fail_unlock() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -256,7 +256,7 @@ async fn test_fail_unlock() -> anyhow::Result<()> {
 async fn test_simple_transfer() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -288,7 +288,7 @@ async fn test_simple_transfer() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_fail_transfer() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice) = init(&worker, initial_balance).await?;
 
     let res = contract

@@ -1,13 +1,13 @@
 use crate::utils::{init, TOKEN_ID};
 use unc_contract_standards::non_fungible_token::Token;
 
-use unc_workspaces::types::UncToken;
+use utility_workspaces::types::UncToken;
 
 const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
 
 #[tokio::test]
 async fn simulate_simple_transfer() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, alice, _, _) = init(&worker).await?;
 
     let token =
@@ -35,7 +35,7 @@ async fn simulate_simple_transfer() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn simulate_transfer_call_fast_return_to_sender() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -62,7 +62,7 @@ async fn simulate_transfer_call_fast_return_to_sender() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn simulate_transfer_call_slow_return_to_sender() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -89,7 +89,7 @@ async fn simulate_transfer_call_slow_return_to_sender() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn simulate_transfer_call_fast_keep_with_sender() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -117,7 +117,7 @@ async fn simulate_transfer_call_fast_keep_with_sender() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn simulate_transfer_call_slow_keep_with_sender() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -144,7 +144,7 @@ async fn simulate_transfer_call_slow_keep_with_sender() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn simulate_transfer_call_receiver_panics() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -175,7 +175,7 @@ async fn simulate_transfer_call_receiver_panics() -> anyhow::Result<()> {
 #[tokio::test]
 async fn simulate_transfer_call_receiver_panics_and_nft_resolve_transfer_produces_no_log_if_not_enough_gas(
 ) -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, token_receiver_contract, _) = init(&worker).await?;
 
     let res = nft_contract
@@ -205,7 +205,7 @@ async fn simulate_transfer_call_receiver_panics_and_nft_resolve_transfer_produce
 
 #[tokio::test]
 async fn simulate_simple_transfer_no_logs_on_failure() -> anyhow::Result<()> {
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (nft_contract, _, _, _) = init(&worker).await?;
 
     let res = nft_contract

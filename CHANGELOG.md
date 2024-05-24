@@ -92,7 +92,7 @@ Get your fully configured development environment in under 1 minute using [GitHu
 - [**breaking**] Delete the deprecated metadata module from unc-sdk-macros in favor of unc-abi ([#1098](https://github.com/utnet-org/utility-sdk-rs/pull/1098))
 - documented env::random_seed ([#1096](https://github.com/utnet-org/utility-sdk-rs/pull/1096))
 - Update borsh to 1.0.0 ([#1075](https://github.com/utnet-org/utility-sdk-rs/pull/1075))
-- bump version of unc-workspaces ([#1094](https://github.com/utnet-org/utility-sdk-rs/pull/1094))
+- bump version of utility-workspaces ([#1094](https://github.com/utnet-org/utility-sdk-rs/pull/1094))
 - upgrade syn crate from version 1 to 2 ([#1088](https://github.com/utnet-org/utility-sdk-rs/pull/1088))
 - Move from Gas to UncGas from unc-gas crate ([#1082](https://github.com/utnet-org/utility-sdk-rs/pull/1082))
 - Respect `{{ matrix.toolchain }}` in "Test Core: test" job ([#1085](https://github.com/utnet-org/utility-sdk-rs/pull/1085))

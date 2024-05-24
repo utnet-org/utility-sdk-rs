@@ -1,8 +1,8 @@
 use unc_contract_standards::non_fungible_token::metadata::TokenMetadata;
 use unc_contract_standards::non_fungible_token::TokenId;
 
-use unc_workspaces::types::UncToken;
-use unc_workspaces::{Account, Contract, DevNetwork, Worker};
+use utility_workspaces::types::UncToken;
+use utility_workspaces::{Account, Contract, DevNetwork, Worker};
 
 pub const TOKEN_ID: &str = "0";
 

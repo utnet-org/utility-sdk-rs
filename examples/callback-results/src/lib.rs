@@ -68,7 +68,7 @@ mod tests {
     #[tokio::test]
     async fn workspaces_test() -> anyhow::Result<()> {
         let wasm = fs::read("res/callback_results.wasm").await?;
-        let worker = unc_workspaces::sandbox().await?;
+        let worker = utility_workspaces::sandbox().await?;
         let contract = worker.dev_deploy(&wasm).await?;
 
         // Call function a only to ensure it has correct behaviour

@@ -1,7 +1,7 @@
 use unc_sdk::json_types::U128;
-use unc_workspaces::operations::Function;
-use unc_workspaces::result::ValueOrReceiptId;
-use unc_workspaces::{types::UncToken, Account, AccountId, Contract, DevNetwork, Worker};
+use utility_workspaces::operations::Function;
+use utility_workspaces::result::ValueOrReceiptId;
+use utility_workspaces::{types::UncToken, Account, AccountId, Contract, DevNetwork, Worker};
 
 const ONE_YOCTO: UncToken = UncToken::from_attounc(1);
 
@@ -61,7 +61,7 @@ async fn init(
 #[tokio::test]
 async fn test_total_supply() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let res = contract.call("ft_total_supply").view().await?;
@@ -73,7 +73,7 @@ async fn test_total_supply() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_storage_deposit_not_enough_deposit() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let new_account = contract
@@ -115,7 +115,7 @@ async fn test_storage_deposit_not_enough_deposit() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_storage_deposit_minimal_deposit() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let new_account = contract
@@ -162,7 +162,7 @@ async fn test_storage_deposit_minimal_deposit() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_storage_deposit_refunds_excessive_deposit() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let minimal_deposit = unc_sdk::env::storage_byte_cost().saturating_mul(125);
@@ -255,7 +255,7 @@ async fn test_storage_deposit_refunds_excessive_deposit() -> anyhow::Result<()> 
 async fn test_simple_transfer() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -280,7 +280,7 @@ async fn test_simple_transfer() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_close_account_empty_balance() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, alice, _) = init(&worker, initial_balance).await?;
 
     let res = alice
@@ -298,7 +298,7 @@ async fn test_close_account_empty_balance() -> anyhow::Result<()> {
 #[tokio::test]
 async fn test_close_account_non_empty_balance() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -327,7 +327,7 @@ async fn test_close_account_non_empty_balance() -> anyhow::Result<()> {
 #[tokio::test]
 async fn simulate_close_account_force_non_empty_balance() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, _) = init(&worker, initial_balance).await?;
 
     let res = contract
@@ -349,7 +349,7 @@ async fn simulate_close_account_force_non_empty_balance() -> anyhow::Result<()> 
 async fn simulate_transfer_call_with_burned_amount() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, defi_contract) = init(&worker, initial_balance).await?;
 
     // defi contract must be registered as a FT account
@@ -406,7 +406,7 @@ async fn simulate_transfer_call_with_burned_amount() -> anyhow::Result<()> {
 async fn simulate_transfer_call_with_immediate_return_and_no_refund() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, defi_contract) = init(&worker, initial_balance).await?;
 
     // defi contract must be registered as a FT account
@@ -441,7 +441,7 @@ async fn simulate_transfer_call_when_called_contract_not_registered_with_ft() ->
 {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, defi_contract) = init(&worker, initial_balance).await?;
 
     // call fails because DEFI contract is not registered as FT user
@@ -474,7 +474,7 @@ async fn simulate_transfer_call_with_promise_and_refund() -> anyhow::Result<()> 
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let refund_amount = U128::from(UncToken::from_unc(50).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, defi_contract) = init(&worker, initial_balance).await?;
 
     // defi contract must be registered as a FT account
@@ -512,7 +512,7 @@ async fn simulate_transfer_call_with_promise_and_refund() -> anyhow::Result<()> 
 async fn simulate_transfer_call_promise_panics_for_a_full_refund() -> anyhow::Result<()> {
     let initial_balance = U128::from(UncToken::from_unc(10000).as_attounc());
     let transfer_amount = U128::from(UncToken::from_unc(100).as_attounc());
-    let worker = unc_workspaces::sandbox().await?;
+    let worker = utility_workspaces::sandbox().await?;
     let (contract, _, defi_contract) = init(&worker, initial_balance).await?;
 
     // defi contract must be registered as a FT account
