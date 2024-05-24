@@ -3,12 +3,11 @@
   <h1><code>unc-sdk</code></h1>
 
   <p>
-    <strong>Rust library for writing UNC smart contracts.</strong>
+    <strong>Rust library for writing utility smart contracts.</strong>
   </p>
   <p>
     Previously known as <code>unc-bindgen</code>.
   </p>
-
 
   <p>
     <a href="https://crates.io/crates/unc-sdk"><img src="https://img.shields.io/crates/v/unc-sdk.svg?style=flat-square" alt="Crates.io version" /></a>
@@ -16,7 +15,7 @@
     <a href="https://docs.rs/unc-sdk"><img src="https://docs.rs/unc-sdk/badge.svg" alt="Reference Documentation" /></a>
     <a href="https://blog.rust-lang.org/2023/08/24/Rust-1.72.0.html"><img src="https://img.shields.io/badge/rustc-1.72+-lightgray.svg" alt="MSRV" /></a>
     <a href="https://discord.gg/gBtUFKR"><img src="https://img.shields.io/discord/490367152054992913.svg" alt="Join the community on Discord" /></a>
-    <a href="https://github.com/unc/utility-sdk-rs/actions"><img src="https://github.com/unc/utility-sdk-rs/actions/workflows/test.yml/badge.svg" alt="GitHub Actions Build" /></a>
+    <a href="https://github.com/unc/utility-sdk-rs/actions"><img src="https://github.com/utnet-org/utility-sdk-rs/actions/workflows/test.yml/badge.svg" alt="GitHub Actions Build" /></a>
   </p>
 
    <h3>
@@ -41,7 +40,8 @@
 ## Example
 
 Wrap a struct in `#[unc_bindgen]` and it generates a smart contract compatible with the UNC blockchain:
-```rust
+
+```rs
 use unc_sdk::{unc_bindgen, env};
 
 #[unc_bindgen]
@@ -67,6 +67,7 @@ impl StatusMessage {
 ## Features
 
 ### Unit-testable
+
 Writing unit tests is easy with `unc-sdk`:
 
 ```rust
@@ -79,12 +80,15 @@ fn set_get_message() {
 ```
 
 Run unit test the usual way:
+
 ```bash
 cargo test --package status-message
 ```
 
 ### Asynchronous cross-contract calls
+
 Asynchronous cross-contract calls allow parallel execution of multiple contracts in parallel with subsequent aggregation on another contract. `env` exposes the following methods:
+
 * `promise_create` -- schedules an execution of a function on some contract;
 * `promise_then` -- attaches the callback back to the current contract once the function is executed;
 * `promise_and` -- combinator, allows waiting on several promises simultaneously, before executing the callback;
@@ -94,6 +98,7 @@ Follow [examples/cross-contract-high-level](examples/cross-contract-calls/high-l
 to see various usages of cross contract calls, including **system-level actions** done from inside the contract like balance transfer (examples of other system-level actions are: account creation, access key creation/deletion, contract deployment, etc).
 
 ### Initialization methods
+
 We can define an initialization method that can be used to initialize the state of the contract. `#[init]` verifies that the contract has not been initialized yet (the contract state doesn't exist) and will panic otherwise.
 
 ```rust
@@ -110,6 +115,7 @@ impl StatusMessage {
 
 Even if you have initialization method your smart contract is still expected to derive `Default` trait. If you don't
 want to disable default initialization, then you can prohibit it like this:
+
 ```rust
 impl Default for StatusMessage {
     fn default() -> Self {
@@ -117,7 +123,9 @@ impl Default for StatusMessage {
     }
 }
 ```
+
 You can also prohibit `Default` trait initialization by using `unc_sdk::PanicOnDefault` helper macro. E.g.:
+
 ```rust
 #[unc_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
@@ -128,9 +136,11 @@ pub struct StatusMessage {
 ```
 
 ### Payable methods
+
 We can allow methods to accept token transfer together with the function call. This is done so that contracts can define a fee in tokens that needs to be payed when they are used. By the default the methods are not payable and they will panic if someone will attempt to transfer tokens to them during the invocation. This is done for safety reason, in case someone accidentally transfers tokens during the function call.
 
 To declare a payable method simply use `#[payable]` decorator:
+
 ```rust
 
 #[payable]
@@ -140,12 +150,14 @@ pub fn my_method(&mut self) {
 ```
 
 ### Private methods
+
 Usually, when a contract has to have a callback for a remote cross-contract call, this callback method should
 only be called by the contract itself. It's to avoid someone else calling it and messing the state. Pretty common pattern
 is to have an assert that validates that the direct caller (predecessor account ID) matches to the contract's account (current account ID).
 Macro `#[private]` simplifies it, by making it a single line macro instead and improves readability.
 
 To declare a private method use `#[private]` decorator:
+
 ```rust
 
 #[private]
@@ -165,20 +177,27 @@ pub fn my_method(&mut self ) {
 Now, only the account of the contract itself can call this method, either directly or through a promise.
 
 ## Pre-requisites
+
 To develop Rust contracts you would need to:
+
 * Install [Rustup](https://rustup.rs/):
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
 * Add wasm target to your toolchain:
+
 ```bash
 rustup target add wasm32-unknown-unknown
 ```
 
 ## Writing Rust Contract
+
 You can follow the [examples/status-message](examples/status-message) crate that shows a simple Rust contract.
 
 The general workflow is the following:
+
 1. Create a crate and configure the `Cargo.toml` similarly to how it is configured in [examples/status-message/Cargo.toml](examples/status-message/Cargo.toml);
 2. Crate needs to have one `pub` struct that will represent the smart contract itself:
     * The struct needs to implement `Default` trait which
@@ -186,6 +205,7 @@ The general workflow is the following:
     * The struct also needs to implement `BorshSerialize` and `BorshDeserialize` traits which UNC will use to save/load contract's internal state;
 
    Here is an example of a smart contract struct:
+
    ```rust
    use unc_sdk::{unc_bindgen, env};
 
@@ -204,6 +224,7 @@ The general workflow is the following:
     * If you need to use blockchain interface, e.g. to get the current account id then you can access it with `env::*`;
 
     Here is an example of smart contract methods:
+
     ```rust
     #[unc_bindgen]
     impl MyContract {
@@ -248,10 +269,9 @@ that allows to compile the binary.
 
 [`unc-contract-standards` crate](https://github.com/unc/utility-sdk-rs/tree/master/unc-contract-standards) provides a set of interfaces and implementations for UNC's contract standards:
 
-- Upgradability
-- Fungible Token (NEP-141). See [example usage](examples/fungible-token)
-- Non-Fungible Token (NEP-171). See [example usage](examples/non-fungible-token)
-
+* Upgradability
+* Fungible Token (NEP-141). See [example usage](examples/fungible-token)
+* Non-Fungible Token (NEP-171). See [example usage](examples/non-fungible-token)
 
 ## Versioning
 
