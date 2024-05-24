@@ -2,10 +2,10 @@
 //!
 //! These events will be picked up by the UNC indexer.
 //!
-//! <https://github.com/utnet-org/NEPs/blob/69f76c6c78c2ebf05d856347c9c98ae48ad84ebd/specs/Standards/NonFungibleToken/Event.md>
+//! <https://github.com/utnet-org/UIPs/blob/69f76c6c78c2ebf05d856347c9c98ae48ad84ebd/specs/Standards/NonFungibleToken/Event.md>
 //!
 //! This is an extension of the events format (nep-297):
-//! <https://github.com/utnet-org/NEPs/blob/master/specs/Standards/EventsFormat.md>
+//! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/EventsFormat.md>
 //!
 //! The three events in this standard are [`NftMint`], [`NftTransfer`], and [`NftBurn`].
 //!

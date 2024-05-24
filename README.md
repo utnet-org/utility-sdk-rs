@@ -270,8 +270,8 @@ that allows to compile the binary.
 [`unc-contract-standards` crate](https://github.com/utnet-org/utility-sdk-rs/tree/master/unc-contract-standards) provides a set of interfaces and implementations for UNC's contract standards:
 
 * Upgradability
-* Fungible Token (NEP-141). See [example usage](examples/fungible-token)
-* Non-Fungible Token (NEP-171). See [example usage](examples/non-fungible-token)
+* Fungible Token (UIP-141). See [example usage](examples/fungible-token)
+* Non-Fungible Token (UIP-171). See [example usage](examples/non-fungible-token)
 
 ## Versioning
 

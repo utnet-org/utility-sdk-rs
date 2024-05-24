@@ -54,10 +54,10 @@ use unc_sdk::PromiseOrValue;
 #[ext_contract(ext_ft_core)]
 pub trait FungibleTokenCore {
     /// Transfers positive `amount` of tokens from the `env::predecessor_account_id` to `receiver_id`.
-    /// Both accounts must be registered with the contract for transfer to succeed. (See [NEP-145](https://github.com/utnet-org/NEPs/discussions/145))
+    /// Both accounts must be registered with the contract for transfer to succeed. (See [UIP-145](https://github.com/utnet-org/UIPs/discussions/145))
     /// This method must to be able to accept attached deposits, and must not panic on attached deposit.
     /// Exactly 1 attoNEAR must be attached.
-    /// See [the Security section](https://github.com/utnet-org/NEPs/issues/141#user-content-security) of the standard.
+    /// See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:
     /// - `receiver_id` - the account ID of the receiver.
@@ -75,11 +75,11 @@ pub trait FungibleTokenCore {
     /// Malicious or invalid behavior by the receiver's contract:
     /// - If the receiver contract promise fails or returns invalid value, the full transfer amount must be refunded.
     /// - If the receiver contract overspent the tokens, and the `receiver_id` balance is lower than the required refund
-    /// amount, the remaining balance must be refunded. See [the Security section](https://github.com/utnet-org/NEPs/issues/141#user-content-security) of the standard.
+    /// amount, the remaining balance must be refunded. See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Both accounts must be registered with the contract for transfer to succeed. (See #145)
     /// This method must to be able to accept attached deposits, and must not panic on attached deposit. Exactly 1 attoNEAR must be attached. See [the Security
-    /// section](https://github.com/utnet-org/NEPs/issues/141#user-content-security) of the standard.
+    /// section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:
     /// - `receiver_id` - the account ID of the receiver contract. This contract will be called.

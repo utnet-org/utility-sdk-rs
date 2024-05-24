@@ -2,7 +2,7 @@
 
 This cargo provides a set of interfaces and implementations for UNC's contract standards:
  - Upgradability
- - Fungible Token (NEP-141). See [example usage](../examples/fungible-token)
+ - Fungible Token (UIP-141). See [example usage](../examples/fungible-token)
 
 ## Changelog
 

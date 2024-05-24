@@ -2,10 +2,10 @@
 //!
 //! These events will be picked up by the UNC indexer.
 //!
-//! <https://github.com/utnet-org/NEPs/blob/master/specs/Standards/FungibleToken/Event.md>
+//! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/FungibleToken/Event.md>
 //!
 //! This is an extension of the events format (nep-297):
-//! <https://github.com/utnet-org/NEPs/blob/master/specs/Standards/EventsFormat.md>
+//! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/EventsFormat.md>
 //!
 //! The three events in this standard are [`FtMint`], [`FtTransfer`], and [`FtBurn`].
 //!

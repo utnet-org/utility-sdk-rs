@@ -47,9 +47,9 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// Events Standard:
 ///
 /// By passing `event_json` as an argument `unc_bindgen` will generate the relevant code to format events
-/// according to NEP-297
+/// according to UIP-297
 ///
-/// For parameter serialization, this macro will generate a wrapper struct to include the NEP-297 standard fields `standard` and `version
+/// For parameter serialization, this macro will generate a wrapper struct to include the UIP-297 standard fields `standard` and `version
 /// as well as include serialization reformatting to include the `event` and `data` fields automatically.
 /// The `standard` and `version` values must be included in the enum and variant declaration (see example below).
 /// By default this will be JSON deserialized with `serde`
@@ -86,7 +86,7 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// Contract Source Metadata Standard:
 ///
 /// By using `contract_metadata` as an argument `unc_bindgen` will populate the contract metadata
-/// according to [`NEP-330`](<https://github.com/utnet-org/NEPs/blob/master/neps/nep-0330.md>) standard. This still applies even when `#[unc_bindgen]` is used without
+/// according to [`UIP-330`](<https://github.com/utnet-org/UIPs/blob/master/neps/nep-0330.md>) standard. This still applies even when `#[unc_bindgen]` is used without
 /// any arguments.
 ///
 /// All fields(version, link, standard) are optional and will be populated with defaults from the Cargo.toml file if not specified.

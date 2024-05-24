@@ -18,11 +18,11 @@ const ERR_TOTAL_SUPPLY_OVERFLOW: &str = "Total supply overflow";
 pub type Balance = u128;
 
 /// Implementation of a FungibleToken standard.
-/// Allows to include NEP-141 compatible token to any contract.
+/// Allows to include UIP-141 compatible token to any contract.
 /// There are next traits that any contract may implement:
 ///     - FungibleTokenCore -- interface with ft_transfer methods. FungibleToken provides methods for it.
-///     - FungibleTokenMetaData -- return metadata for the token in NEP-148, up to contract to implement.
-///     - StorageManager -- interface for NEP-145 for allocating storage per account. FungibleToken provides methods for it.
+///     - FungibleTokenMetaData -- return metadata for the token in UIP-148, up to contract to implement.
+///     - StorageManager -- interface for UIP-145 for allocating storage per account. FungibleToken provides methods for it.
 ///     - AccountRegistrar -- interface for an account to register and unregister
 ///
 /// For example usage, see examples/fungible-token/src/lib.rs.

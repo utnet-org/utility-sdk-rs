@@ -11,7 +11,7 @@ pub mod storage_management;
 /// blob, allowing it to be stored for a period of time before deployed.
 #[deprecated(
     since = "4.1.0",
-    note = "This was removed because there is no standard (NEP) for upgradable contracts."
+    note = "This was removed because there is no standard (UIP) for upgradable contracts."
 )]
 pub mod upgrade;
 

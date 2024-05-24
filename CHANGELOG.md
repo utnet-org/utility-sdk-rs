@@ -8,7 +8,7 @@
 
 This release mostly maintains backwards compatibility with the previous version, but it also includes several breaking changes that improve developer experience and bring security and performance fixes. The most notable changes are:
 
-- Contract source metadata ([NEP-330](https://github.com/utnet-org/NEPs/blob/master/neps/nep-0330.md)) is now implemented by default for all the contracts out of the box, which means that you can call `contract_source_metadata()` function and receive `{ version?: string, link?: string, standards?: { standard: string, version: string }[] }` ([#1106](https://github.com/utnet-org/utility-sdk-rs/pull/1106))
+- Contract source metadata ([UIP-330](https://github.com/utnet-org/UIPs/blob/master/neps/nep-0330.md)) is now implemented by default for all the contracts out of the box, which means that you can call `contract_source_metadata()` function and receive `{ version?: string, link?: string, standards?: { standard: string, version: string }[] }` ([#1106](https://github.com/utnet-org/utility-sdk-rs/pull/1106))
 - Type-safe UNC balance, gas amounts, and account ids were implemented:
   - Use [`unc_sdk::UncToken`](https://docs.rs/unc-sdk/5.0.0/unc_sdk/struct.UncToken.html) instead of u128/U128/Balance ([#1104](https://github.com/utnet-org/utility-sdk-rs/pull/1104))
   - Use [`unc_sdk::Gas`](https://docs.rs/unc-sdk/5.0.0/unc_sdk/struct.Gas.html) instead of u64/Gas ([#1082](https://github.com/utnet-org/utility-sdk-rs/pull/1082))
@@ -197,7 +197,7 @@ Get your fully configured development environment in under 1 minute using [GitHu
 - Added `Eq`, `PartialOrd`, `Ord` to `json_types` integer types. [PR 823](https://github.com/utnet-org/utility-sdk-rs/pull/823)
 
 ### Changed
-- Updated cross-contract, `ext` API for new [`NEP264`](https://github.com/utnet-org/NEPs/pull/264) functionality. [PR 742](https://github.com/utnet-org/utility-sdk-rs/pull/742)
+- Updated cross-contract, `ext` API for new [`UIP264`](https://github.com/utnet-org/UIPs/pull/264) functionality. [PR 742](https://github.com/utnet-org/utility-sdk-rs/pull/742)
   - More details on the API change can be found [here](https://github.com/utnet-org/utility-sdk-rs/issues/740)
   - This API uses a default weight of `1` with no static gas, but this weight, the static gas, and the attached deposit can all be modified on any external call
   - `ext` methods are added to each `#[unc_bindgen]` contract struct by default and for each method for convenience

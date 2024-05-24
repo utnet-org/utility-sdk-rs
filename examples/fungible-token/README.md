@@ -27,7 +27,7 @@ cargo test --package fungible-token -- --nocapture
 
 ### `1.0.0`
 
-- Switched form using [NEP-21](https://github.com/utnet-org/NEPs/pull/21) to [NEP-141](https://github.com/utnet-org/NEPs/issues/141).
+- Switched form using [UIP-21](https://github.com/utnet-org/UIPs/pull/21) to [UIP-141](https://github.com/utnet-org/UIPs/issues/141).
 
 ### `0.3.0`
 

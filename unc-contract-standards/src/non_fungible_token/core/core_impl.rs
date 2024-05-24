@@ -20,12 +20,12 @@ const GAS_FOR_RESOLVE_TRANSFER: Gas = Gas::from_tgas(5);
 const GAS_FOR_NFT_TRANSFER_CALL: Gas = Gas::from_tgas(30);
 
 /// Implementation of the non-fungible token standard.
-/// Allows to include NEP-171 compatible token to any contract.
+/// Allows to include UIP-171 compatible token to any contract.
 /// There are next traits that any contract may implement:
 ///     - NonFungibleTokenCore -- interface with nft_transfer methods. NonFungibleToken provides methods for it.
 ///     - NonFungibleTokenApproval -- interface with nft_approve methods. NonFungibleToken provides methods for it.
 ///     - NonFungibleTokenEnumeration -- interface for getting lists of tokens. NonFungibleToken provides methods for it.
-///     - NonFungibleTokenMetadata -- return metadata for the token in NEP-177, up to contract to implement.
+///     - NonFungibleTokenMetadata -- return metadata for the token in UIP-177, up to contract to implement.
 ///
 /// For example usage, see examples/non-fungible-token/src/lib.rs.
 #[derive(BorshDeserialize, BorshSerialize)]
