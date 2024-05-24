@@ -10,7 +10,7 @@ async fn register_user(contract: &Contract, account_id: &AccountId) -> anyhow::R
         .call("storage_deposit")
         .args_json((account_id, Option::<bool>::None))
         .max_gas()
-        .deposit(unc_sdk::env::storage_byte_cost().saturating_mul(UncToken::from_attounc(125)))
+        .deposit(unc_sdk::env::storage_byte_cost().saturating_mul(125))
         .transact()
         .await?;
     assert!(res.is_success());
