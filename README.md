@@ -13,7 +13,7 @@
     <a href="https://crates.io/crates/unc-sdk"><img src="https://img.shields.io/crates/v/unc-sdk.svg?style=flat-square" alt="Crates.io version" /></a>
     <a href="https://crates.io/crates/unc-sdk"><img src="https://img.shields.io/crates/d/unc-sdk.svg?style=flat-square" alt="Download" /></a>
     <a href="https://docs.rs/unc-sdk"><img src="https://docs.rs/unc-sdk/badge.svg" alt="Reference Documentation" /></a>
-    <a href="https://blog.rust-lang.org/2023/08/24/Rust-1.72.0.html"><img src="https://img.shields.io/badge/rustc-1.72+-lightgray.svg" alt="MSRV" /></a>
+    <a href="https://blog.rust-lang.org/2023/08/24/Rust-1.78.0.html"><img src="https://img.shields.io/badge/rustc-1.78+-lightgray.svg" alt="MSRV" /></a>
     <a href="https://discord.gg/gBtUFKR"><img src="https://img.shields.io/discord/490367152054992913.svg" alt="Join the community on Discord" /></a>
     <a href="https://github.com/utnet-org/utility-sdk-rs/actions"><img src="https://github.com/utnet-org/utility-sdk-rs/actions/workflows/test.yml/badge.svg" alt="GitHub Actions Build" /></a>
   </p>
@@ -283,7 +283,7 @@ State breaking changes (low-level serialization format of any data type) will be
 
 ### MSRV
 
-The minimum supported Rust version is currently `1.72`. There are no guarantees that this will be upheld if a security patch release needs to come in that requires a Rust toolchain increase.
+The minimum supported Rust version is currently `1.78`. There are no guarantees that this will be upheld if a security patch release needs to come in that requires a Rust toolchain increase.
 
 ## Contributing
 

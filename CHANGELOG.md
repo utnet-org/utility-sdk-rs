@@ -67,7 +67,7 @@ Get your fully configured development environment in under 1 minute using [GitHu
 - add `Default` implementation to JSON types ([#1018](https://github.com/utnet-org/utility-sdk-rs/pull/1018))
 
 ### Fixed
-- Fixed compilation-tests after stable Rust release 1.72 ([#1081](https://github.com/utnet-org/utility-sdk-rs/pull/1081))
+- Fixed compilation-tests after stable Rust release 1.78 ([#1081](https://github.com/utnet-org/utility-sdk-rs/pull/1081))
 - Un-deprecate private init functions ([#1074](https://github.com/utnet-org/utility-sdk-rs/pull/1074))
 - *(store::TreeMap)* remove of the entry API now correctly updates the tree root when changed ([#995](https://github.com/utnet-org/utility-sdk-rs/pull/995))
 - strip return types of lifetimes ([#982](https://github.com/utnet-org/utility-sdk-rs/pull/982))
