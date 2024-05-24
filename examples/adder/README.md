@@ -1,10 +1,10 @@
 # ABI
 
-Showcases how to generate ABI from a UNC contract.
+Showcases how to generate ABI from a Utility contract.
 
 ## Install ABI Cargo Extension
 
-The Unc ABI cargo extension can be installed from source [here](https://github.com/utnet-org/cargo-unc).
+The Utility ABI cargo extension can be installed from source [here](https://github.com/utnet-org/cargo-unc).
 
 ## Generating ABI
 
