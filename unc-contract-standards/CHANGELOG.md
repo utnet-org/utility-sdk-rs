@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5](https://github.com/utnet-org/utility-sdk-rs/compare/unc-contract-standards-v0.7.4...unc-contract-standards-v0.7.5) - 2024-05-24
+
+### Other
+- Update dependencies
+- Update dependencies to fix borsh-rs issue
+- Update authors' email addresses and repository URLs
+
 ## [5.0.0-alpha.3](https://github.com/utnet-org/utility-sdk-rs/compare/unc-contract-standards-v5.0.0-alpha.2...unc-contract-standards-v5.0.0-alpha.3) - 2024-02-19
 
 ### Fixed

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.7.5](https://github.com/utnet-org/utility-sdk-rs/compare/unc-sdk-v0.7.4...unc-sdk-v0.7.5) - 2024-05-24
+
+### Other
+- Update dependencies to fix borsh-rs issue
+- Update authors' email addresses and repository URLs
+- Update dependencies
+
 ## [5.0.0](https://github.com/utnet-org/utility-sdk-rs/compare/4.1.1...unc-sdk-v5.0.0) - 2024-02-21
 
 ### Highlights
