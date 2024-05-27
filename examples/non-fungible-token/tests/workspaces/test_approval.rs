@@ -8,7 +8,7 @@ use std::convert::TryFrom;
 
 pub const TOKEN_ID: &str = "0";
 
-const ONE_NEAR: UncToken = UncToken::from_unc(1);
+const ONE_UNC: UncToken = UncToken::from_unc(1);
 const ONE_ATTO: UncToken = UncToken::from_attounc(1);
 
 #[tokio::test]
@@ -65,7 +65,7 @@ async fn simulate_simple_approve() -> anyhow::Result<()> {
         .call("nft_approve")
         .args_json((TOKEN_ID, alice.id(), Option::<String>::None))
         .max_gas()
-        .deposit(ONE_NEAR)
+        .deposit(ONE_UNC)
         .transact()
         .await?;
     assert!(res.is_success());

@@ -24,7 +24,7 @@ macro_rules! const_assert_impls {
     ($ty:ty: $trait:path) => {
         const _: () = {
             assert!(
-                impls!($ty: $trait),
+        impls!($ty: $trait),
                 concat!("`", stringify!($ty), "` does not implement `", stringify!($trait), "`")
             )
         };
@@ -32,7 +32,7 @@ macro_rules! const_assert_impls {
     ($ty:ty: !$trait:path) => {
         const _: () = {
             assert!(
-                !impls!($ty: $trait),
+        !impls!($ty: $trait),
                 concat!(
                     "`",
                     stringify!($ty),
@@ -247,15 +247,15 @@ pub fn json_borsh_schema_spec() {
     const_assert_impls!(StructNoSchemaSpec: unc_sdk::borsh::BorshSchema);
 }
 
-// fixme! this should fail, since A__NEAR_SCHEMA_PROXY does not derive UncSchema
+// fixme! this should fail, since A__UNC_SCHEMA_PROXY does not derive UncSchema
 // fixme! hygeinic macro expansion is required to make this work
 // fixme! or just explicit checks, making sure that no ident is suffixed with
-// fixme! __NEAR_SCHEMA_PROXY
+// fixme! __UNC_SCHEMA_PROXY
 
 #[allow(non_camel_case_types)]
-struct A__NEAR_SCHEMA_PROXY {}
+struct A__UNC_SCHEMA_PROXY {}
 
 #[derive(UncSchema)]
-struct A(A__NEAR_SCHEMA_PROXY);
+struct A(A__UNC_SCHEMA_PROXY);
 
 fn main() {}

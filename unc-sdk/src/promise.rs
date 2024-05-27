@@ -352,7 +352,7 @@ impl Promise {
         )
     }
 
-    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance instead")]
+    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance instead")]
     pub fn add_access_key(
         self,
         public_key: PublicKey,
@@ -382,7 +382,7 @@ impl Promise {
         })
     }
 
-    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
+    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
     pub fn add_access_key_with_nonce(
         self,
         public_key: PublicKey,

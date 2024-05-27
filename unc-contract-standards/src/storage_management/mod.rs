@@ -102,7 +102,7 @@ pub trait StorageManagement {
     ///
     /// If predecessor account not registered, contract MUST panic.
     ///
-    /// MUST require exactly 1 attoNEAR attached balance to prevent restricted
+    /// MUST require exactly 1 attoUNC attached balance to prevent restricted
     /// function-call access-key call (UX wallet security)
     ///
     /// Returns the StorageBalance structure showing updated balances.
@@ -115,7 +115,7 @@ pub trait StorageManagement {
     /// If `force=true` the function SHOULD ignore account balances (burn them) and close the account.
     /// Otherwise, MUST panic if caller has a positive registered balance (eg token holdings) or
     ///     the contract doesn't support force unregistration.
-    /// MUST require exactly 1 attoNEAR attached balance to prevent restricted function-call access-key call
+    /// MUST require exactly 1 attoUNC attached balance to prevent restricted function-call access-key call
     /// (UX wallet security)
     /// Returns `true` iff the account was unregistered.
     /// Returns `false` iff account was not registered before.

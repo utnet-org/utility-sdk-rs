@@ -185,7 +185,7 @@ impl VMContextBuilder {
 }
 
 /// Initializes the [`MockedBlockchain`] with a single promise result during execution.
-#[deprecated(since = "4.0.0", note = "Use `testing_env!` macro to initialize with promise results")]
+#[deprecated(since = "1.0.0", note = "Use `testing_env!` macro to initialize with promise results")]
 pub fn testing_env_with_promise_results(context: VMContext, promise_result: PromiseResult) {
     let storage = crate::mock::with_mocked_blockchain(|b| b.take_storage());
 

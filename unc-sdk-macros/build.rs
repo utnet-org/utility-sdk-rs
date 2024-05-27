@@ -1,6 +1,6 @@
 fn main() {
     if cfg!(feature = "__abi-embed") {
-        if option_env!("CARGO_NEAR_ABI_PATH").is_some() {
+        if option_env!("CARGO_UNC_ABI_PATH").is_some() {
             println!("cargo:rustc-cfg=feature=\"__abi-embed-checked\"");
         } else {
             println!("cargo:warning=the `__abi-embed` feature flag is private and should not be activated manually, ignoring");

@@ -83,11 +83,11 @@ pub fn assert_self() {
     require!(env::predecessor_account_id() == env::current_account_id(), "Method is private");
 }
 
-/// Assert that 1 attoNEAR was attached.
+/// Assert that 1 attoUNC was attached.
 pub fn assert_one_atto() {
     require!(
         env::attached_deposit() == UncToken::from_attounc(1),
-        "Requires attached deposit of exactly 1 attoNEAR"
+        "Requires attached deposit of exactly 1 attoUNC"
     )
 }
 
@@ -113,7 +113,7 @@ pub fn promise_result_as_success() -> Option<Vec<u8>> {
 ///
 /// [`GlobalAllocator`]: std::alloc::GlobalAlloc
 #[deprecated(
-    since = "4.0.0",
+    since = "1.0.0",
     note = "Allocator is already initialized with the default `wee_alloc` feature set. \
             Please make sure you don't disable default features on the SDK or set the global \
             allocator manually."

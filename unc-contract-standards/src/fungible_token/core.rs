@@ -56,7 +56,7 @@ pub trait FungibleTokenCore {
     /// Transfers positive `amount` of tokens from the `env::predecessor_account_id` to `receiver_id`.
     /// Both accounts must be registered with the contract for transfer to succeed. (See [UIP-145](https://github.com/utnet-org/UIPs/discussions/145))
     /// This method must to be able to accept attached deposits, and must not panic on attached deposit.
-    /// Exactly 1 attoNEAR must be attached.
+    /// Exactly 1 attoUNC must be attached.
     /// See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:
@@ -78,7 +78,7 @@ pub trait FungibleTokenCore {
     /// amount, the remaining balance must be refunded. See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Both accounts must be registered with the contract for transfer to succeed. (See #145)
-    /// This method must to be able to accept attached deposits, and must not panic on attached deposit. Exactly 1 attoNEAR must be attached. See [the Security
+    /// This method must to be able to accept attached deposits, and must not panic on attached deposit. Exactly 1 attoUNC must be attached. See [the Security
     /// section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:

@@ -278,7 +278,7 @@ impl NonFungibleToken {
     /// * token_id must be unique
     ///
     /// Returns the newly minted token
-    #[deprecated(since = "4.0.0", note = "mint is deprecated, please use internal_mint instead.")]
+    #[deprecated(since = "1.0.0", note = "mint is deprecated, please use internal_mint instead.")]
     pub fn mint(
         &mut self,
         token_id: TokenId,
