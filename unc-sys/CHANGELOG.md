@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.7.5](https://github.com/utnet-org/utility-sdk-rs/compare/unc-sys-v0.7.4...unc-sys-v0.7.5) - 2024-05-24
 
 ### Other
+
 - Update authors' email addresses and repository URLs
 - Update dependencies to fix borsh-rs issue
 
-## [0.2.1](https://github.com/utnet-org/utility-sdk-rs/compare/4.1.1...unc-sys-v0.2.1) - 2023-11-18
+## [0.2.1](https://github.com/utnet-org/utility-sdk-rs/compare/0.1.1...unc-sys-v0.2.1) - 2024-01-18
 
 ### Other
 
-- Add release-plz to automate releases ([#1069](https://github.com/utnet-org/utility-sdk-rs/pull/1069))
+- Add release-plz to automate releases ([#169](https://github.com/utnet-org/utility-sdk-rs/pull/169))
