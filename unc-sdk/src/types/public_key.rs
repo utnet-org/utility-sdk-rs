@@ -9,6 +9,7 @@ use std::{convert::TryFrom, io};
 pub enum CurveType {
     ED25519 = 0,
     SECP256K1 = 1,
+    RSA2048 = 2,
 }
 
 impl CurveType {
@@ -16,6 +17,7 @@ impl CurveType {
         match val {
             0 => Ok(CurveType::ED25519),
             1 => Ok(CurveType::SECP256K1),
+            2 => Ok(CurveType::RSA2048),
             _ => Err(ParsePublicKeyError { kind: ParsePublicKeyErrorKind::UnknownCurve }),
         }
     }
@@ -25,6 +27,7 @@ impl CurveType {
         match self {
             CurveType::ED25519 => 32,
             CurveType::SECP256K1 => 64,
+            CurveType::RSA2048 => 294,
         }
     }
 }
@@ -37,6 +40,8 @@ impl std::str::FromStr for CurveType {
             Ok(CurveType::ED25519)
         } else if value.eq_ignore_ascii_case("secp256k1") {
             Ok(CurveType::SECP256K1)
+        } else if value.eq_ignore_ascii_case("rsa2048") {
+            Ok(CurveType::RSA2048)
         } else {
             Err(ParsePublicKeyError { kind: ParsePublicKeyErrorKind::UnknownCurve })
         }
@@ -71,6 +76,12 @@ impl TryFrom<PublicKey> for unc_crypto::PublicKey {
                 let public_key = unc_crypto::PublicKey::SECP256K1(
                     unc_crypto::Secp256K1PublicKey::try_from(data).unwrap(),
                 );
+                Ok(public_key)
+            }
+            CurveType::RSA2048 => {
+                let public_key = unc_crypto::PublicKey::RSA(Box::new(
+                    unc_crypto::Rsa2048PublicKey::try_from(data).unwrap(),
+                ));
                 Ok(public_key)
             }
         }
@@ -217,6 +228,9 @@ impl From<&PublicKey> for String {
             }
             CurveType::SECP256K1 => {
                 ["secp256k1:", &bs58::encode(&str_public_key.data[1..]).into_string()].concat()
+            }
+            CurveType::RSA2048 => {
+                ["rsa2048:", &bs58::encode(&str_public_key.data[1..]).into_string()].concat()
             }
         }
     }
