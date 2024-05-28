@@ -6,9 +6,9 @@ if [ "$1" != "amd64" ] && [ "$1" != "arm64" ]; then
     exit 1
 fi
 
-branch=${BUILDKITE_BRANCH//:/_}
+branch=${GH_BRANCH//:/_}
 branch=${branch//\//_}
-commit=${BUILDKITE_COMMIT}
+commit=${GH_COMMIT}
 if [[ ${commit} == "HEAD" ]]; then
     commit=$(git rev-parse HEAD)
 fi
@@ -21,7 +21,7 @@ else
     docker buildx create --name contract-builder --use
 fi
 
-if [[ ${branch} == "master" ]]; then
+if [[ ${branch} == "main" ]]; then
     docker buildx build --platform linux/$1 -t utility/"${image_name}:${branch}-${commit}-$1" -t utility/${image_name}:latest-$1 --push .
 else
     docker buildx build --platform linux/$1 -t utility/"${image_name}:${branch}-${commit}-$1" --push .

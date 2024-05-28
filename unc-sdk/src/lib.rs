@@ -44,13 +44,12 @@ pub use environment::mock::test_vm_config;
 pub use environment::mock::MockedBlockchain;
 #[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
 pub use test_utils::context::VMContext;
+#[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
+pub mod test_utils;
 
 pub mod utils;
 pub use crate::utils::storage_key_impl::IntoStorageKey;
 pub use crate::utils::*;
-
-#[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
-pub mod test_utils;
 
 // Set up global allocator by default if custom-allocator feature is not set in wasm32 architecture.
 #[cfg(all(feature = "wee_alloc", target_arch = "wasm32"))]
