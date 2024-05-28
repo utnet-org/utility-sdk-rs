@@ -22,7 +22,7 @@ else
 fi
 
 if [[ ${branch} == "main" ]]; then
-    docker buildx build --platform linux/$1 -t utility/"${image_name}:${branch}-${commit}-$1" -t utility/${image_name}:latest-$1 --push .
+    docker buildx build --platform linux/$1 -t ruster2024/"${image_name}:${branch}-${commit}-$1" -t ruster2024/${image_name}:latest-$1 --push .
 else
-    docker buildx build --platform linux/$1 -t utility/"${image_name}:${branch}-${commit}-$1" --push .
+    docker buildx build --platform linux/$1 -t ruster2024/"${image_name}:${branch}-${commit}-$1" --push .
 fi
