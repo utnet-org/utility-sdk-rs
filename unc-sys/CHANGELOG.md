@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3](https://github.com/utnet-org/utility-sdk-rs/compare/unc-sys-v2.0.2...unc-sys-v2.0.3) - 2024-05-28
+
+### Other
+- Update variable
+- Update authors' email addresses and repository URLs
+
 ## [0.7.5](https://github.com/utnet-org/utility-sdk-rs/compare/unc-sys-v0.7.4...unc-sys-v0.7.5) - 2024-05-24
 
 ### Other
