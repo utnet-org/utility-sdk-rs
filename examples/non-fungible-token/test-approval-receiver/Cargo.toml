@@ -1,7 +1,7 @@
 [package]
 name = "approval-receiver"
 version = "0.0.1"
-authors = ["Hello Inc <hello@utnet.org>"]
+authors = ["Utility Inc <hello@utnet.org>"]
 edition = "2021"
 
 [lib]

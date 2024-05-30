@@ -14,8 +14,8 @@ use unc_sdk::Promise;
 /// is a method to do "transfer and call" which may be preferred over using
 /// an approval management standard in certain use cases.
 ///
-/// [approval management standard]: https://nomicon.io/Standards/NonFungibleToken/ApprovalManagement.html
-/// [core non-fungible token standard]: https://nomicon.io/Standards/NonFungibleToken/Core.html
+/// approval management standard
+/// core non-fungible token standard
 ///
 /// # Examples
 ///

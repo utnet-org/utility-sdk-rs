@@ -1,7 +1,7 @@
 [package]
 name = "unc-contract-standards"
 version.workspace = true
-authors = ["Hello Inc <hello@utnet.org>"]
+authors = ["Utility Inc <hello@utnet.org>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 categories = ["wasm"]
@@ -13,7 +13,7 @@ Utility smart contracts standard library.
 """
 
 [dependencies]
-unc-sdk = { path = "../unc-sdk", version = "2.0.3", default-features = false, features = ["legacy"] }
+unc-sdk = { path = "../unc-sdk", version = "2.0.4", default-features = false, features = ["legacy"] }
 
 [dev-dependencies]
 unc-sdk = { path = "../unc-sdk", default-features = false, features = ["unit-testing"] }

@@ -18,7 +18,7 @@ use unc_sdk::PromiseOrValue;
 /// and [NonFungibleTokenResolver](crate::non_fungible_token::core::NonFungibleTokenResolver) to
 /// understand how the cross-contract call work.
 ///
-/// [core non-fungible token standard]: <https://nomicon.io/Standards/NonFungibleToken/Core.html>
+/// core non-fungible token standard
 ///
 /// # Examples
 ///
@@ -60,11 +60,10 @@ pub trait NonFungibleTokenCore {
     /// * Contract MUST panic if called by someone other than token owner or,
     ///   if using Approval Management, one of the approved accounts
     /// * `approval_id` is for use with Approval Management,
-    ///   see <https://nomicon.io/Standards/NonFungibleToken/ApprovalManagement.html>
     /// * If using Approval Management, contract MUST nullify approved accounts on
     ///   successful transfer.
     /// * TODO: needed? Both accounts must be registered with the contract for transfer to
-    ///   succeed. See see <https://nomicon.io/Standards/StorageManagement.html>
+    ///   succeed.
     ///
     /// Arguments:
     /// * `receiver_id`: the valid UNC account receiving the token
@@ -86,7 +85,7 @@ pub trait NonFungibleTokenCore {
     /// workflow will end in a success execution outcome to the callback on the NFT
     /// contract at the method `nft_resolve_transfer`.
     ///
-    /// You can think of this as being similar to attaching native UNC tokens to a
+    /// You can think of this as being similar to attaching native unc tokens to a
     /// function call. It allows you to attach any Non-Fungible Token in a call to a
     /// receiver contract.
     ///
@@ -105,7 +104,7 @@ pub trait NonFungibleTokenCore {
     ///   successful transfer.
     ///
     /// Arguments:
-    /// * `receiver_id`: the valid UNC account receiving the token.
+    /// * `receiver_id`: the valid Utility account receiving the token.
     /// * `token_id`: the token to send.
     /// * `approval_id`: expected approval ID. A number smaller than
     ///    2^53, and therefore representable as JSON. See Approval Management

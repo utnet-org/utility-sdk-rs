@@ -20,7 +20,7 @@ pub struct StorageBalanceBounds {
 
 /// Ensures that when fungible token storage grows by collections adding entries,
 /// the storage is be paid by the caller. This ensures that storage cannot grow to a point
-/// that the FT contract runs out of Ⓝ.
+/// that the FT contract runs out of $unc.
 /// Takes name of the Contract struct, the inner field for the token and optional method name to
 /// call when the account was closed.
 ///

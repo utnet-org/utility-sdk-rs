@@ -28,8 +28,7 @@ impl NonFungibleTokenEnumeration for NonFungibleToken {
 
     fn nft_tokens(&self, from_index: Option<U128>, limit: Option<u64>) -> Vec<Token> {
         // Get starting index, whether or not it was explicitly given.
-        // Defaults to 0 based on the spec:
-        // https://nomicon.io/Standards/NonFungibleToken/Enumeration.html#interface
+        // Defaults to 0 based on the spec
         let start_index: u128 = from_index.map(From::from).unwrap_or_default();
         require!(
             (self.owner_by_id.len() as u128) >= start_index,

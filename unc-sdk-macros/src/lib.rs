@@ -14,7 +14,7 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 
 /// This attribute macro is used on a struct and its implementations
 /// to generate the necessary code to expose `pub` methods from the contract as well
-/// as generating the glue code to be a valid UNC contract.
+/// as generating the glue code to be a valid Utility contract.
 ///
 /// This macro will generate code to load and deserialize state if the `self` parameter is included
 /// as well as saving it back to state if `&mut self` is used.
@@ -102,10 +102,10 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// #[derive(Default, BorshSerialize, BorshDeserialize)]
 /// #[unc_bindgen(contract_metadata(
 ///     version = "39f2d2646f2f60e18ab53337501370dc02a5661c",
-///     link = "https://github.com/utnet-org-examples/nft-tutorial",
-///     standard(standard = "uip330", version = "1.1.0"),
+///     link = "https://github.com/utnet-org/examples/nft-tutorial",
+///     standard(standard = "uip330", version = "2.0.0"),
 ///     standard(standard = "uip171", version = "1.0.0"),
-///     standard(standard = "uip177", version = "2.0.0"),
+///     standard(standard = "uip177", version = "1.2.0"),
 /// ))]
 /// struct Contract {}
 /// ```

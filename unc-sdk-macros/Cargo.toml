@@ -1,14 +1,14 @@
 [package]
 name = "unc-sdk-macros"
 version.workspace = true
-authors = ["Hello Inc <hello@utnet.org>"]
+authors = ["Utility Inc <hello@utnet.org>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 categories = ["wasm"]
-repository = "https://github.com/utility/utility-sdk-rs"
+repository = "https://github.com/utnet-rog/utility-sdk-rs"
 homepage = "https://unc-sdk.io"
 description = """
-Main macro of the library for writing UNC smart contracts.
+Main macro of the library for writing Utility smart contracts.
 """
 
 [lib]

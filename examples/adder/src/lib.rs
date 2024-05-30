@@ -72,7 +72,7 @@ mod tests {
         assert_eq!(abi_root.metadata.version, Some("0.1.0".to_string()));
         assert_eq!(
             &abi_root.metadata.authors[..],
-            &["Hello Inc <hello@utnet.org>"]
+            &["Utility Inc <hello@utnet.org>"]
         );
         assert_eq!(abi_root.body.functions.len(), 3);
 
