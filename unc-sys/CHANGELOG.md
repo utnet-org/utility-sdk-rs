@@ -24,4 +24,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 
-- Add release-plz to automate releases ([#169](https://github.com/utnet-org/utility-sdk-rs/pull/169))
+- Add release-plz to automate releases ([#12](https://github.com/utnet-org/utility-sdk-rs/pull/12))

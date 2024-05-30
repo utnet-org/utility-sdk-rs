@@ -510,6 +510,7 @@ mod tests {
         }
 
         #[derive(Debug, BorshDeserialize)]
+        #[allow(dead_code)]
         struct WithoutBorshSerialize(u64);
 
         let deserialize_only_vec =

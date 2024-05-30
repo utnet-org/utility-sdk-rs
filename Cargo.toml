@@ -9,9 +9,9 @@ members = [
 exclude = ["examples/"]
 
 [workspace.package]
-version = "2.0.3"
+version = "2.0.4"
 
 # Special triple # comment for ci.
 [patch.crates-io]
-### unc-vm-logic = { git = "https://github.com/unet/utility", branch = "master" }
-### unc-primitives-core = { git = "https://github.com/unet/utility", branch = "master" }
+### unc-vm-logic = { git = "https://github.com/unet-org/utility", branch = "main" }
+### unc-primitives-core = { git = "https://github.com/unet-org/utility", branch = "main" }

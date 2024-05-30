@@ -295,11 +295,11 @@ pub fn random_seed() -> Vec<u8> {
 /// use unc_sdk::unc_bindgen;
 /// use unc_sdk::env;
 /// #[unc_bindgen]
-/// struct NearRngExample {
+/// struct UncRngExample {
 ///    val: i32,
 /// }
 /// #[unc_bindgen]
-/// impl NearRngExample {
+/// impl UncRngExample {
 ///     pub fn increment(&mut self) {
 ///         let mut rng = Rng::new(&env::random_seed());
 ///         let value = rng.rand_range_i32(0, 20);

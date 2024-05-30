@@ -1,10 +1,10 @@
-//! Standard for nep141 (Fungible Token) events.
+//! Standard for uip141 (Fungible Token) events.
 //!
 //! These events will be picked up by the UNC indexer.
 //!
 //! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/FungibleToken/Event.md>
 //!
-//! This is an extension of the events format (nep-297):
+//! This is an extension of the events format (uip-297):
 //! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/EventsFormat.md>
 //!
 //! The three events in this standard are [`FtMint`], [`FtTransfer`], and [`FtBurn`].
@@ -13,7 +13,7 @@
 //! [`FtMint::emit_many`], [`FtTransfer::emit_many`],
 //! or [`FtBurn::emit_many`] respectively.
 
-use crate::event::NearEvent;
+use crate::event::UncEvent;
 use unc_sdk::json_types::U128;
 use unc_sdk::serde::Serialize;
 use unc_sdk::AccountIdRef;
@@ -39,7 +39,7 @@ impl FtMint<'_> {
     /// Emits an FT mint event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`FtMint`] represents the data of each mint.
     pub fn emit_many(data: &[FtMint<'_>]) {
-        new_141_v1(Nep141EventKind::FtMint(data)).emit()
+        new_141_v1(Uip141EventKind::FtMint(data)).emit()
     }
 }
 
@@ -66,7 +66,7 @@ impl FtTransfer<'_> {
     /// Emits an FT transfer event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`FtTransfer`] represents the data of each transfer.
     pub fn emit_many(data: &[FtTransfer<'_>]) {
-        new_141_v1(Nep141EventKind::FtTransfer(data)).emit()
+        new_141_v1(Uip141EventKind::FtTransfer(data)).emit()
     }
 }
 
@@ -91,16 +91,16 @@ impl FtBurn<'_> {
     /// Emits an FT burn event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`FtBurn`] represents the data of each burn.
     pub fn emit_many<'a>(data: &'a [FtBurn<'a>]) {
-        new_141_v1(Nep141EventKind::FtBurn(data)).emit()
+        new_141_v1(Uip141EventKind::FtBurn(data)).emit()
     }
 }
 
 #[derive(Serialize, Debug)]
 #[serde(crate = "unc_sdk::serde")]
-pub(crate) struct Nep141Event<'a> {
+pub(crate) struct Uip141Event<'a> {
     version: &'static str,
     #[serde(flatten)]
-    event_kind: Nep141EventKind<'a>,
+    event_kind: Uip141EventKind<'a>,
 }
 
 #[derive(Serialize, Debug)]
@@ -108,17 +108,17 @@ pub(crate) struct Nep141Event<'a> {
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
 #[allow(clippy::enum_variant_names)]
-enum Nep141EventKind<'a> {
+enum Uip141EventKind<'a> {
     FtMint(&'a [FtMint<'a>]),
     FtTransfer(&'a [FtTransfer<'a>]),
     FtBurn(&'a [FtBurn<'a>]),
 }
 
-fn new_141<'a>(version: &'static str, event_kind: Nep141EventKind<'a>) -> NearEvent<'a> {
-    NearEvent::Nep141(Nep141Event { version, event_kind })
+fn new_141<'a>(version: &'static str, event_kind: Uip141EventKind<'a>) -> UncEvent<'a> {
+    UncEvent::Uip141(Uip141Event { version, event_kind })
 }
 
-fn new_141_v1(event_kind: Nep141EventKind) -> NearEvent {
+fn new_141_v1(event_kind: Uip141EventKind) -> UncEvent {
     new_141("1.0.0", event_kind)
 }
 
@@ -134,7 +134,7 @@ mod tests {
         FtMint { owner_id, amount, memo: None }.emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_mint","data":[{"owner_id":"bob","amount":"100"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_mint","data":[{"owner_id":"bob","amount":"100"}]}"#
         );
     }
 
@@ -153,7 +153,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_mint","data":[{"owner_id":"bob","amount":"100"},{"owner_id":"alice","amount":"200","memo":"has memo"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_mint","data":[{"owner_id":"bob","amount":"100"},{"owner_id":"alice","amount":"200","memo":"has memo"}]}"#
         );
     }
 
@@ -164,7 +164,7 @@ mod tests {
         FtBurn { owner_id, amount, memo: None }.emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_burn","data":[{"owner_id":"bob","amount":"100"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_burn","data":[{"owner_id":"bob","amount":"100"}]}"#
         );
     }
 
@@ -182,7 +182,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_burn","data":[{"owner_id":"alice","amount":"200","memo":"has memo"},{"owner_id":"bob","amount":"100"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_burn","data":[{"owner_id":"alice","amount":"200","memo":"has memo"},{"owner_id":"bob","amount":"100"}]}"#
         );
     }
 
@@ -194,7 +194,7 @@ mod tests {
         FtTransfer { old_owner_id, new_owner_id, amount, memo: None }.emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_transfer","data":[{"old_owner_id":"bob","new_owner_id":"alice","amount":"100"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_transfer","data":[{"old_owner_id":"bob","new_owner_id":"alice","amount":"100"}]}"#
         );
     }
 
@@ -214,7 +214,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep141","version":"1.0.0","event":"ft_transfer","data":[{"old_owner_id":"alice","new_owner_id":"bob","amount":"200","memo":"has memo"},{"old_owner_id":"bob","new_owner_id":"alice","amount":"100"}]}"#
+            r#"EVENT_JSON:{"standard":"uip141","version":"1.0.0","event":"ft_transfer","data":[{"old_owner_id":"alice","new_owner_id":"bob","amount":"200","memo":"has memo"},{"old_owner_id":"bob","new_owner_id":"alice","amount":"100"}]}"#
         );
     }
 }

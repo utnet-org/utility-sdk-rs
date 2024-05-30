@@ -7,12 +7,12 @@ use unc_sdk::serde_json;
 #[serde(tag = "standard")]
 #[must_use = "don't forget to `.emit()` this event"]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum NearEvent<'a> {
-    Nep171(crate::non_fungible_token::events::Nep171Event<'a>),
-    Nep141(crate::fungible_token::events::Nep141Event<'a>),
+pub(crate) enum UncEvent<'a> {
+    Uip171(crate::non_fungible_token::events::Uip171Event<'a>),
+    Uip141(crate::fungible_token::events::Uip141Event<'a>),
 }
 
-impl<'a> NearEvent<'a> {
+impl<'a> UncEvent<'a> {
     fn to_json_string(&self) -> String {
         // Events cannot fail to serialize so fine to panic on error
         #[allow(clippy::redundant_closure)]

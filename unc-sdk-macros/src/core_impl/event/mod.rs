@@ -41,7 +41,7 @@ pub(crate) fn unc_events(attr: TokenStream, item: TokenStream) -> TokenStream {
             let name = &input.ident;
             let standard_name = format!("{}_event_standard", name);
             let standard_ident = syn::Ident::new(&standard_name, Span::call_site());
-            // NearEvent Macro handles implementation
+            // UncEvent Macro handles implementation
             input.attrs.push(
                 parse_quote! (#[derive(::unc_sdk::serde::Serialize, ::unc_sdk::EventMetadata)]),
             );
@@ -57,7 +57,7 @@ pub(crate) fn unc_events(attr: TokenStream, item: TokenStream) -> TokenStream {
             TokenStream::from(
                 syn::Error::new(
                     Span::call_site(),
-                    "`#[unc_bindgen(event_json(standard = \"nepXXX\"))]` can only be used as an attribute on enums.",
+                    "`#[unc_bindgen(event_json(standard = \"uipXXX\"))]` can only be used as an attribute on enums.",
                 )
                 .to_compile_error(),
             )
@@ -66,7 +66,7 @@ pub(crate) fn unc_events(attr: TokenStream, item: TokenStream) -> TokenStream {
         TokenStream::from(
             syn::Error::new(
                 Span::call_site(),
-                "Unc events must have a `standard` value as an argument for `event_json` in the `unc_bindgen` arguments. The value must be a string literal, e.g. \"nep999\", \"mintbase-marketplace\".",
+                "Unc events must have a `standard` value as an argument for `event_json` in the `unc_bindgen` arguments. The value must be a string literal, e.g. \"uip999\", \"mintbase-marketplace\".",
             )
             .to_compile_error(),
         )

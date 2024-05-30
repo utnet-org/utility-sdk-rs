@@ -1,10 +1,10 @@
-//! Standard for nep171 (Non-Fungible Token) events.
+//! Standard for uip171 (Non-Fungible Token) events.
 //!
 //! These events will be picked up by the UNC indexer.
 //!
 //! <https://github.com/utnet-org/UIPs/blob/69f76c6c78c2ebf05d856347c9c98ae48ad84ebd/specs/Standards/NonFungibleToken/Event.md>
 //!
-//! This is an extension of the events format (nep-297):
+//! This is an extension of the events format (uip-297):
 //! <https://github.com/utnet-org/UIPs/blob/master/specs/Standards/EventsFormat.md>
 //!
 //! The three events in this standard are [`NftMint`], [`NftTransfer`], and [`NftBurn`].
@@ -13,7 +13,7 @@
 //! [`NftMint::emit_many`], [`NftTransfer::emit_many`],
 //! or [`NftBurn::emit_many`] respectively.
 
-use crate::event::NearEvent;
+use crate::event::UncEvent;
 use unc_sdk::serde::Serialize;
 use unc_sdk::AccountIdRef;
 
@@ -38,7 +38,7 @@ impl NftMint<'_> {
     /// Emits an nft mint event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`NftMint`] represents the data of each mint.
     pub fn emit_many(data: &[NftMint<'_>]) {
-        new_171_v1(Nep171EventKind::NftMint(data)).emit()
+        new_171_v1(Uip171EventKind::NftMint(data)).emit()
     }
 }
 
@@ -67,7 +67,7 @@ impl NftTransfer<'_> {
     /// Emits an nft transfer event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`NftTransfer`] represents the data of each transfer.
     pub fn emit_many(data: &[NftTransfer<'_>]) {
-        new_171_v1(Nep171EventKind::NftTransfer(data)).emit()
+        new_171_v1(Uip171EventKind::NftTransfer(data)).emit()
     }
 }
 
@@ -94,16 +94,16 @@ impl NftBurn<'_> {
     /// Emits an nft burn event, through [`env::log_str`](unc_sdk::env::log_str),
     /// where each [`NftBurn`] represents the data of each burn.
     pub fn emit_many<'a>(data: &'a [NftBurn<'a>]) {
-        new_171_v1(Nep171EventKind::NftBurn(data)).emit()
+        new_171_v1(Uip171EventKind::NftBurn(data)).emit()
     }
 }
 
 #[derive(Serialize, Debug)]
 #[serde(crate = "unc_sdk::serde")]
-pub(crate) struct Nep171Event<'a> {
+pub(crate) struct Uip171Event<'a> {
     version: &'static str,
     #[serde(flatten)]
-    event_kind: Nep171EventKind<'a>,
+    event_kind: Uip171EventKind<'a>,
 }
 
 #[derive(Serialize, Debug)]
@@ -111,17 +111,17 @@ pub(crate) struct Nep171Event<'a> {
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
 #[allow(clippy::enum_variant_names)]
-enum Nep171EventKind<'a> {
+enum Uip171EventKind<'a> {
     NftMint(&'a [NftMint<'a>]),
     NftTransfer(&'a [NftTransfer<'a>]),
     NftBurn(&'a [NftBurn<'a>]),
 }
 
-fn new_171<'a>(version: &'static str, event_kind: Nep171EventKind<'a>) -> NearEvent<'a> {
-    NearEvent::Nep171(Nep171Event { version, event_kind })
+fn new_171<'a>(version: &'static str, event_kind: Uip171EventKind<'a>) -> UncEvent<'a> {
+    UncEvent::Uip171(Uip171Event { version, event_kind })
 }
 
-fn new_171_v1(event_kind: Nep171EventKind) -> NearEvent {
+fn new_171_v1(event_kind: Uip171EventKind) -> UncEvent {
     new_171("1.0.0", event_kind)
 }
 
@@ -137,7 +137,7 @@ mod tests {
         NftMint { owner_id, token_ids, memo: None }.emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_mint","data":[{"owner_id":"bob","token_ids":["0","1"]}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_mint","data":[{"owner_id":"bob","token_ids":["0","1"]}]}"#
         );
     }
 
@@ -156,7 +156,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_mint","data":[{"owner_id":"bob","token_ids":["0","1"]},{"owner_id":"alice","token_ids":["2","3"],"memo":"has memo"}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_mint","data":[{"owner_id":"bob","token_ids":["0","1"]},{"owner_id":"alice","token_ids":["2","3"],"memo":"has memo"}]}"#
         );
     }
 
@@ -167,7 +167,7 @@ mod tests {
         NftBurn { owner_id, token_ids, authorized_id: None, memo: None }.emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_burn","data":[{"owner_id":"bob","token_ids":["0","1"]}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_burn","data":[{"owner_id":"bob","token_ids":["0","1"]}]}"#
         );
     }
 
@@ -186,7 +186,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_burn","data":[{"owner_id":"alice","token_ids":["2","3"],"authorized_id":"bob","memo":"has memo"},{"owner_id":"bob","token_ids":["0","1"]}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_burn","data":[{"owner_id":"alice","token_ids":["2","3"],"authorized_id":"bob","memo":"has memo"},{"owner_id":"bob","token_ids":["0","1"]}]}"#
         );
     }
 
@@ -199,7 +199,7 @@ mod tests {
             .emit();
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_transfer","data":[{"old_owner_id":"bob","new_owner_id":"alice","token_ids":["0","1"]}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_transfer","data":[{"old_owner_id":"bob","new_owner_id":"alice","token_ids":["0","1"]}]}"#
         );
     }
 
@@ -220,7 +220,7 @@ mod tests {
         ]);
         assert_eq!(
             test_utils::get_logs()[0],
-            r#"EVENT_JSON:{"standard":"nep171","version":"1.0.0","event":"nft_transfer","data":[{"old_owner_id":"alice","new_owner_id":"bob","token_ids":["2","3"],"authorized_id":"bob","memo":"has memo"},{"old_owner_id":"bob","new_owner_id":"alice","token_ids":["0","1"]}]}"#
+            r#"EVENT_JSON:{"standard":"uip171","version":"1.0.0","event":"nft_transfer","data":[{"old_owner_id":"alice","new_owner_id":"bob","token_ids":["2","3"],"authorized_id":"bob","memo":"has memo"},{"old_owner_id":"bob","new_owner_id":"alice","token_ids":["0","1"]}]}"#
         );
     }
 }

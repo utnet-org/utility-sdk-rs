@@ -37,12 +37,12 @@ impl ContractMetadata {
             }
         }
 
-        // adding nep330 if it is not present
+        // adding uip330 if it is not present
         if self.standards.is_empty()
-            || self.standards.iter().all(|s| s.standard.to_ascii_lowercase() != "nep330")
+            || self.standards.iter().all(|s| s.standard.to_ascii_lowercase() != "uip330")
         {
             self.standards
-                .push(Standard { standard: "nep330".to_string(), version: "1.1.0".to_string() });
+                .push(Standard { standard: "uip330".to_string(), version: "1.1.0".to_string() });
         }
 
         self

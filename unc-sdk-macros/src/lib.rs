@@ -60,15 +60,15 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// ```ignore
 /// use unc_sdk::unc_bindgen;
 ///
-/// #[unc_bindgen(event_json(standard = "nepXXX"))]
+/// #[unc_bindgen(event_json(standard = "uipXXX"))]
 /// pub enum MyEvents {
 ///    #[event_version("1.0.0")]
 ///    Swap { token_in: AccountId, token_out: AccountId, amount_in: u128, amount_out: u128 },
 ///
-///    #[event_version("2.0.0")]
+///    #[event_version("1.1.0")]
 ///    StringEvent(String),
 ///
-///    #[event_version("3.0.0")]
+///    #[event_version("1.2.0")]
 ///    EmptyEvent
 /// }
 ///
@@ -86,7 +86,7 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// Contract Source Metadata Standard:
 ///
 /// By using `contract_metadata` as an argument `unc_bindgen` will populate the contract metadata
-/// according to [`UIP-330`](<https://github.com/utnet-org/UIPs/blob/master/neps/nep-0330.md>) standard. This still applies even when `#[unc_bindgen]` is used without
+/// according to [`UIP-330`](<https://github.com/utnet-org/UIPs/blob/master/uips/uip-0330.md>) standard. This still applies even when `#[unc_bindgen]` is used without
 /// any arguments.
 ///
 /// All fields(version, link, standard) are optional and will be populated with defaults from the Cargo.toml file if not specified.
@@ -103,9 +103,9 @@ use syn::{parse_quote, ImplItem, ItemEnum, ItemImpl, ItemStruct, ItemTrait, Wher
 /// #[unc_bindgen(contract_metadata(
 ///     version = "39f2d2646f2f60e18ab53337501370dc02a5661c",
 ///     link = "https://github.com/utnet-org-examples/nft-tutorial",
-///     standard(standard = "nep330", version = "1.1.0"),
-///     standard(standard = "nep171", version = "1.0.0"),
-///     standard(standard = "nep177", version = "2.0.0"),
+///     standard(standard = "uip330", version = "1.1.0"),
+///     standard(standard = "uip171", version = "1.0.0"),
+///     standard(standard = "uip177", version = "2.0.0"),
 /// ))]
 /// struct Contract {}
 /// ```
