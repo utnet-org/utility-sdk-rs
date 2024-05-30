@@ -9,7 +9,7 @@ anyhow = "1.0"
 unc-contract-standards = { path = "../../unc-contract-standards" }
 unc-sdk = { path = "../../unc-sdk" }
 tokio = { version = "1.14", features = ["full"] }
-utility-workspaces = { version = "0.9.1", default-features = false, features = ["install"] }
+utility-workspaces = { version = "0.12.4", default-features = false, features = ["install"] }
 
 [profile.release]
 codegen-units = 1
