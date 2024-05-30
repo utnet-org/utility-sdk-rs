@@ -44,10 +44,10 @@ impl<K, V> StableMap<K, V> {
     pub(crate) fn inner(&mut self) -> &mut BTreeMap<K, Box<V>> {
         self.map.get_mut()
     }
-    pub(crate) fn map_value_ref<Q: ?Sized, F, T>(&self, k: &Q, f: F) -> Option<T>
+    pub(crate) fn map_value_ref<Q, F, T>(&self, k: &Q, f: F) -> Option<T>
     where
         K: Borrow<Q> + Ord,
-        Q: Ord,
+        Q: ?Sized + Ord,
         F: FnOnce(&V) -> T,
     {
         self.map.borrow().get(k).map(|s| f(s))

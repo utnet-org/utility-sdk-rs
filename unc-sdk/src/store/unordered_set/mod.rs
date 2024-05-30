@@ -463,10 +463,10 @@ where
     /// The value may be any borrowed form of the set's value type, but
     /// [`BorshSerialize`], [`ToOwned<Owned = T>`](ToOwned) and [`Ord`] on the borrowed form *must*
     /// match those for the value type.
-    pub fn contains<Q: ?Sized>(&self, value: &Q) -> bool
+    pub fn contains<Q>(&self, value: &Q) -> bool
     where
         T: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = T> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = T> + Ord,
     {
         self.index.contains_key(value)
     }
@@ -505,10 +505,10 @@ where
     /// In cases where there are a lot of removals and not a lot of insertions, these leftover
     /// placeholders might make iteration more costly, driving higher gas costs. If you need to
     /// remedy this, take a look at [`defrag`](Self::defrag).
-    pub fn remove<Q: ?Sized>(&mut self, value: &Q) -> bool
+    pub fn remove<Q>(&mut self, value: &Q) -> bool
     where
         T: Borrow<Q> + BorshDeserialize,
-        Q: BorshSerialize + ToOwned<Owned = T> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = T> + Ord,
     {
         match self.index.remove(value) {
             Some(element_index) => {

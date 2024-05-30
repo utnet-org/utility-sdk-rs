@@ -211,9 +211,9 @@ where
         V::try_from_slice(bytes).unwrap_or_else(|_| env::panic_str(ERR_ELEMENT_DESERIALIZATION))
     }
 
-    fn load_element<Q: ?Sized>(prefix: &[u8], key: &Q) -> (H::KeyType, Option<V>)
+    fn load_element<Q>(prefix: &[u8], key: &Q) -> (H::KeyType, Option<V>)
     where
-        Q: BorshSerialize,
+        Q: ?Sized + BorshSerialize,
         K: Borrow<Q>,
     {
         let key = H::to_key(prefix, key, &mut Vec::new());
@@ -237,10 +237,10 @@ where
     /// assert_eq!(map.get(&1), Some(&"a".to_string()));
     /// assert_eq!(map.get(&2), None);
     /// ```
-    pub fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
+    pub fn get<Q>(&self, k: &Q) -> Option<&V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         //* ToOwned bound, which forces a clone, is required to be able to keep the key in the cache
         let cached = self.cache.get(k.to_owned());
@@ -252,10 +252,10 @@ where
         entry.value().as_ref()
     }
 
-    pub(crate) fn get_mut_inner<Q: ?Sized>(&mut self, k: &Q) -> &mut CacheEntry<V>
+    pub(crate) fn get_mut_inner<Q>(&mut self, k: &Q) -> &mut CacheEntry<V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         let prefix = &self.prefix;
         //* ToOwned bound, which forces a clone, is required to be able to keep the key in the cache
@@ -286,10 +286,10 @@ where
     ///     assert_eq!(map[&1], "b".to_string());
     /// }
     /// ```
-    pub fn get_mut<Q: ?Sized>(&mut self, k: &Q) -> Option<&mut V>
+    pub fn get_mut<Q>(&mut self, k: &Q) -> Option<&mut V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         self.get_mut_inner(k).value_mut().as_mut()
     }
@@ -336,10 +336,10 @@ where
     /// assert_eq!(map.contains_key(&1), true);
     /// assert_eq!(map.contains_key(&2), false);
     /// ```
-    pub fn contains_key<Q: ?Sized>(&self, k: &Q) -> bool
+    pub fn contains_key<Q>(&self, k: &Q) -> bool
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Ord,
     {
         // Check cache before checking storage
         let contains = self
@@ -378,10 +378,10 @@ where
     /// assert_eq!(map.remove(&1), Some("a".to_string()));
     /// assert_eq!(map.remove(&1), None);
     /// ```
-    pub fn remove<Q: ?Sized>(&mut self, k: &Q) -> Option<V>
+    pub fn remove<Q>(&mut self, k: &Q) -> Option<V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         self.get_mut_inner(k).replace(None)
     }

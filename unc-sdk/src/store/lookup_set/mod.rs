@@ -107,10 +107,10 @@ where
     ///
     /// The value may be any borrowed form of the set's value type, but
     /// [`BorshSerialize`] on the borrowed form *must* match those for the value type.
-    pub fn contains<Q: ?Sized>(&self, value: &Q) -> bool
+    pub fn contains<Q>(&self, value: &Q) -> bool
     where
         T: Borrow<Q>,
-        Q: BorshSerialize,
+        Q: ?Sized + BorshSerialize,
     {
         let lookup_key = H::to_key(&self.prefix, value, &mut Vec::new());
         env::storage_has_key(lookup_key.as_ref())
@@ -130,10 +130,10 @@ where
     ///
     /// The value may be any borrowed form of the set's value type, but
     /// [`BorshSerialize`] on the borrowed form *must* match those for the value type.
-    pub fn remove<Q: ?Sized>(&mut self, value: &Q) -> bool
+    pub fn remove<Q>(&mut self, value: &Q) -> bool
     where
         T: Borrow<Q>,
-        Q: BorshSerialize,
+        Q: ?Sized + BorshSerialize,
     {
         let lookup_key = H::to_key(&self.prefix, value, &mut Vec::new());
         env::storage_remove(lookup_key.as_ref())

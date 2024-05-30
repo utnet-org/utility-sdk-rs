@@ -207,10 +207,10 @@ where
     /// The key may be any borrowed form of the map's key type, but
     /// [`BorshSerialize`] and [`ToOwned<Owned = K>`](ToOwned) on the borrowed form *must* match
     /// those for the key type.
-    pub fn contains_key<Q: ?Sized>(&self, k: &Q) -> bool
+    pub fn contains_key<Q>(&self, k: &Q) -> bool
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Ord,
     {
         self.values.contains_key(k)
     }
@@ -220,10 +220,10 @@ where
     /// The key may be any borrowed form of the map's key type, but
     /// [`BorshSerialize`] and [`ToOwned<Owned = K>`](ToOwned) on the borrowed form *must* match
     /// those for the key type.
-    pub fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
+    pub fn get<Q>(&self, k: &Q) -> Option<&V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         self.values.get(k)
     }
@@ -243,10 +243,10 @@ where
     /// assert_eq!(map.get_key_value(&1), Some((&1, &"a".to_string())));
     /// assert_eq!(map.get_key_value(&2), None);
     /// ```
-    pub fn get_key_value<Q: ?Sized>(&self, k: &Q) -> Option<(&K, &V)>
+    pub fn get_key_value<Q>(&self, k: &Q) -> Option<(&K, &V)>
     where
         K: Borrow<Q> + BorshDeserialize,
-        Q: BorshSerialize + ToOwned<Owned = K> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Ord,
     {
         self.values.get(k).map(|v| (expect(self.tree.equal_key(k)), v))
     }
@@ -256,10 +256,10 @@ where
     /// The key may be any borrowed form of the map's key type, but
     /// [`BorshSerialize`] and [`ToOwned<Owned = K>`](ToOwned) on the borrowed form *must* match
     /// those for the key type.
-    pub fn get_mut<Q: ?Sized>(&mut self, k: &Q) -> Option<&mut V>
+    pub fn get_mut<Q>(&mut self, k: &Q) -> Option<&mut V>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + ToOwned<Owned = K>,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
     {
         self.values.get_mut(k)
     }
@@ -292,10 +292,10 @@ where
     /// The key may be any borrowed form of the map's key type, but
     /// [`BorshSerialize`] and [`ToOwned<Owned = K>`](ToOwned) on the borrowed form *must* match
     /// those for the key type.
-    pub fn remove<Q: ?Sized>(&mut self, key: &Q) -> Option<V>
+    pub fn remove<Q>(&mut self, key: &Q) -> Option<V>
     where
         K: Borrow<Q> + BorshDeserialize,
-        Q: BorshSerialize + ToOwned<Owned = K> + Ord,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Ord,
     {
         self.remove_entry(key).map(|(_, v)| v)
     }
@@ -477,14 +477,14 @@ where
     /// The metadata included in the result includes the indices for the node and parent, as well
     /// as which edge the found node is of the parent, if one.
     #[allow(clippy::type_complexity)]
-    fn lookup_at<Q: ?Sized>(
+    fn lookup_at<Q>(
         &self,
         mut at: FreeListIndex,
         key: &Q,
     ) -> Option<(NodeAndIndex<K>, Option<(FreeListIndex, &Node<K>, Edge)>)>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + Eq + PartialOrd,
+        Q: ?Sized + BorshSerialize + Eq + PartialOrd,
     {
         let mut p = None;
         let mut curr = Some(expect(self.node(at)));
@@ -665,10 +665,10 @@ where
     // - right-most (max) node of the left subtree (containing smaller keys) of node holding `key`
     // - or left-most (min) node of the right subtree (containing larger keys) of node holding `key`
     //
-    fn do_remove<Q: ?Sized>(&mut self, key: &Q) -> Option<K>
+    fn do_remove<Q>(&mut self, key: &Q) -> Option<K>
     where
         K: Borrow<Q>,
-        Q: BorshSerialize + Eq + PartialOrd,
+        Q: ?Sized + BorshSerialize + Eq + PartialOrd,
     {
         // r_node - node containing key of interest
         // remove_parent - immediate parent node of r_node
@@ -875,11 +875,12 @@ where
     /// }
     /// assert_eq!(Some((&5, &"b".to_string())), map.range(4..).next());
     /// ```
-    pub fn range<'a, R: 'a, Q: 'a>(&'a self, range: R) -> Range<'a, K, V, H>
+    pub fn range<'a, R: 'a + RangeBounds<Q>, Q: 'a + ?Sized + Ord>(
+        &'a self,
+        range: R,
+    ) -> Range<'a, K, V, H>
     where
         K: BorshDeserialize + Borrow<Q>,
-        Q: ?Sized + Ord,
-        R: RangeBounds<Q>,
     {
         Range::new(self, (range.start_bound(), range.end_bound()))
     }
@@ -947,10 +948,10 @@ where
     /// assert_eq!(map.remove(&1), Some("a".to_string()));
     /// assert_eq!(map.remove(&1), None);
     /// ```
-    pub fn remove_entry<Q: ?Sized>(&mut self, key: &Q) -> Option<(K, V)>
+    pub fn remove_entry<Q>(&mut self, key: &Q) -> Option<(K, V)>
     where
         K: Borrow<Q> + BorshDeserialize + Clone,
-        Q: BorshSerialize + ToOwned<Owned = K> + Eq + PartialOrd,
+        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Eq + PartialOrd,
     {
         self.values.remove(key).map(|removed_value| {
             let removed = self.tree.do_remove(key);
