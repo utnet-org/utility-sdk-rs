@@ -4,7 +4,7 @@ Some hypothetical DeFi contract that will do smart things with the transferred t
 use unc_contract_standards::fungible_token::{receiver::FungibleTokenReceiver, Balance};
 use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::json_types::U128;
-use unc_sdk::{env, log, unc_bindgen, require, AccountId, Gas, PanicOnDefault, PromiseOrValue};
+use unc_sdk::{env, log, require, unc_bindgen, AccountId, Gas, PanicOnDefault, PromiseOrValue};
 
 const BASE_GAS: u64 = 5_000_000_000_000;
 const PROMISE_CALL: u64 = 5_000_000_000_000;
@@ -18,6 +18,7 @@ pub struct DeFi {
 }
 
 // Have to repeat the same trait for our own implementation.
+#[allow(dead_code)]
 trait ValueReturnTrait {
     fn value_please(&self, amount_to_return: String) -> PromiseOrValue<U128>;
 }
