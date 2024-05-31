@@ -1000,7 +1000,6 @@ mod tests {
             "0o0ooo00oo00o",
             "alex-skidanov",
             "10-4.8-2",
-            "b-o_w_e-n",
             "no_lols",
             "0123456789012345678901234567890123456789012345678901234567890123",
             // Valid, but can't be created
@@ -1035,7 +1034,7 @@ mod tests {
             "..",
             "a..unc",
             "nEar",
-            "_bowen",
+            "_wick",
             "hello world",
             "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz",
             "01234567890123456789012345678901234567890123456789012345678901234",

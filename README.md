@@ -39,7 +39,7 @@
 
 ## Example
 
-Wrap a struct in `#[unc_bindgen]` and it generates a smart contract compatible with the UNC blockchain:
+Wrap a struct in `#[unc_bindgen]` and it generates a smart contract compatible with the Utility blockchain:
 
 ```rs
 use unc_sdk::{unc_bindgen, env};
