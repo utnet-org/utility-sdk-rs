@@ -1,6 +1,5 @@
-use borsh::{BorshDeserialize, BorshSerialize};
 use bs58::decode::Error as B58Error;
-use std::{convert::TryFrom, io};
+use std::convert::TryFrom;
 use unc_sdk_macros::unc;
 
 /// PublicKey curve
