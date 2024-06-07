@@ -2,6 +2,8 @@ use borsh::BorshSerialize;
 
 use crate::env;
 
+use unc_sdk_macros::UncSchema;
+
 mod private {
     /// Seal `ToKey` implementations to limit usage to the builtin implementations
     pub trait Sealed {}
@@ -22,7 +24,9 @@ pub trait ToKey: self::private::Sealed {
 }
 
 /// Sha256 hash helper which hashes through a syscall. This type satisfies the [`ToKey`] trait.
-#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, UncSchema)]
+#[inside_uncsdk]
+#[abi(borsh)]
 pub enum Sha256 {}
 
 impl ToKey for Sha256 {

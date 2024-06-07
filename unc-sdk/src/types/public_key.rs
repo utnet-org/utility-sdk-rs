@@ -262,6 +262,8 @@ mod tests {
     use std::convert::TryInto;
     use std::str::FromStr;
 
+    use borsh::{BorshDeserialize, BorshSerialize};
+
     fn expected_key() -> PublicKey {
         let mut key = vec![CurveType::ED25519 as u8];
         key.extend(
