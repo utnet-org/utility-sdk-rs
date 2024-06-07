@@ -13,6 +13,8 @@ use borsh::{BorshDeserialize, BorshSerialize};
 use std::borrow::Borrow;
 use std::fmt;
 
+use unc_sdk_macros::unc;
+
 type VecIndex = u32;
 
 /// A lazily loaded storage set that stores its content directly on the storage trie.
@@ -83,7 +85,7 @@ type VecIndex = u32;
 ///
 /// [`with_hasher`]: Self::with_hasher
 /// [`LookupSet`]: crate::store::LookupSet
-#[derive(BorshDeserialize, BorshSerialize)]
+#[unc(inside_uncsdk)]
 pub struct IterableSet<T, H = Sha256>
 where
     T: BorshSerialize + Ord,

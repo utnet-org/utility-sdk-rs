@@ -81,7 +81,7 @@ use super::{LookupMap, ERR_INCONSISTENT_STATE, ERR_NOT_EXIST};
 /// ```
 ///
 /// [`with_hasher`]: Self::with_hasher
-#[derive(BorshDeserialize, BorshSerialize)]
+#[unc(inside_uncsdk)]
 pub struct IterableMap<K, V, H = Sha256>
 where
     K: BorshSerialize + Ord,

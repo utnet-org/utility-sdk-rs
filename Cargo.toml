@@ -9,7 +9,7 @@ members = [
 exclude = ["examples/"]
 
 [workspace.package]
-version = "2.1.4"
+version = "2.2.0"
 
 # Special triple # comment for ci.
 [patch.crates-io]
