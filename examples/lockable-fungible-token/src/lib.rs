@@ -1,12 +1,11 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::collections::UnorderedMap;
-use unc_sdk::{env, json_types::U128, unc_bindgen, AccountId, PanicOnDefault};
+use unc_sdk::{env, json_types::U128, unc, AccountId, PanicOnDefault};
 use std::collections::HashMap;
 
 type Balance = u128;
 
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc]
 pub struct Account {
     /// Current unlocked balance
     pub balance: Balance,
@@ -46,9 +45,8 @@ impl Account {
     }
 }
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(PanicOnDefault)]
+#[unc(contract_state)]
 pub struct FunToken {
     /// AccountID -> Account details.
     pub accounts: UnorderedMap<AccountId, Account>,
@@ -57,7 +55,7 @@ pub struct FunToken {
     pub total_supply: Balance,
 }
 
-#[unc_bindgen]
+#[unc]
 impl FunToken {
     #[init]
     #[handle_result]

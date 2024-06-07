@@ -10,19 +10,17 @@ use unc_sdk::AccountId;
 ///
 /// ```
 /// use std::collections::HashMap;
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc_bindgen, Promise};
+/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc, Promise};
 /// use unc_contract_standards::non_fungible_token::{NonFungibleToken, NonFungibleTokenEnumeration, TokenId, Token};
 /// use unc_sdk::json_types::U128;
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///    tokens: NonFungibleToken,
 ///}
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl NonFungibleTokenEnumeration for Contract {
 ///     fn nft_total_supply(&self) -> U128 {
 ///         self.tokens.nft_total_supply()

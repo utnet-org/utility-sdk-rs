@@ -8,17 +8,15 @@ use unc_sdk::{ext_contract, AccountId};
 ///
 /// ```
 /// use std::collections::HashMap;
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc_bindgen};
+/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc};
 /// use unc_contract_standards::non_fungible_token::{NonFungibleToken, NonFungibleTokenResolver, TokenId};
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///    tokens: NonFungibleToken,
 ///}
-/// #[unc_bindgen]
+/// #[unc]
 /// impl NonFungibleTokenResolver for Contract {
 ///     #[private]
 ///     fn nft_resolve_transfer(&mut self, previous_owner_id: AccountId, receiver_id: AccountId, token_id: TokenId, approved_account_ids: Option<HashMap<AccountId, u64>>) -> bool {

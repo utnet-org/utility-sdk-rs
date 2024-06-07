@@ -34,7 +34,7 @@ use std::fmt;
 /// Note that this collection is optimized for fast removes at the expense of key management.
 /// If the amount of removes is significantly higher than the amount of inserts the iteration
 /// becomes more costly. See [`remove`](UnorderedSet::remove) for details.
-/// If this is the use-case - see ['UnorderedSet`](crate::collections::UnorderedSet).
+/// If this is the use-case - see ['IterableSet`](crate::store::IterableSet).
 ///
 /// # Examples
 ///
@@ -89,7 +89,7 @@ use std::fmt;
 /// [`LookupSet`]: crate::store::LookupSet
 #[derive(BorshDeserialize, BorshSerialize)]
 #[deprecated(
-    since = "2.0.0",
+    since = "5.0.0",
     note = "Suboptimal iteration performance. See performance considerations doc for details."
 )]
 pub struct UnorderedSet<T, H = Sha256>
@@ -97,8 +97,10 @@ where
     T: BorshSerialize + Ord,
     H: ToKey,
 {
+    // ser/de is independent of `T` ser/de, `BorshSerialize`/`BorshDeserialize` bounds removed
     #[borsh(bound(serialize = "", deserialize = ""))]
     elements: FreeList<T>,
+    // ser/de is independent of `T`, `H` ser/de, `BorshSerialize`/`BorshDeserialize` bounds removed
     #[borsh(bound(serialize = "", deserialize = ""))]
     index: LookupMap<T, FreeListIndex, H>,
 }
@@ -463,10 +465,10 @@ where
     /// The value may be any borrowed form of the set's value type, but
     /// [`BorshSerialize`], [`ToOwned<Owned = T>`](ToOwned) and [`Ord`] on the borrowed form *must*
     /// match those for the value type.
-    pub fn contains<Q>(&self, value: &Q) -> bool
+    pub fn contains<Q: ?Sized>(&self, value: &Q) -> bool
     where
         T: Borrow<Q>,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = T> + Ord,
+        Q: BorshSerialize + ToOwned<Owned = T> + Ord,
     {
         self.index.contains_key(value)
     }
@@ -505,10 +507,10 @@ where
     /// In cases where there are a lot of removals and not a lot of insertions, these leftover
     /// placeholders might make iteration more costly, driving higher gas costs. If you need to
     /// remedy this, take a look at [`defrag`](Self::defrag).
-    pub fn remove<Q>(&mut self, value: &Q) -> bool
+    pub fn remove<Q: ?Sized>(&mut self, value: &Q) -> bool
     where
         T: Borrow<Q> + BorshDeserialize,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = T> + Ord,
+        Q: BorshSerialize + ToOwned<Owned = T> + Ord,
     {
         match self.index.remove(value) {
             Some(element_index) => {

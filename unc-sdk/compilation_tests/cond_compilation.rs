@@ -1,15 +1,14 @@
 //! Rust contract that uses conditional compilation.
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::unc_bindgen;
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
+#[derive(Default)]
 struct Incrementer {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Incrementer {
     #[cfg(feature = "myfeature")]
     #[init]

@@ -8,12 +8,12 @@ use crate::non_fungible_token::token::{Token, TokenId};
 use crate::non_fungible_token::utils::{refund_approved_account_ids, refund_deposit_to_account};
 use std::collections::HashMap;
 use std::ops::Deref;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
+use unc_sdk::borsh::BorshSerialize;
 use unc_sdk::collections::{LookupMap, TreeMap, UnorderedSet};
 use unc_sdk::json_types::Base64VecU8;
 use unc_sdk::{
-    assert_one_atto, env, require, AccountId, BorshStorageKey, Gas, IntoStorageKey, PromiseOrValue,
-    PromiseResult, StorageUsage,
+    assert_one_atto, env, require, unc, AccountId, BorshStorageKey, Gas, IntoStorageKey,
+    PromiseOrValue, PromiseResult, StorageUsage,
 };
 
 const GAS_FOR_RESOLVE_TRANSFER: Gas = Gas::from_tgas(5);
@@ -28,8 +28,7 @@ const GAS_FOR_NFT_TRANSFER_CALL: Gas = Gas::from_tgas(30);
 ///     - NonFungibleTokenMetadata -- return metadata for the token in UIP-177, up to contract to implement.
 ///
 /// For example usage, see examples/non-fungible-token/src/lib.rs.
-#[derive(BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc]
 pub struct NonFungibleToken {
     // owner of contract
     pub owner_id: AccountId,
@@ -272,13 +271,13 @@ impl NonFungibleToken {
     ///
     /// Requirements:
     /// * Caller must be the `owner_id` set during contract initialization.
-    /// * Caller of the method must attach a deposit of 1 attoⓃ for security purposes.
+    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security purposes.
     /// * If contract is using Metadata extension (by having provided `metadata_prefix` during
     ///   contract initialization), `token_metadata` must be given.
     /// * token_id must be unique
     ///
     /// Returns the newly minted token
-    #[deprecated(since = "1.0.0", note = "mint is deprecated, please use internal_mint instead.")]
+    #[deprecated(since = "4.0.0", note = "mint is deprecated, please use internal_mint instead.")]
     pub fn mint(
         &mut self,
         token_id: TokenId,

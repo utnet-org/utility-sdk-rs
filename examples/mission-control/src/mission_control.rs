@@ -3,22 +3,19 @@ use crate::agent::Agent;
 use crate::asset::*;
 use crate::rate::*;
 use unc_sdk::AccountId;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
-use unc_sdk::{env, unc_bindgen};
+use unc_sdk::env;
 use std::collections::HashMap;
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Serialize, Deserialize, BorshDeserialize, BorshSerialize)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+
+#[unc(serializers=[json, borsh], contract_state)]
 pub struct MissionControl {
     account: Account,
     agents: HashMap<AccountId, Agent>,
     rates: HashMap<Exchange, Rate>,
 }
 
-#[unc_bindgen]
+#[unc]
 impl MissionControl {
     pub fn add_agent(&mut self) {
         let account_id = env::signer_account_id();

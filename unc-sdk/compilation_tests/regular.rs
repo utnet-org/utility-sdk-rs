@@ -1,15 +1,14 @@
 //! Regular smart contract.
 
-use unc_sdk::unc_bindgen;
-use borsh::{BorshDeserialize, BorshSerialize};
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
+#[derive(Default)]
 struct Incrementer {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Incrementer {
     pub fn inc(&mut self, by: u32) {
         self.value += by;

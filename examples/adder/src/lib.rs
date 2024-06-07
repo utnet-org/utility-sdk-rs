@@ -1,27 +1,19 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
-use unc_sdk::{unc_bindgen, UncSchema};
+use unc_sdk::unc;
 
-#[derive(UncSchema, Serialize, Deserialize, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
-#[serde(crate = "unc_sdk::serde")]
-#[abi(json, borsh)]
+#[unc(serializers=[borsh, json])]
 pub struct Pair(u32, u32);
 
-#[derive(UncSchema, Serialize, Deserialize)]
-#[serde(crate = "unc_sdk::serde")]
-#[abi(json, borsh)]
+#[unc(serializers=[borsh, json])]
 pub struct DoublePair {
     first: Pair,
     second: Pair,
 }
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc(serializers=[borsh, json], contract_state)]
 pub struct Adder {}
 
-#[unc_bindgen]
+#[unc]
 impl Adder {
     /// Adds two pairs point-wise.
     pub fn add(&self, a: Pair, b: Pair) -> Pair {

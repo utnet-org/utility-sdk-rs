@@ -10,6 +10,8 @@ use std::{fmt, mem};
 
 use borsh::{BorshDeserialize, BorshSerialize};
 
+use unc_sdk_macros::unc;
+
 use crate::store::key::{Sha256, ToKey};
 use crate::{env, IntoStorageKey};
 
@@ -35,7 +37,7 @@ use super::{FreeList, LookupMap, ERR_INCONSISTENT_STATE, ERR_NOT_EXIST};
 /// Note that this collection is optimized for fast removes at the expense of key management.
 /// If the amount of removes is significantly higher than the amount of inserts the iteration
 /// becomes more costly. See [`remove`](UnorderedMap::remove) for details.
-/// If this is the use-case - see ['UnorderedMap`](crate::collections::UnorderedMap).
+/// If this is the use-case - see ['IterableMap`](crate::store::IterableMap).
 ///
 /// # Examples
 /// ```
@@ -85,52 +87,28 @@ use super::{FreeList, LookupMap, ERR_INCONSISTENT_STATE, ERR_NOT_EXIST};
 ///
 /// [`with_hasher`]: Self::with_hasher
 #[deprecated(
-    since = "2.0.0",
+    since = "5.0.0",
     note = "Suboptimal iteration performance. See performance considerations doc for details."
 )]
+#[derive(BorshDeserialize, BorshSerialize)]
 pub struct UnorderedMap<K, V, H = Sha256>
 where
     K: BorshSerialize + Ord,
     V: BorshSerialize,
     H: ToKey,
 {
+    // ser/de is independent of `K` ser/de, `BorshSerialize`/`BorshDeserialize` bounds removed
+    #[borsh(bound(serialize = "", deserialize = ""))]
     keys: FreeList<K>,
+    // ser/de is independent of `K`, `V`, `H` ser/de, `BorshSerialize`/`BorshDeserialize` bounds removed
+    #[borsh(bound(serialize = "", deserialize = ""))]
     values: LookupMap<K, ValueAndIndex<V>, H>,
 }
 
-#[derive(BorshSerialize, BorshDeserialize)]
+#[unc(inside_uncsdk)]
 struct ValueAndIndex<V> {
     value: V,
     key_index: FreeListIndex,
-}
-
-//? Manual implementations needed only because borsh derive is leaking field types
-// https://github.com/utnet-org/borsh-rs/issues/41
-impl<K, V, H> BorshSerialize for UnorderedMap<K, V, H>
-where
-    K: BorshSerialize + Ord,
-    V: BorshSerialize,
-    H: ToKey,
-{
-    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> Result<(), std::io::Error> {
-        BorshSerialize::serialize(&self.keys, writer)?;
-        BorshSerialize::serialize(&self.values, writer)?;
-        Ok(())
-    }
-}
-
-impl<K, V, H> BorshDeserialize for UnorderedMap<K, V, H>
-where
-    K: BorshSerialize + Ord,
-    V: BorshSerialize,
-    H: ToKey,
-{
-    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> Result<Self, std::io::Error> {
-        Ok(Self {
-            keys: BorshDeserialize::deserialize_reader(reader)?,
-            values: BorshDeserialize::deserialize_reader(reader)?,
-        })
-    }
 }
 
 impl<K, V, H> Drop for UnorderedMap<K, V, H>
@@ -444,10 +422,10 @@ where
     /// assert!(map.insert("test".to_string(), 5u8).is_none());
     /// assert_eq!(map.get("test"), Some(&5));
     /// ```
-    pub fn get<Q>(&self, k: &Q) -> Option<&V>
+    pub fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
     where
         K: Borrow<Q>,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
+        Q: BorshSerialize + ToOwned<Owned = K>,
     {
         self.values.get(k).map(|v| &v.value)
     }
@@ -469,10 +447,10 @@ where
     /// *map.get_mut("test").unwrap() = 6;
     /// assert_eq!(map["test"], 6);
     /// ```
-    pub fn get_mut<Q>(&mut self, k: &Q) -> Option<&mut V>
+    pub fn get_mut<Q: ?Sized>(&mut self, k: &Q) -> Option<&mut V>
     where
         K: Borrow<Q>,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
+        Q: BorshSerialize + ToOwned<Owned = K>,
     {
         self.values.get_mut(k).map(|v| &mut v.value)
     }
@@ -530,10 +508,10 @@ where
     ///
     /// assert!(map.contains_key("test"));
     /// ```
-    pub fn contains_key<Q>(&self, k: &Q) -> bool
+    pub fn contains_key<Q: ?Sized>(&self, k: &Q) -> bool
     where
         K: Borrow<Q>,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = K> + Ord,
+        Q: BorshSerialize + ToOwned<Owned = K> + Ord,
     {
         self.values.contains_key(k)
     }
@@ -568,10 +546,10 @@ where
     ///
     /// assert_eq!(map.len(), 0);
     /// ```
-    pub fn remove<Q>(&mut self, k: &Q) -> Option<V>
+    pub fn remove<Q: ?Sized>(&mut self, k: &Q) -> Option<V>
     where
         K: Borrow<Q> + BorshDeserialize,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
+        Q: BorshSerialize + ToOwned<Owned = K>,
     {
         self.remove_entry(k).map(|(_, v)| v)
     }
@@ -603,10 +581,10 @@ where
     /// assert_eq!(map.remove(&1), Some("a".to_string()));
     /// assert_eq!(map.remove(&1), None);
     /// ```
-    pub fn remove_entry<Q>(&mut self, k: &Q) -> Option<(K, V)>
+    pub fn remove_entry<Q: ?Sized>(&mut self, k: &Q) -> Option<(K, V)>
     where
         K: Borrow<Q> + BorshDeserialize,
-        Q: ?Sized + BorshSerialize + ToOwned<Owned = K>,
+        Q: BorshSerialize + ToOwned<Owned = K>,
     {
         // Remove value
         let old_value = self.values.remove(k)?;

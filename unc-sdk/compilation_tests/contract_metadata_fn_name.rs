@@ -1,9 +1,9 @@
-use unc_sdk::unc_bindgen;
+use unc_sdk::unc;
 
-#[unc_bindgen]
+#[unc(contract_state)]
 struct Contract {}
 
-#[unc_bindgen]
+#[unc]
 impl Contract {
     pub fn contract_source_metadata() {}
 }

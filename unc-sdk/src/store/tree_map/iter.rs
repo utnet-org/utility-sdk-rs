@@ -1,6 +1,7 @@
 use std::ops::Bound;
 use std::vec::Vec;
 use std::{borrow::Borrow, iter::FusedIterator};
+use unc_sdk_macros::unc;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 
@@ -998,7 +999,8 @@ impl<K> Find<K> {
     }
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Debug, Copy, Clone)]
+#[unc(inside_uncsdk)]
+#[derive(Debug, Copy, Clone)]
 enum FindUnbounded {
     /// Find the first element in the given root
     First,

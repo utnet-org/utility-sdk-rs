@@ -1,13 +1,13 @@
 //! Payable view are not valid
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::unc_bindgen;
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+
+#[derive(Default)]
+#[unc(contract_state)]
 struct Test {}
 
-#[unc_bindgen]
+#[unc]
 impl Test {
     #[payable]
     pub fn pay(&self) {}

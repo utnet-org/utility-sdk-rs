@@ -39,5 +39,5 @@ pub extern "C" fn method() {
         ),
     );
     let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
-    contract.method(x, y);
+    Hello::method(&contract, x, y);
 }

@@ -3,7 +3,8 @@
 //! makes this implementation more efficient in the number of reads and writes.
 use std::marker::PhantomData;
 
-use borsh::{to_vec, BorshDeserialize, BorshSerialize};
+use borsh::{to_vec, BorshSerialize};
+use unc_sdk_macros::unc;
 
 use crate::collections::append_slice;
 use crate::{env, IntoStorageKey};
@@ -14,7 +15,7 @@ const ERR_ELEMENT_SERIALIZATION: &str = "Cannot serialize element with Borsh";
 ///
 /// This set stores the values under a hash of the set's `prefix` and [`BorshSerialize`] of the
 /// value.
-#[derive(BorshSerialize, BorshDeserialize)]
+#[unc(inside_uncsdk)]
 pub struct LookupSet<T> {
     element_prefix: Vec<u8>,
     #[borsh(skip)]

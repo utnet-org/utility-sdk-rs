@@ -6,6 +6,7 @@
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use std::ops::Bound;
+use unc_sdk_macros::unc;
 
 use crate::collections::UnorderedMap;
 use crate::collections::{append, Vector};
@@ -20,15 +21,27 @@ use crate::IntoStorageKey;
 /// - `above`/`below`:          O(log(N))
 /// - `range` of K elements:    O(Klog(N))
 ///
-#[deprecated(since = "1.1.0", note = "Use unc_sdk::collections::TreeMap")]
-#[derive(BorshSerialize, BorshDeserialize)]
+#[deprecated(since = "4.1.0", note = "Use unc_sdk::collections::TreeMap")]
+#[unc(inside_uncsdk)]
 pub struct LegacyTreeMap<K, V> {
     root: u64,
+    // ser/de is independent of `K`,`V` ser/de, `BorshSerialize`/`BorshDeserialize`/`BorshSchema` bounds removed
+    #[cfg_attr(not(feature = "abi"), borsh(bound(serialize = "", deserialize = "")))]
+    #[cfg_attr(
+        feature = "abi",
+        borsh(bound(serialize = "", deserialize = ""), schema(params = ""))
+    )]
     val: UnorderedMap<K, V>,
+    // ser/de is independent of `K` ser/de, `BorshSerialize`/`BorshDeserialize`/`BorshSchema` bounds removed
+    #[cfg_attr(not(feature = "abi"), borsh(bound(serialize = "", deserialize = "")))]
+    #[cfg_attr(
+        feature = "abi",
+        borsh(bound(serialize = "", deserialize = ""), schema(params = ""))
+    )]
     tree: Vector<Node<K>>,
 }
 
-#[derive(Clone, BorshSerialize, BorshDeserialize)]
+#[unc(inside_uncsdk)]
 pub struct Node<K> {
     id: u64,
     key: K,           // key stored in a node

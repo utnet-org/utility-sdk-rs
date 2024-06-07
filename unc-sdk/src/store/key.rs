@@ -16,9 +16,9 @@ pub trait ToKey: self::private::Sealed {
     /// Output type for the generated lookup key.
     type KeyType: AsRef<[u8]>;
 
-    fn to_key<Q>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
+    fn to_key<Q: ?Sized>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
     where
-        Q: ?Sized + BorshSerialize;
+        Q: BorshSerialize;
 }
 
 /// Sha256 hash helper which hashes through a syscall. This type satisfies the [`ToKey`] trait.
@@ -28,9 +28,9 @@ pub enum Sha256 {}
 impl ToKey for Sha256 {
     type KeyType = [u8; 32];
 
-    fn to_key<Q>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
+    fn to_key<Q: ?Sized>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
     where
-        Q: ?Sized + BorshSerialize,
+        Q: BorshSerialize,
     {
         // Prefix the serialized bytes, then hash the combined value.
         buffer.extend(prefix);
@@ -47,9 +47,9 @@ pub enum Keccak256 {}
 impl ToKey for Keccak256 {
     type KeyType = [u8; 32];
 
-    fn to_key<Q>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
+    fn to_key<Q: ?Sized>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
     where
-        Q: ?Sized + BorshSerialize,
+        Q: BorshSerialize,
     {
         // Prefix the serialized bytes, then hash the combined value.
         buffer.extend(prefix);
@@ -65,9 +65,9 @@ pub enum Identity {}
 impl ToKey for Identity {
     type KeyType = Vec<u8>;
 
-    fn to_key<Q>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
+    fn to_key<Q: ?Sized>(prefix: &[u8], key: &Q, buffer: &mut Vec<u8>) -> Self::KeyType
     where
-        Q: ?Sized + BorshSerialize,
+        Q: BorshSerialize,
     {
         // Prefix the serialized bytes and return a copy of this buffer.
         buffer.extend(prefix);

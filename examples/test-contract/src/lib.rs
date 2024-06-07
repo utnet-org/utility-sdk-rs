@@ -1,9 +1,6 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::{env, unc_bindgen};
+use unc_sdk::{env, unc};
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(contract_state)]
 pub struct TestContract {}
 
 impl Default for TestContract {
@@ -12,7 +9,7 @@ impl Default for TestContract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl TestContract {
     #[init]
     pub fn new() -> Self {
@@ -21,8 +18,7 @@ impl TestContract {
 
     #[init(ignore_state)]
     pub fn migrate_state() -> Self {
-        #[derive(BorshDeserialize)]
-        #[borsh(crate = "unc_sdk::borsh")]
+        #[unc]
         struct OldContract {
             // ...
         }

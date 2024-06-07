@@ -5,22 +5,20 @@ use unc_sdk::{ext_contract, json_types::U128, AccountId};
 /// # Examples
 ///
 /// ```
-/// use unc_sdk::{unc_bindgen, PanicOnDefault, AccountId, log};
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
+/// use unc_sdk::{unc, PanicOnDefault, AccountId, log};
 /// use unc_sdk::collections::LazyOption;
 /// use unc_sdk::json_types::U128;
 /// use unc_contract_standards::fungible_token::{FungibleToken, FungibleTokenResolver};
 /// use unc_contract_standards::fungible_token::metadata::FungibleTokenMetadata;
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///     token: FungibleToken,
 ///     metadata: LazyOption<FungibleTokenMetadata>,
 /// }
 ///
-///#[unc_bindgen]
+///#[unc]
 /// impl FungibleTokenResolver for Contract {
 ///     #[private]
 ///     fn ft_resolve_transfer(

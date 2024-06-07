@@ -1,10 +1,9 @@
 //! Smart contract that implements trait.
 
-use unc_sdk::unc_bindgen;
-use borsh::{BorshDeserialize, BorshSerialize};
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
+#[derive(Default)]
 struct Incrementer {
     value: u32,
 }
@@ -13,14 +12,14 @@ pub trait Zeroable {
     fn set_to_zero(&mut self);
 }
 
-#[unc_bindgen]
+#[unc]
 impl Incrementer {
     pub fn inc(&mut self, by: u32) {
         self.value += by;
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl Zeroable for Incrementer {
     fn set_to_zero(&mut self) {
         self.value = 0;

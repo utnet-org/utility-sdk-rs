@@ -8,5 +8,5 @@ expression: pretty_print_syn_str(&actual).unwrap()
 pub extern "C" fn method() {
     ::unc_sdk::env::setup_panic_hook();
     let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
-    contract.method();
+    Hello::method(contract);
 }

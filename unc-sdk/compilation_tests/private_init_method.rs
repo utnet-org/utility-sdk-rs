@@ -1,16 +1,14 @@
 //! Even though it might feel unintuitive, a method can be both private and init.
-//! See: https://github.com/utnet-org/utility-sdk-rs/issues/1040#issuecomment-1687126452
+//! See: https://github.com/unc/unc-sdk-rs/issues/1040#issuecomment-1687126452
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::unc_bindgen;
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
 struct Incrementer {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Incrementer {
     #[private]
     #[init]

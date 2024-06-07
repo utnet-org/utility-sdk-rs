@@ -11,11 +11,9 @@
 //!
 //! ```
 //! # use std::collections::HashMap;
-//! # use borsh::{BorshSerialize, BorshDeserialize};
-//! # use unc_sdk_macros::unc_bindgen;
+//! # use unc_sdk_macros::unc;
 //!
-//! #[unc_bindgen]
-//! #[derive(BorshDeserialize, BorshSerialize)]
+//! #[unc(contract_state)]
 //! pub struct StatusMessage {
 //!    records: HashMap<String, String>,
 //! }
@@ -24,19 +22,17 @@
 //! The following is an efficient alternative. It will load each element individually only when it is
 //! read and will save it only when it is written/removed.
 //! ```
-//! # use borsh::{BorshSerialize, BorshDeserialize};
-//! # use unc_sdk_macros::unc_bindgen;
+//! # use unc_sdk_macros::unc;
 //! # use unc_sdk::collections::LookupMap;
 //!
-//! #[unc_bindgen]
-//! #[derive(BorshDeserialize, BorshSerialize)]
+//! #[unc(contract_state)]
 //! pub struct StatusMessage {
 //!    records: LookupMap<String, String>,
 //! }
 //! ```
 //!
 //! The efficiency of `LookupMap` comes at the cost, since it has fewer methods than `HashMap` and is not
-//! that seemlessly integrated with the rest of the Rust standard library.
+//! that seamlessly integrated with the rest of the Rust standard library.
 
 mod legacy_tree_map;
 #[allow(deprecated)]

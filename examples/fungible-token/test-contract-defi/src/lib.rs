@@ -2,17 +2,15 @@
 Some hypothetical DeFi contract that will do smart things with the transferred tokens
 */
 use unc_contract_standards::fungible_token::{receiver::FungibleTokenReceiver, Balance};
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::json_types::U128;
-use unc_sdk::{env, log, require, unc_bindgen, AccountId, Gas, PanicOnDefault, PromiseOrValue};
+use unc_sdk::{env, log, unc, require, AccountId, Gas, PanicOnDefault, PromiseOrValue};
 
 const BASE_GAS: u64 = 5_000_000_000_000;
 const PROMISE_CALL: u64 = 5_000_000_000_000;
 const GAS_FOR_FT_ON_TRANSFER: Gas = Gas::from_gas(BASE_GAS + PROMISE_CALL);
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(PanicOnDefault)]
+#[unc(contract_state)]
 pub struct DeFi {
     fungible_token_account_id: AccountId,
 }
@@ -23,7 +21,7 @@ trait ValueReturnTrait {
     fn value_please(&self, amount_to_return: String) -> PromiseOrValue<U128>;
 }
 
-#[unc_bindgen]
+#[unc]
 impl DeFi {
     #[init]
     pub fn new(fungible_token_account_id: AccountId) -> Self {
@@ -32,7 +30,7 @@ impl DeFi {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl FungibleTokenReceiver for DeFi {
     /// If given `msg: "take-my-money", immediately returns U128::From(0)
     /// Otherwise, makes a cross-contract call to own `value_please` function, passing `msg`
@@ -63,7 +61,7 @@ impl FungibleTokenReceiver for DeFi {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl ValueReturnTrait for DeFi {
     fn value_please(&self, amount_to_return: String) -> PromiseOrValue<U128> {
         log!("in value_please, amount_to_return = {}", amount_to_return);

@@ -92,7 +92,7 @@ pub(crate) fn extract_ref_mut(ty: &Type) -> syn::Result<(Option<And>, Option<Mut
     }
 }
 
-/// Checks that the method signature is supported in the Utility Contract API.
+/// Checks that the method signature is supported in the UNC Contract API.
 pub(crate) fn sig_is_supported(sig: &Signature) -> syn::Result<()> {
     if sig.asyncness.is_some() {
         return Err(syn::Error::new(sig.span(), "Contract API is not allowed to be async."));

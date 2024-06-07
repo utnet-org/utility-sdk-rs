@@ -1,13 +1,10 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::json_types::Base64VecU8;
-use unc_sdk::serde::{Deserialize, Serialize};
-use unc_sdk::{ext_contract, require, UncSchema};
+use unc_sdk::{ext_contract, require, unc};
 
 pub const FT_METADATA_SPEC: &str = "ft-1.0.0";
 
-#[derive(Clone, BorshDeserialize, BorshSerialize, Deserialize, Serialize, UncSchema)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Clone)]
+#[unc(serializers=[borsh, json])]
 pub struct FungibleTokenMetadata {
     pub spec: String,
     pub name: String,

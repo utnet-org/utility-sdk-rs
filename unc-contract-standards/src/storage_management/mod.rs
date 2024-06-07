@@ -1,18 +1,12 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
-use unc_sdk::{AccountId, UncSchema, UncToken};
+use unc_sdk::{unc, AccountId, UncToken};
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, UncSchema)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers=[borsh, json])]
 pub struct StorageBalance {
     pub total: UncToken,
     pub available: UncToken,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, UncSchema)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers=[borsh, json])]
 pub struct StorageBalanceBounds {
     pub min: UncToken,
     pub max: Option<UncToken>,
@@ -20,15 +14,14 @@ pub struct StorageBalanceBounds {
 
 /// Ensures that when fungible token storage grows by collections adding entries,
 /// the storage is be paid by the caller. This ensures that storage cannot grow to a point
-/// that the FT contract runs out of $unc.
+/// that the FT contract runs out of Ⓝ.
 /// Takes name of the Contract struct, the inner field for the token and optional method name to
 /// call when the account was closed.
 ///
 /// # Examples
 ///
 /// ```
-/// use unc_sdk::{unc_bindgen, PanicOnDefault, AccountId, UncToken, log};
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
+/// use unc_sdk::{unc, PanicOnDefault, AccountId, UncToken, log};
 /// use unc_sdk::collections::LazyOption;
 /// use unc_sdk::json_types::U128;
 /// use unc_contract_standards::fungible_token::FungibleToken;
@@ -37,15 +30,14 @@ pub struct StorageBalanceBounds {
 /// };
 /// use unc_contract_standards::fungible_token::metadata::FungibleTokenMetadata;
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///     token: FungibleToken,
 ///     metadata: LazyOption<FungibleTokenMetadata>,
 /// }
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl StorageManagement for Contract {
 ///     #[payable]
 ///     fn storage_deposit(
@@ -102,7 +94,7 @@ pub trait StorageManagement {
     ///
     /// If predecessor account not registered, contract MUST panic.
     ///
-    /// MUST require exactly 1 attoUNC attached balance to prevent restricted
+    /// MUST require exactly 1 yoctoUNC attached balance to prevent restricted
     /// function-call access-key call (UX wallet security)
     ///
     /// Returns the StorageBalance structure showing updated balances.
@@ -115,7 +107,7 @@ pub trait StorageManagement {
     /// If `force=true` the function SHOULD ignore account balances (burn them) and close the account.
     /// Otherwise, MUST panic if caller has a positive registered balance (eg token holdings) or
     ///     the contract doesn't support force unregistration.
-    /// MUST require exactly 1 attoUNC attached balance to prevent restricted function-call access-key call
+    /// MUST require exactly 1 yoctoUNC attached balance to prevent restricted function-call access-key call
     /// (UX wallet security)
     /// Returns `true` iff the account was unregistered.
     /// Returns `false` iff account was not registered before.

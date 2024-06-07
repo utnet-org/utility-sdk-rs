@@ -3,15 +3,13 @@ A stub contract that implements nft_on_approve for e2e testing nft_approve.
 */
 use unc_contract_standards::non_fungible_token::approval::NonFungibleTokenApprovalReceiver;
 use unc_contract_standards::non_fungible_token::TokenId;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::{env, log, unc_bindgen, require, AccountId, Gas, PanicOnDefault, PromiseOrValue};
+use unc_sdk::{env, log, unc, require, AccountId, Gas, PanicOnDefault, PromiseOrValue};
 
 /// It is estimated that we need to attach 5 TGas for the code execution and 5 TGas for cross-contract call
 const GAS_FOR_NFT_ON_APPROVE: Gas = Gas::from_tgas(10);
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(contract_state)]
+#[derive(PanicOnDefault)]
 pub struct ApprovalReceiver {
     non_fungible_token_account_id: AccountId,
 }
@@ -21,7 +19,7 @@ trait ValueReturnTrait {
     fn ok_go(&self, msg: String) -> PromiseOrValue<String>;
 }
 
-#[unc_bindgen]
+#[unc]
 impl ApprovalReceiver {
     #[init]
     pub fn new(non_fungible_token_account_id: AccountId) -> Self {
@@ -29,7 +27,7 @@ impl ApprovalReceiver {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl NonFungibleTokenApprovalReceiver for ApprovalReceiver {
     /// Could do anything useful to the approval-receiving contract, such as store the given
     /// approval_id for use later when calling the NFT contract. Can also return whatever it wants,
@@ -70,7 +68,7 @@ impl NonFungibleTokenApprovalReceiver for ApprovalReceiver {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl ValueReturnTrait for ApprovalReceiver {
     fn ok_go(&self, msg: String) -> PromiseOrValue<String> {
         log!("in ok_go, msg={}", msg);

@@ -65,7 +65,7 @@ pub(crate) fn generate_ext_structs(
 ///
 /// However, some attributes should be forwarded and they are defined here.
 ///
-/// [#959]: https://github.com/utnet-org/utility-sdk-rs/pull/959
+/// [#959]: https://github.com/unc/unc-sdk-rs/pull/959
 const FN_ATTRIBUTES_TO_FORWARD: [&str; 1] = [
     // Allow some contract methods to be feature gated, for example:
     //
@@ -177,7 +177,7 @@ mod tests {
             #[warn(unused)]
             pub fn method(&self) { }
         };
-        let method_info = ImplItemMethodInfo::new(&mut method, false, impl_type).unwrap().unwrap();
+        let method_info = ImplItemMethodInfo::new(&mut method, None, impl_type).unwrap().unwrap();
         let actual = generate_ext_function(&method_info.attr_signature_info);
 
         local_insta_assert_snapshot!(pretty_print_syn_str(&actual).unwrap());
@@ -189,7 +189,7 @@ mod tests {
         let mut method: ImplItemFn = parse_quote! {
             pub fn method(&self, k: &String) { }
         };
-        let method_info = ImplItemMethodInfo::new(&mut method, false, impl_type).unwrap().unwrap();
+        let method_info = ImplItemMethodInfo::new(&mut method, None, impl_type).unwrap().unwrap();
         let actual = generate_ext_function(&method_info.attr_signature_info);
      
         local_insta_assert_snapshot!(pretty_print_syn_str(&actual).unwrap());
@@ -201,7 +201,7 @@ mod tests {
         let mut method: syn::ImplItemFn = parse_quote! {
           pub fn borsh_test(&mut self, #[serializer(borsh)] a: String) {}
         };
-        let method_info = ImplItemMethodInfo::new(&mut method, false, impl_type).unwrap().unwrap();
+        let method_info = ImplItemMethodInfo::new(&mut method, None, impl_type).unwrap().unwrap();
         let actual = generate_ext_function(&method_info.attr_signature_info);
        
         local_insta_assert_snapshot!(pretty_print_syn_str(&actual).unwrap());

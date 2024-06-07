@@ -9,7 +9,7 @@ macro_rules! impl_non_fungible_token_core {
         use $crate::non_fungible_token::core::NonFungibleTokenCore;
         use $crate::non_fungible_token::core::NonFungibleTokenResolver;
 
-        #[unc_bindgen]
+        #[unc]
         impl NonFungibleTokenCore for $contract {
             #[payable]
             fn nft_transfer(
@@ -39,7 +39,7 @@ macro_rules! impl_non_fungible_token_core {
             }
         }
 
-        #[unc_bindgen]
+        #[unc]
         impl NonFungibleTokenResolver for $contract {
             #[private]
             fn nft_resolve_transfer(
@@ -70,7 +70,7 @@ macro_rules! impl_non_fungible_token_approval {
     ($contract: ident, $token: ident) => {
         use $crate::non_fungible_token::approval::NonFungibleTokenApproval;
 
-        #[unc_bindgen]
+        #[unc]
         impl NonFungibleTokenApproval for $contract {
             #[payable]
             fn nft_approve(
@@ -114,7 +114,7 @@ macro_rules! impl_non_fungible_token_enumeration {
     ($contract: ident, $token: ident) => {
         use $crate::non_fungible_token::enumeration::NonFungibleTokenEnumeration;
 
-        #[unc_bindgen]
+        #[unc]
         impl NonFungibleTokenEnumeration for $contract {
             fn nft_total_supply(&self) -> unc_sdk::json_types::U128 {
                 self.$token.nft_total_supply()

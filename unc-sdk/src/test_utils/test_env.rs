@@ -2,20 +2,20 @@ use crate::test_utils::VMContextBuilder;
 use crate::{test_vm_config, testing_env, AccountId};
 
 pub fn alice() -> AccountId {
-    "alice".parse().unwrap()
+    "alice.unc".parse().unwrap()
 }
 
 pub fn bob() -> AccountId {
-    "bob".parse().unwrap()
+    "bob.unc".parse().unwrap()
 }
 
 pub fn carol() -> AccountId {
-    "carol".parse().unwrap()
+    "carol.unc".parse().unwrap()
 }
 
 /// Updates the blockchain interface with the config passed in.
 #[deprecated(
-    since = "1.0.0",
+    since = "4.0.0",
     note = "Use `testing_env!` macro to initialize with specific VMConfig"
 )]
 pub fn setup_with_config(vm_config: unc_parameters::vm::Config) {
@@ -24,7 +24,7 @@ pub fn setup_with_config(vm_config: unc_parameters::vm::Config) {
 
 /// Setup the blockchain interface with a default configuration.
 #[deprecated(
-    since = "1.0.0",
+    since = "4.0.0",
     note = "Mocked blockchain is now setup by default, use `testing_env!`"
 )]
 pub fn setup() {

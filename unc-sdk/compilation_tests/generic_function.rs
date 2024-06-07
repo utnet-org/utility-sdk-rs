@@ -1,15 +1,15 @@
 //! Functions can't use generics.
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::unc_bindgen;
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+
+#[derive(Default)]
+#[unc(contract_state)]
 struct Ident {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Ident {
     pub fn is_ident<T>(&self, val: T) -> T {
         val

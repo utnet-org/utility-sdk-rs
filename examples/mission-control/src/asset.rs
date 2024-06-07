@@ -1,6 +1,4 @@
-use unc_sdk::UncSchema;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
+use unc_sdk::unc;
 
 #[derive(
     PartialEq,
@@ -10,14 +8,8 @@ use unc_sdk::serde::{Deserialize, Serialize};
     Hash,
     Clone,
     Copy,
-    Serialize,
-    Deserialize,
-    BorshDeserialize,
-    BorshSerialize,
-    UncSchema,
 )]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers = [json, borsh])]
 pub enum Resource {
     Battery,
     RgbSensor,
@@ -33,14 +25,8 @@ pub enum Resource {
     Hash,
     Clone,
     Copy,
-    Serialize,
-    Deserialize,
-    BorshDeserialize,
-    BorshSerialize,
-    UncSchema,
 )]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers = [json, borsh])]
 pub enum Reward {
     Score,
     Token,
@@ -57,14 +43,8 @@ pub enum Reward {
     Hash,
     Clone,
     Copy,
-    Serialize,
-    Deserialize,
-    BorshDeserialize,
-    BorshSerialize,
-    UncSchema,
 )]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers = [json, borsh])]
 pub enum Asset {
     Resource(Resource),
     Reward(Reward),
@@ -76,16 +56,10 @@ pub enum Asset {
     PartialEq,
     Eq,
     Hash,
-    Serialize,
-    Deserialize,
     PartialOrd,
     Ord,
-    BorshDeserialize,
-    BorshSerialize,
-    UncSchema
 )]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers = [json, borsh])]
 pub enum Exchange {
     MissionTimeWithResource,
     MissionTimeWithTrust,

@@ -1,5 +1,5 @@
 use crate::non_fungible_token::approval::ext_nft_approval_receiver;
-/// Common implementation of the approval management standard for NFTs.
+/// Common implementation of the [approval management standard](https://nomicon.io/Standards/NonFungibleToken/ApprovalManagement.html) for NFTs.
 /// on the contract/account that has just been approved. This is not required to implement.
 use crate::non_fungible_token::approval::NonFungibleTokenApproval;
 use crate::non_fungible_token::token::TokenId;

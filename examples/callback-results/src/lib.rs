@@ -1,12 +1,12 @@
 use unc_sdk::require;
-use unc_sdk::{env, unc_bindgen, Promise, PromiseError};
+use unc_sdk::{env, unc, Promise, PromiseError};
 
 const A_VALUE: u8 = 8;
 
-#[unc_bindgen]
+#[unc(contract_state)]
 pub struct Callback;
 
-#[unc_bindgen]
+#[unc]
 impl Callback {
     /// Call functions a, b, and c asynchronously and handle results with `handle_callbacks`.
     pub fn call_all(fail_b: bool, c_value: u8, d_value: u8) -> Promise {

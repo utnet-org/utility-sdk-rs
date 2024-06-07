@@ -24,7 +24,7 @@ macro_rules! const_assert_impls {
     ($ty:ty: $trait:path) => {
         const _: () = {
             assert!(
-        impls!($ty: $trait),
+                impls!($ty: $trait),
                 concat!("`", stringify!($ty), "` does not implement `", stringify!($trait), "`")
             )
         };
@@ -32,7 +32,7 @@ macro_rules! const_assert_impls {
     ($ty:ty: !$trait:path) => {
         const _: () = {
             assert!(
-        !impls!($ty: $trait),
+                !impls!($ty: $trait),
                 concat!(
                     "`",
                     stringify!($ty),

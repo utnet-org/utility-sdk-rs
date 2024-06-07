@@ -37,14 +37,13 @@ where
 /// abort without a custom message.
 ///
 /// ```
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-/// use unc_sdk::{Abort, unc_bindgen};
+/// use unc_sdk::{Abort, unc};
 ///
-/// #[unc_bindgen]
-/// #[derive(Default, BorshDeserialize, BorshSerialize)]
+/// #[unc(contract_state)]
+/// #[derive(Default)]
 /// pub struct Contract;
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl Contract {
 ///     #[handle_result]
 ///     pub fn foo(&self, text: &str) -> Result<String, Abort> {

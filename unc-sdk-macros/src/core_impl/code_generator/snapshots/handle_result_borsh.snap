@@ -8,7 +8,7 @@ expression: pretty_print_syn_str(&actual).unwrap()
 pub extern "C" fn method() {
     ::unc_sdk::env::setup_panic_hook();
     let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
-    let result = contract.method();
+    let result = Hello::method(&contract);
     match result {
         ::std::result::Result::Ok(result) => {
             let result = ::unc_sdk::borsh::to_vec(&result)

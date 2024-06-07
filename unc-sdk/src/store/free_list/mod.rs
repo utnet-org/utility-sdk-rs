@@ -3,55 +3,40 @@ pub use self::iter::{Drain, Iter, IterMut};
 
 use super::{Vector, ERR_INCONSISTENT_STATE};
 use crate::{env, IntoStorageKey};
+use unc_sdk_macros::{unc, UncSchema};
 
 use borsh::{BorshDeserialize, BorshSerialize};
 
 use std::{fmt, mem};
 
 /// Index for value within a bucket.
-#[derive(BorshSerialize, BorshDeserialize, Debug, Hash, PartialEq, Eq, Clone, Copy)]
+#[unc(inside_uncsdk)]
+#[derive(Debug, Hash, PartialEq, Eq, Clone, Copy)]
 pub struct FreeListIndex(pub(crate) u32);
 
 /// Unordered container of values. This is similar to [`Vector`] except that values are not
 /// re-arranged on removal, keeping the indices consistent. When an element is removed, it will
 /// be replaced with an empty cell which will be populated on the next insertion.
+#[derive(UncSchema, BorshSerialize, BorshDeserialize)]
+#[inside_uncsdk]
+#[abi(borsh)]
 pub(crate) struct FreeList<T>
 where
     T: BorshSerialize,
 {
     first_free: Option<FreeListIndex>,
     occupied_count: u32,
+    // ser/de is independent of `T` ser/de, `BorshSerialize`/`BorshDeserialize`/`BorshSchema` bounds removed
+    #[cfg_attr(not(feature = "abi"), borsh(bound(serialize = "", deserialize = "")))]
+    #[cfg_attr(
+        feature = "abi",
+        borsh(bound(serialize = "", deserialize = ""), schema(params = ""))
+    )]
     elements: Vector<Slot<T>>,
 }
 
-//? Manual implementations needed only because borsh derive is leaking field types
-// https://github.com/utnet-org/borsh-rs/issues/41
-impl<T> BorshSerialize for FreeList<T>
-where
-    T: BorshSerialize,
-{
-    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> Result<(), std::io::Error> {
-        BorshSerialize::serialize(&self.first_free, writer)?;
-        BorshSerialize::serialize(&self.occupied_count, writer)?;
-        BorshSerialize::serialize(&self.elements, writer)?;
-        Ok(())
-    }
-}
-
-impl<T> BorshDeserialize for FreeList<T>
-where
-    T: BorshSerialize,
-{
-    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> Result<Self, std::io::Error> {
-        Ok(Self {
-            first_free: BorshDeserialize::deserialize_reader(reader)?,
-            occupied_count: BorshDeserialize::deserialize_reader(reader)?,
-            elements: BorshDeserialize::deserialize_reader(reader)?,
-        })
-    }
-}
-
-#[derive(BorshDeserialize, BorshSerialize, Debug)]
+#[unc(inside_uncsdk)]
+#[derive(Debug)]
 enum Slot<T> {
     /// Represents a filled cell of a value in the collection.
     Occupied(T),
@@ -223,7 +208,7 @@ where
 
     /// Empty slots in the front of the list is swapped with occupied slots in back of the list.
     /// Defrag helps reduce gas cost in certain scenarios where lot of elements in front of the list are
-    /// removed without getting replaced. Please see https://github.com/utnet-org/utility-sdk-rs/issues/990
+    /// removed without getting replaced. Please see https://github.com/unc/unc-sdk-rs/issues/990
     pub(crate) fn defrag<F>(&mut self, callback: F)
     where
         F: FnMut(&T, u32),

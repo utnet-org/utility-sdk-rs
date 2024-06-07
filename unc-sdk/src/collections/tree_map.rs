@@ -4,6 +4,7 @@ use std::ops::Bound;
 use crate::collections::LookupMap;
 use crate::collections::{append, Vector};
 use crate::{env, IntoStorageKey};
+use unc_sdk_macros::unc;
 
 /// TreeMap based on AVL-tree
 ///
@@ -14,14 +15,28 @@ use crate::{env, IntoStorageKey};
 /// - `above`/`below`:          O(log(N))
 /// - `range` of K elements:    O(Klog(N))
 ///
-#[derive(BorshSerialize, BorshDeserialize)]
+
+#[unc(inside_uncsdk)]
 pub struct TreeMap<K, V> {
     root: u64,
+    // ser/de is independent of `K`,`V` ser/de, `BorshSerialize`/`BorshDeserialize`/`BorshSchema` bounds removed
+    #[cfg_attr(not(feature = "abi"), borsh(bound(serialize = "", deserialize = "")))]
+    #[cfg_attr(
+        feature = "abi",
+        borsh(bound(serialize = "", deserialize = ""), schema(params = ""))
+    )]
     val: LookupMap<K, V>,
+    // ser/de is independent of `K` ser/de, `BorshSerialize`/`BorshDeserialize`/`BorshSchema` bounds removed
+    #[cfg_attr(not(feature = "abi"), borsh(bound(serialize = "", deserialize = "")))]
+    #[cfg_attr(
+        feature = "abi",
+        borsh(bound(serialize = "", deserialize = ""), schema(params = ""))
+    )]
     tree: Vector<Node<K>>,
 }
 
-#[derive(Clone, BorshSerialize, BorshDeserialize, Debug)]
+#[unc(inside_uncsdk)]
+#[derive(Clone, Debug)]
 pub struct Node<K> {
     id: u64,
     key: K,           // key stored in a node

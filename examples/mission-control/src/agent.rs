@@ -1,13 +1,11 @@
 use crate::account::*;
 use crate::asset::*;
 use crate::rate::*;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use unc_sdk::unc;
 
-#[derive(Clone, Serialize, Deserialize, BorshDeserialize, BorshSerialize)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Clone)]
+#[unc(serializers=[json, borsh])]
 pub struct Agent {
     pub account: Account,
     pub is_alive: bool,

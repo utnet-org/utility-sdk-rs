@@ -21,8 +21,8 @@ fn compilation_tests() {
     t.pass("compilation_tests/function_error.rs");
     t.pass("compilation_tests/enum_unc_bindgen.rs");
     t.pass("compilation_tests/schema_derive.rs");
-    if rustversion::cfg!(since(1.78)) {
-        // The compilation error output has slightly changed in 1.78, so we
+    if rustversion::cfg!(since(1.72)) {
+        // The compilation error output has slightly changed in 1.72, so we
         // snapshoted this new version
         t.compile_fail("compilation_tests/schema_derive_invalids.rs");
     }
@@ -36,4 +36,5 @@ fn compilation_tests() {
     t.pass("compilation_tests/contract_metadata.rs");
     t.compile_fail("compilation_tests/contract_metadata_fn_name.rs");
     t.pass("compilation_tests/contract_metadata_bindgen.rs");
+    t.pass("compilation_tests/types.rs");
 }

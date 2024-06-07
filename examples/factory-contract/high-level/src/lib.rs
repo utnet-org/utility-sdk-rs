@@ -1,10 +1,8 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::PromiseError;
-use unc_sdk::{env, ext_contract, unc_bindgen, AccountId, UncToken, Promise};
+use unc_sdk::{env, ext_contract, unc, AccountId, UncToken, Promise};
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc(contract_state)]
 pub struct FactoryContract {}
 
 // If the `ext_contract` name is not provided explicitly, the namespace for generated methods is
@@ -15,7 +13,7 @@ pub trait ExtStatusMessage {
     fn get_status(&self, account_id: AccountId) -> Option<String>;
 }
 
-#[unc_bindgen]
+#[unc]
 impl FactoryContract {
     pub fn deploy_status_message(&self, account_id: AccountId, amount: UncToken) {
         Promise::new(account_id)

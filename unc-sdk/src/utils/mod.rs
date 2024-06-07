@@ -10,7 +10,7 @@ pub(crate) use cache_entry::{CacheEntry, EntryState};
 use crate::{env, PromiseResult, UncToken};
 
 /// Helper macro to log a message through [`env::log_str`].
-/// This macro can be used similar to the [`std::format`] macro in most cases.
+/// This macro can be used similar to the [`std::format`] macro.
 ///
 /// This differs from [`std::format`] because instead of generating a string, it will log the utf8
 /// bytes as a log through [`env::log_str`].
@@ -25,7 +25,7 @@ use crate::{env, PromiseResult, UncToken};
 /// # fn main() {
 /// log!("test");
 /// let world: &str = "world";
-/// log!(world);
+/// log!("{world}");
 /// log!("Hello {}", world);
 /// log!("x = {}, y = {y}", 10, y = 30);
 /// # }
@@ -34,11 +34,8 @@ use crate::{env, PromiseResult, UncToken};
 /// [`env::log_str`]: crate::env::log_str
 #[macro_export]
 macro_rules! log {
-    ($arg:expr) => {
-        $crate::env::log_str($arg.as_ref())
-    };
     ($($arg:tt)*) => {
-        $crate::env::log_str(format!($($arg)*).as_str())
+        $crate::env::log_str(::std::format!($($arg)*).as_str())
     };
 }
 
@@ -83,11 +80,11 @@ pub fn assert_self() {
     require!(env::predecessor_account_id() == env::current_account_id(), "Method is private");
 }
 
-/// Assert that 1 attoUNC was attached.
+/// Assert that 1 yoctoUNC was attached.
 pub fn assert_one_atto() {
     require!(
         env::attached_deposit() == UncToken::from_attounc(1),
-        "Requires attached deposit of exactly 1 attoUNC"
+        "Requires attached deposit of exactly 1 yoctoUNC"
     )
 }
 
@@ -113,7 +110,7 @@ pub fn promise_result_as_success() -> Option<Vec<u8>> {
 ///
 /// [`GlobalAllocator`]: std::alloc::GlobalAlloc
 #[deprecated(
-    since = "1.0.0",
+    since = "4.0.0",
     note = "Allocator is already initialized with the default `wee_alloc` feature set. \
             Please make sure you don't disable default features on the SDK or set the global \
             allocator manually."

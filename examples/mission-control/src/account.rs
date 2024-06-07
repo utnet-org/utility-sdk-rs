@@ -1,12 +1,9 @@
+use crate::asset::*;
+use crate::rate::*;
 use std::collections::HashMap;
 use std::ops;
 
-use unc_sdk::UncSchema;
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::serde::{Deserialize, Serialize};
-
-use crate::asset::*;
-use crate::rate::*;
+use unc_sdk::unc;
 
 #[derive(
     PartialEq,
@@ -15,20 +12,16 @@ use crate::rate::*;
     Hash,
     Clone,
     Copy,
-    Serialize,
-    Deserialize,
     Debug,
-    BorshDeserialize,
-    BorshSerialize,
-    UncSchema,
 )]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(serializers = [json, borsh])]
 pub struct Quantity(pub i32);
 
-#[derive(Clone, Serialize, Deserialize, BorshDeserialize, BorshSerialize, UncSchema)]
-#[serde(crate = "unc_sdk::serde")]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc]
+pub struct X;
+
+#[derive(Clone)]
+#[unc(serializers = [json, borsh])]
 pub struct Account(pub HashMap<Asset, Quantity>);
 
 pub enum Tranx {

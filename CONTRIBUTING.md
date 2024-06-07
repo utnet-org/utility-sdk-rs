@@ -1,6 +1,6 @@
 # Contributing to utility-sdk-rs
 
-Thank you for your interest in contributing to UNC's Rust SDK! We appreciate any type of contribution.
+Thank you for your interest in contributing to Utility's Rust SDK! We appreciate any type of contribution.
 
 If you have any questions about contributing, or about the project in general, please ask in our [rust-sdk Discord channel](https://discord.gg/cKRZCqD2b2).
 

@@ -5,6 +5,7 @@ use std::iter::FusedIterator;
 use std::marker::PhantomData;
 
 use borsh::{to_vec, BorshDeserialize, BorshSerialize};
+use unc_sdk_macros::unc;
 
 use crate::collections::append_slice;
 use crate::{env, IntoStorageKey};
@@ -20,7 +21,7 @@ fn expect_consistent_state<T>(val: Option<T>) -> T {
 
 /// An iterable implementation of vector that stores its content on the trie.
 /// Uses the following map: index -> element.
-#[derive(BorshSerialize, BorshDeserialize)]
+#[unc(inside_uncsdk)]
 pub struct Vector<T> {
     len: u64,
     prefix: Vec<u8>,

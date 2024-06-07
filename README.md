@@ -39,19 +39,18 @@
 
 ## Example
 
-Wrap a struct in `#[unc_bindgen]` and it generates a smart contract compatible with the Utility blockchain:
+Wrap a struct in `#[unc]` and it generates a smart contract compatible with the Utility blockchain:
 
 ```rs
-use unc_sdk::{unc_bindgen, env};
+use unc_sdk::{unc, env};
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(contract_state)]
+#[derive(Default)]
 pub struct StatusMessage {
     records: HashMap<AccountId, String>,
 }
 
-#[unc_bindgen]
+#[unc]
 impl StatusMessage {
     pub fn set_status(&mut self, message: String) {
         let account_id = env::signer_account_id();
@@ -102,7 +101,7 @@ to see various usages of cross contract calls, including **system-level actions*
 We can define an initialization method that can be used to initialize the state of the contract. `#[init]` verifies that the contract has not been initialized yet (the contract state doesn't exist) and will panic otherwise.
 
 ```rust
-#[unc_bindgen]
+#[unc]
 impl StatusMessage {
     #[init]
     pub fn new(user: String, status: String) -> Self {
@@ -127,9 +126,8 @@ impl Default for StatusMessage {
 You can also prohibit `Default` trait initialization by using `unc_sdk::PanicOnDefault` helper macro. E.g.:
 
 ```rust
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(contract_state)]
+#[derive(PanicOnDefault)]
 pub struct StatusMessage {
     records: HashMap<String, String>,
 }
@@ -207,11 +205,10 @@ The general workflow is the following:
    Here is an example of a smart contract struct:
 
    ```rust
-   use unc_sdk::{unc_bindgen, env};
+   use unc_sdk::{unc, env};
 
-   #[unc_bindgen]
-   #[derive(Default, BorshSerialize, BorshDeserialize)]
-   #[borsh(crate = "unc_sdk::borsh")]
+   #[unc(contract_state)]
+   #[derive(Default)]
    pub struct MyContract {
        data: HashMap<u64, u64>
    }
@@ -220,13 +217,13 @@ The general workflow is the following:
 3. Define methods that UNC will expose as smart contract methods:
     * You are free to define any methods for the struct but only public methods will be exposed as smart contract methods;
     * Methods need to use either `&self`, `&mut self`, or `self`;
-    * Decorate the `impl` section with `#[unc_bindgen]` macro. That is where all the M.A.G.I.C. (Macros-Auto-Generated Injected Code) happens;
+    * Decorate the `impl` section with `#[unc]` macro. That is where all the M.A.G.I.C. (Macros-Auto-Generated Injected Code) happens;
     * If you need to use blockchain interface, e.g. to get the current account id then you can access it with `env::*`;
 
     Here is an example of smart contract methods:
 
     ```rust
-    #[unc_bindgen]
+    #[unc]
     impl MyContract {
         pub fn insert_data(&mut self, key: u64, value: u64) -> Option<u64> {
             self.data.insert(key)

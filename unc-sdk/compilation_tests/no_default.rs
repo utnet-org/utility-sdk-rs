@@ -1,15 +1,15 @@
 //! Smart contract with initialization function.
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::{unc_bindgen, PanicOnDefault};
+use unc_sdk::unc;
+use unc_sdk::PanicOnDefault;
 
-#[unc_bindgen]
-#[derive(PanicOnDefault, BorshDeserialize, BorshSerialize)]
+#[derive(PanicOnDefault)]
+#[unc(contract_state)]
 struct Incrementer {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Incrementer {
     pub fn inc(&mut self, by: u32) {
         self.value += by;

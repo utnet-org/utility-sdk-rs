@@ -14,7 +14,7 @@ use crate::promise::Allowance;
 use crate::types::{
     AccountId, BlockHeight, Gas, PromiseIndex, PromiseResult, PublicKey, StorageUsage, UncToken,
 };
-use crate::{GasWeight, PromiseError};
+use crate::{CryptoHash, GasWeight, PromiseError};
 use unc_sys as sys;
 
 const REGISTER_EXPECTED_ERR: &str =
@@ -185,7 +185,7 @@ pub fn input() -> Option<Vec<u8>> {
 }
 
 /// Current block index.
-#[deprecated(since = "1.0.0", note = "Use block_height instead")]
+#[deprecated(since = "4.0.0", note = "Use block_height instead")]
 pub fn block_index() -> BlockHeight {
     block_height()
 }
@@ -269,13 +269,13 @@ pub fn random_seed() -> Vec<u8> {
 /// ```rust
 /// use rand::{Rng, SeedableRng};
 /// use rand_chacha::ChaCha20Rng;
-/// use unc_sdk::unc_bindgen;
+/// use unc_sdk::unc;
 /// use unc_sdk::env;
-/// #[unc_bindgen]
+/// #[unc(contract_state)]
 /// struct RngExample {
 ///    val: i32,
 /// }
-/// #[unc_bindgen]
+/// #[unc]
 /// impl RngExample {
 ///     pub fn increment(&mut self) {
 ///         let mut rng = ChaCha20Rng::from_seed(env::random_seed_array());
@@ -292,13 +292,13 @@ pub fn random_seed() -> Vec<u8> {
 ///
 /// ```rust
 /// use unc_rng::Rng;
-/// use unc_sdk::unc_bindgen;
+/// use unc_sdk::unc;
 /// use unc_sdk::env;
-/// #[unc_bindgen]
+/// #[unc(contract_state)]
 /// struct UncRngExample {
 ///    val: i32,
 /// }
-/// #[unc_bindgen]
+/// #[unc]
 /// impl UncRngExample {
 ///     pub fn increment(&mut self) {
 ///         let mut rng = Rng::new(&env::random_seed());
@@ -667,7 +667,7 @@ pub(crate) fn migrate_to_allowance(allowance: UncToken) -> Allowance {
     Allowance::limited(allowance).unwrap_or(Allowance::Unlimited)
 }
 
-#[deprecated(since = "2.0.0", note = "Use add_access_key_allowance instead")]
+#[deprecated(since = "5.0.0", note = "Use add_access_key_allowance instead")]
 pub fn promise_batch_action_add_key_with_function_call(
     promise_index: PromiseIndex,
     public_key: &PublicKey,
@@ -769,6 +769,55 @@ pub fn promise_return(promise_idx: PromiseIndex) {
     unsafe { sys::promise_return(promise_idx.0) }
 }
 
+/// Creates a promise that will execute a method on the current account with given arguments.
+/// Writes a resumption token (data id) to the specified register. The callback method will execute
+/// after promise_yield_resume is called with the data id OR enough blocks have passed. The timeout
+/// length is specified as a protocol-level parameter yield_timeout_length_in_blocks = 200.
+///
+/// The callback method will execute with a single promise input. Input will either be a payload
+/// provided by the user when calling promise_yield_resume, or a PromiseError in case of timeout.
+///
+/// Resumption tokens are specific to the local account; promise_yield_resume must be called from
+/// a method of the same contract.
+pub fn promise_yield_create(
+    function_name: &str,
+    arguments: &[u8],
+    gas: Gas,
+    weight: GasWeight,
+    register_id: u64,
+) -> PromiseIndex {
+    unsafe {
+        PromiseIndex(sys::promise_yield_create(
+            function_name.len() as _,
+            function_name.as_ptr() as _,
+            arguments.len() as _,
+            arguments.as_ptr() as _,
+            gas.as_gas(),
+            weight.0,
+            register_id as _,
+        ))
+    }
+}
+
+/// Accepts a resumption token `data_id` created by promise_yield_create on the local account.
+/// `data` is a payload to be passed to the callback method as a promise input. Returns false if
+/// no promise yield with the specified `data_id` is found. Returns true otherwise, guaranteeing
+/// that the callback method will be executed with a user-provided payload.
+///
+/// If promise_yield_resume is called multiple times with the same `data_id`, it is possible to get
+/// back multiple 'true' results. The payload from the first successful call is passed to the
+/// callback.
+pub fn promise_yield_resume(data_id: &CryptoHash, data: &[u8]) -> bool {
+    unsafe {
+        sys::promise_yield_resume(
+            data_id.len() as _,
+            data_id.as_ptr() as _,
+            data.len() as _,
+            data.as_ptr() as _,
+        ) != 0
+    }
+}
+
 // ###############
 // # Validator API #
 // ###############
@@ -799,7 +848,7 @@ pub fn value_return(value: &[u8]) {
 }
 /// Terminates the execution of the program with the UTF-8 encoded message.
 /// [`panic_str`] should be used as the bytes are required to be UTF-8
-#[deprecated(since = "1.0.0", note = "Use env::panic_str to panic with a message.")]
+#[deprecated(since = "4.0.0", note = "Use env::panic_str to panic with a message.")]
 pub fn panic(message: &[u8]) -> ! {
     unsafe { sys::panic_utf8(message.len() as _, message.as_ptr() as _) }
 }
@@ -834,7 +883,7 @@ pub fn log_str(message: &str) {
 }
 
 /// Log the UTF-8 encodable message.
-#[deprecated(since = "1.0.0", note = "Use env::log_str for logging messages.")]
+#[deprecated(since = "4.0.0", note = "Use env::log_str for logging messages.")]
 pub fn log(message: &[u8]) {
     #[cfg(all(debug_assertions, not(target_arch = "wasm32")))]
     eprintln!("{}", String::from_utf8_lossy(message));
@@ -991,6 +1040,10 @@ mod tests {
             "0o",
             "com",
             "unc",
+            "bowen",
+            "b-o_w_e-n",
+            "b.owen",
+            "bro.wen",
             "a.ha",
             "a.b-a.ra",
             "system",
@@ -1000,6 +1053,7 @@ mod tests {
             "0o0ooo00oo00o",
             "alex-skidanov",
             "10-4.8-2",
+            "b-o_w_e-n",
             "no_lols",
             "0123456789012345678901234567890123456789012345678901234567890123",
             // Valid, but can't be created
@@ -1034,7 +1088,7 @@ mod tests {
             "..",
             "a..unc",
             "nEar",
-            "_wick",
+            "_bowen",
             "hello world",
             "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz",
             "01234567890123456789012345678901234567890123456789012345678901234",
@@ -1199,7 +1253,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_g1_multiexp() {
-        // Originated from https://github.com/utnet-org/utility/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
+        // Originated from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
         let buffer = [
             16, 238, 91, 161, 241, 22, 172, 158, 138, 252, 202, 212, 136, 37, 110, 231, 118, 220,
             8, 45, 14, 153, 125, 217, 227, 87, 238, 238, 31, 138, 226, 8, 238, 185, 12, 155, 93,
@@ -1222,7 +1276,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_g1_sum() {
-        // Originated from https://github.com/utnet-org/utility/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
+        // Originated from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-test-contracts/estimator-contract/src/lib.rs#L557-L720
         let buffer = [
             0, 11, 49, 94, 29, 152, 111, 116, 138, 248, 2, 184, 8, 159, 80, 169, 45, 149, 48, 32,
             49, 37, 6, 133, 105, 171, 194, 120, 44, 195, 17, 180, 35, 137, 154, 4, 192, 211, 244,
@@ -1243,7 +1297,7 @@ mod tests {
 
     #[test]
     pub fn alt_bn128_pairing_check() {
-        // Taken from https://github.com/utnet-org/utility/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L239-L250
+        // Taken from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L239-L250
         let valid_pair = [
             117, 10, 217, 99, 113, 78, 234, 67, 183, 90, 26, 58, 200, 86, 195, 123, 42, 184, 213,
             88, 224, 248, 18, 200, 108, 6, 181, 6, 28, 17, 99, 7, 36, 134, 53, 115, 192, 180, 3,
@@ -1269,7 +1323,7 @@ mod tests {
         ];
         assert!(super::alt_bn128_pairing_check(&valid_pair));
 
-        // Taken from https://github.com/utnet-org/utility/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L254-L265
+        // Taken from https://github.com/unc/unccore/blob/8cd095ffc98a6507ed2d2a8982a6a3e42ebc1b62/runtime/unc-vm-runner/src/logic/tests/alt_bn128.rs#L254-L265
         let invalid_pair = [
             117, 10, 217, 99, 113, 78, 234, 67, 183, 90, 26, 58, 200, 86, 195, 123, 42, 184, 213,
             88, 224, 248, 18, 200, 108, 6, 181, 6, 28, 17, 99, 7, 36, 134, 53, 115, 192, 180, 3,

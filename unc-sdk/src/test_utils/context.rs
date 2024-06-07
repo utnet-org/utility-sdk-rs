@@ -65,6 +65,7 @@ pub struct VMContext {
     pub random_seed: [u8; 32],
     /// If Some, it means that execution is made in a view mode and defines its configuration.
     /// View mode means that only read-only operations are allowed.
+    /// See <https://nomicon.io/Proposals/0018-view-change-method.html> for more details.
     pub view_config: Option<ViewConfig>,
     /// How many `DataReceipt`'s should receive this execution result. This should be empty if
     /// this function call is a part of a batch and it is not the last action.
@@ -185,7 +186,7 @@ impl VMContextBuilder {
 }
 
 /// Initializes the [`MockedBlockchain`] with a single promise result during execution.
-#[deprecated(since = "1.0.0", note = "Use `testing_env!` macro to initialize with promise results")]
+#[deprecated(since = "4.0.0", note = "Use `testing_env!` macro to initialize with promise results")]
 pub fn testing_env_with_promise_results(context: VMContext, promise_result: PromiseResult) {
     let storage = crate::mock::with_mocked_blockchain(|b| b.take_storage());
 

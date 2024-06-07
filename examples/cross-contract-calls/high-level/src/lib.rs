@@ -1,13 +1,11 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::env;
-use unc_sdk::{log, unc_bindgen, PromiseOrValue};
+use unc_sdk::{log, unc, PromiseOrValue};
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc(contract_state)]
 pub struct CrossContract {}
 
-#[unc_bindgen]
+#[unc]
 impl CrossContract {
     pub fn factorial(&self, n: u32) -> PromiseOrValue<u32> {
         if n <= 1 {

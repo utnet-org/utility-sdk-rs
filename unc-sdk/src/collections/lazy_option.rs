@@ -9,12 +9,13 @@ use borsh::{to_vec, BorshDeserialize, BorshSerialize};
 
 use crate::env;
 use crate::IntoStorageKey;
+use unc_sdk_macros::unc;
 
 const ERR_VALUE_SERIALIZATION: &str = "Cannot serialize value with Borsh";
 const ERR_VALUE_DESERIALIZATION: &str = "Cannot deserialize value with Borsh";
 
 /// An persistent lazy option, that stores a value in the storage.
-#[derive(BorshSerialize, BorshDeserialize)]
+#[unc(inside_uncsdk)]
 pub struct LazyOption<T> {
     storage_key: Vec<u8>,
     #[borsh(skip)]

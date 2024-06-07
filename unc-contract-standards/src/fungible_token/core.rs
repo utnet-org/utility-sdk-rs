@@ -8,22 +8,20 @@ use unc_sdk::PromiseOrValue;
 /// # Examples
 ///
 /// ```
-/// use unc_sdk::{unc_bindgen, PanicOnDefault, AccountId, PromiseOrValue};
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
+/// use unc_sdk::{unc, PanicOnDefault, AccountId, PromiseOrValue};
 /// use unc_sdk::collections::LazyOption;
 /// use unc_sdk::json_types::U128;
 /// use unc_contract_standards::fungible_token::{FungibleToken, FungibleTokenCore};
 /// use unc_contract_standards::fungible_token::metadata::FungibleTokenMetadata;
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///     token: FungibleToken,
 ///     metadata: LazyOption<FungibleTokenMetadata>,
 /// }
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl FungibleTokenCore for Contract {
 ///     #[payable]
 ///     fn ft_transfer(&mut self, receiver_id: AccountId, amount: U128, memo: Option<String>) {
@@ -56,7 +54,7 @@ pub trait FungibleTokenCore {
     /// Transfers positive `amount` of tokens from the `env::predecessor_account_id` to `receiver_id`.
     /// Both accounts must be registered with the contract for transfer to succeed. (See [UIP-145](https://github.com/utnet-org/UIPs/discussions/145))
     /// This method must to be able to accept attached deposits, and must not panic on attached deposit.
-    /// Exactly 1 attoUNC must be attached.
+    /// Exactly 1 yoctoUNC must be attached.
     /// See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:
@@ -78,7 +76,7 @@ pub trait FungibleTokenCore {
     /// amount, the remaining balance must be refunded. See [the Security section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Both accounts must be registered with the contract for transfer to succeed. (See #145)
-    /// This method must to be able to accept attached deposits, and must not panic on attached deposit. Exactly 1 attoUNC must be attached. See [the Security
+    /// This method must to be able to accept attached deposits, and must not panic on attached deposit. Exactly 1 yoctoUNC must be attached. See [the Security
     /// section](https://github.com/utnet-org/UIPs/issues/141#user-content-security) of the standard.
     ///
     /// Arguments:

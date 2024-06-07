@@ -1,6 +1,5 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::json_types::U64;
-use unc_sdk::{env, require, AccountId, Duration, Promise, Timestamp};
+use unc_sdk::{env, require, unc, AccountId, Duration, Promise, Timestamp};
 
 type WrappedDuration = U64;
 
@@ -25,8 +24,7 @@ pub trait Upgradable {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc]
 pub struct Upgrade {
     pub owner: AccountId,
     pub staging_duration: Duration,

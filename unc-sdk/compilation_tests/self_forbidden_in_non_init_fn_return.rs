@@ -1,15 +1,15 @@
 //! Method signature uses Self.
 
-use unc_sdk::unc_bindgen;
-use serde::{Deserialize, Serialize};
+use unc_sdk::unc;
 
-#[unc_bindgen]
-#[derive(Default, Serialize, Deserialize)]
+
+#[derive(Default)]
+#[unc(contract_state, serializers=[json])]
 pub struct Ident {
     value: u32,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Ident {
     pub fn plain_ret() -> Self {
         unimplemented!()

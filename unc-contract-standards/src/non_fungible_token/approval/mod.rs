@@ -14,25 +14,23 @@ use unc_sdk::Promise;
 /// is a method to do "transfer and call" which may be preferred over using
 /// an approval management standard in certain use cases.
 ///
-/// approval management standard
-/// core non-fungible token standard
+/// [approval management standard]: https://nomicon.io/Standards/NonFungibleToken/ApprovalManagement.html
+/// [core non-fungible token standard]: https://nomicon.io/Standards/NonFungibleToken/Core.html
 ///
 /// # Examples
 ///
 /// ```
 /// use std::collections::HashMap;
-/// use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc_bindgen, Promise};
+/// use unc_sdk::{PanicOnDefault, AccountId, PromiseOrValue, unc, Promise};
 /// use unc_contract_standards::non_fungible_token::{TokenId, NonFungibleToken, NonFungibleTokenApproval};
 ///
-/// #[unc_bindgen]
-/// #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-/// #[borsh(crate = "unc_sdk::borsh")]
+/// #[unc(contract_state)]
+/// #[derive(PanicOnDefault)]
 /// pub struct Contract {
 ///    tokens: NonFungibleToken,
 ///}
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl NonFungibleTokenApproval for Contract {
 ///     #[payable]
 ///     fn nft_approve(&mut self, token_id: TokenId, account_id: AccountId, msg: Option<String>) -> Option<Promise> {
@@ -60,7 +58,7 @@ pub trait NonFungibleTokenApproval {
     /// Add an approved account for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of at least 1 attoⓃ for
+    /// * Caller of the method must attach a deposit of at least 1 yoctoⓃ for
     ///   security purposes
     /// * Contract MAY require caller to attach larger deposit, to cover cost of
     ///   storing approver data
@@ -89,7 +87,7 @@ pub trait NonFungibleTokenApproval {
     /// Revoke an approved account for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of 1 attoⓃ for security
+    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security
     ///   purposes
     /// * If contract requires >1yN deposit on `nft_approve`, contract
     ///   MUST refund associated storage deposit when owner revokes approval
@@ -103,7 +101,7 @@ pub trait NonFungibleTokenApproval {
     /// Revoke all approved accounts for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of 1 attoⓃ for security
+    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security
     ///   purposes
     /// * If contract requires >1yN deposit on `nft_approve`, contract
     ///   MUST refund all associated storage deposit when owner revokes approvals

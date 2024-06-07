@@ -23,5 +23,5 @@ pub extern "C" fn method() {
     let y: ::std::string::String = ::unc_sdk::serde_json::from_slice(&data)
         .expect("Failed to deserialize callback using JSON");
     let contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
-    contract.method(&mut x, y);
+    Hello::method(&contract, &mut x, y);
 }

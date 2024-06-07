@@ -1,8 +1,9 @@
 //! Testing BorshStorageKey macro.
 
-use borsh::{BorshDeserialize, BorshSerialize};
+use borsh::BorshSerialize;
+use unc_sdk::unc;
 use unc_sdk::collections::LookupMap;
-use unc_sdk::{unc_bindgen, BorshStorageKey};
+use unc_sdk::BorshStorageKey;
 
 #[derive(BorshStorageKey, BorshSerialize)]
 struct StorageKeyStruct {
@@ -15,8 +16,7 @@ enum StorageKeyEnum {
     SubAccounts { account_id: String },
 }
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
 struct Contract {
     map1: LookupMap<u64, u64>,
     map2: LookupMap<String, String>,
@@ -31,7 +31,7 @@ impl Default for Contract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl Contract {}
 
 fn main() {}

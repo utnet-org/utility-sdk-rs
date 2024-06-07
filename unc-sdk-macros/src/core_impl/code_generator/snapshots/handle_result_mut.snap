@@ -11,7 +11,7 @@ pub extern "C" fn method() {
         ::unc_sdk::env::panic_str("Method method doesn't accept deposit");
     }
     let mut contract: Hello = ::unc_sdk::env::state_read().unwrap_or_default();
-    let result = contract.method();
+    let result = Hello::method(&mut contract);
     match result {
         ::std::result::Result::Ok(result) => {
             let result = ::unc_sdk::serde_json::to_vec(&result)

@@ -1,17 +1,15 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::json_types::U128;
 use unc_sdk::serde_json;
-use unc_sdk::{env, unc_bindgen, AccountId, Gas, UncToken, PromiseResult};
+use unc_sdk::{env, unc, AccountId, Gas, UncToken, PromiseResult};
 
 // Prepaid gas for making a single simple call.
 const SINGLE_CALL_GAS: Gas = Gas::from_tgas(20);
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc(contract_state)]
 pub struct FactoryContract {}
 
-#[unc_bindgen]
+#[unc]
 impl FactoryContract {
     pub fn deploy_status_message(&self, account_id: AccountId, amount: U128) {
         let promise_idx = env::promise_batch_create(&account_id);

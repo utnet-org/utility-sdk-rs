@@ -1,6 +1,5 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use unc_sdk::serde_json;
-use unc_sdk::{env, unc_bindgen, require, Gas, UncToken, PromiseResult};
+use unc_sdk::{env, unc, require, Gas, UncToken, PromiseResult};
 
 // Prepaid gas for a single (not inclusive of recursion) `factorial` call.
 const FACTORIAL_CALL_GAS: Gas = Gas::from_tgas(20);
@@ -8,12 +7,11 @@ const FACTORIAL_CALL_GAS: Gas = Gas::from_tgas(20);
 // Prepaid gas for a single `factorial_mult` call.
 const FACTORIAL_MULT_CALL_GAS: Gas = Gas::from_tgas(10);
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(Default)]
+#[unc(contract_state)]
 pub struct CrossContract {}
 
-#[unc_bindgen]
+#[unc]
 impl CrossContract {
     pub fn factorial(&self, n: u32) {
         if n <= 1 {

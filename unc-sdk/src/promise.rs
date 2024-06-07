@@ -192,18 +192,17 @@ impl PromiseJoint {
 ///   execution of method `ContractB::b` of `bob_unc` account, and the return value of `ContractA::a`
 ///   will be what `ContractB::b` returned.
 /// ```no_run
-/// # use unc_sdk::{ext_contract, unc_bindgen, Promise, Gas};
-/// # use borsh::{BorshDeserialize, BorshSerialize};
+/// # use unc_sdk::{ext_contract, unc, Promise, Gas};
 /// #[ext_contract]
 /// pub trait ContractB {
 ///     fn b(&mut self);
 /// }
 ///
-/// #[unc_bindgen]
-/// #[derive(Default, BorshDeserialize, BorshSerialize)]
+/// #[unc(contract_state)]
+/// #[derive(Default)]
 /// struct ContractA {}
 ///
-/// #[unc_bindgen]
+/// #[unc]
 /// impl ContractA {
 ///     pub fn a(&self) -> Promise {
 ///         contract_b::ext("bob_unc".parse().unwrap()).b()
@@ -352,7 +351,7 @@ impl Promise {
         )
     }
 
-    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance instead")]
+    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance instead")]
     pub fn add_access_key(
         self,
         public_key: PublicKey,
@@ -382,7 +381,7 @@ impl Promise {
         })
     }
 
-    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
+    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
     pub fn add_access_key_with_nonce(
         self,
         public_key: PublicKey,
@@ -469,18 +468,17 @@ impl Promise {
     ///
     /// In the below code `a1` and `a2` functions are equivalent.
     /// ```
-    /// # use unc_sdk::{ext_contract, Gas, unc_bindgen, Promise};
-    /// # use borsh::{BorshDeserialize, BorshSerialize};
+    /// # use unc_sdk::{ext_contract, Gas, unc, Promise};
     /// #[ext_contract]
     /// pub trait ContractB {
     ///     fn b(&mut self);
     /// }
     ///
-    /// #[unc_bindgen]
-    /// #[derive(Default, BorshDeserialize, BorshSerialize)]
+    /// #[unc(contract_state)]
+    /// #[derive(Default)]
     /// struct ContractA {}
     ///
-    /// #[unc_bindgen]
+    /// #[unc]
     /// impl ContractA {
     ///     pub fn a1(&self) {
     ///        contract_b::ext("bob_unc".parse().unwrap()).b().as_return();
@@ -552,7 +550,7 @@ impl schemars::JsonSchema for Promise {
 /// or `PromiseOrValue::Value` to specify which one should be returned.
 /// # Example
 /// ```no_run
-/// # use unc_sdk::{ext_contract, unc_bindgen, Gas, PromiseOrValue};
+/// # use unc_sdk::{ext_contract, unc, Gas, PromiseOrValue};
 /// #[ext_contract]
 /// pub trait ContractA {
 ///     fn a(&mut self);

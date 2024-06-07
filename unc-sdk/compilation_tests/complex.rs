@@ -1,33 +1,33 @@
 //! Complex smart contract.
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::unc_bindgen;
-use serde::{Deserialize, Serialize};
+use unc_sdk::unc;
 use std::collections::HashMap;
 
 #[derive(
-    BorshDeserialize, BorshSerialize, Eq, PartialEq, Hash, PartialOrd, Ord, Serialize, Deserialize,
+    Eq, PartialEq, Hash, PartialOrd, Ord,
 )]
+#[unc(serializers=[borsh, json])]
 pub enum TypeA {
     Var1,
     Var2,
 }
 
 #[derive(
-    BorshDeserialize, BorshSerialize, Eq, PartialEq, Hash, PartialOrd, Serialize, Deserialize,
+    Eq, PartialEq, Hash, PartialOrd,
 )]
+#[unc(serializers=[borsh, json])]
 pub enum TypeB {
     Var1,
     Var2,
 }
 
-#[unc_bindgen]
-#[derive(Default, BorshDeserialize, BorshSerialize)]
+#[unc(contract_state)]
+#[derive(Default)]
 struct Storage {
     map: HashMap<TypeA, TypeB>,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Storage {
     pub fn insert(&mut self, key: TypeA, value: TypeB) -> Option<TypeB> {
         self.map.insert(key, value)

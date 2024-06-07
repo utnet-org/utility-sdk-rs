@@ -1,13 +1,10 @@
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
-use unc_sdk::store::LookupMap;
-use unc_sdk::{env, log, unc_bindgen, AccountId, UncToken};
+use unc_sdk::store::UnorderedMap;
+use unc_sdk::{env, log, unc, AccountId, UncToken};
 
 /// An example of a versioned contract. This is a simple contract that tracks how much
 /// each account deposits into the contract. In v1, a nonce is added to state which increments
 /// after each successful deposit.
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc(contract_state)]
 pub enum VersionedContract {
     V0(ContractV0),
     V1(Contract),
@@ -33,7 +30,7 @@ impl VersionedContract {
         }
     }
 
-    fn funders(&self) -> &LookupMap<AccountId, UncToken> {
+    fn funders(&self) -> &UnorderedMap<AccountId, UncToken> {
         match self {
             Self::V0(contract) => &contract.funders,
             Self::V1(contract) => &contract.funders,
@@ -47,38 +44,36 @@ impl Default for VersionedContract {
     }
 }
 
-#[derive(BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc]
 pub struct ContractV0 {
-    funders: LookupMap<AccountId, UncToken>,
+    funders: UnorderedMap<AccountId, UncToken>,
 }
 
 impl Default for ContractV0 {
     fn default() -> Self {
-        Self { funders: LookupMap::new(b"f") }
+        Self { funders: UnorderedMap::new(b"f") }
     }
 }
 
-#[derive(BorshDeserialize, BorshSerialize)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[unc]
 pub struct Contract {
-    funders: LookupMap<AccountId, UncToken>,
+    funders: UnorderedMap<AccountId, UncToken>,
     nonce: u64,
 }
 
 impl Default for Contract {
     fn default() -> Self {
-        Self { funders: LookupMap::new(b"f"), nonce: 0 }
+        Self { funders: UnorderedMap::new(b"f"), nonce: 0 }
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl VersionedContract {
     #[payable]
     pub fn deposit(&mut self) {
         let account_id = env::predecessor_account_id();
         let deposit = env::attached_deposit();
-        log!("{} deposited {} attounc", account_id, deposit);
+        log!("{} deposited {} yUNC", account_id, deposit);
         let contract = self.contract_mut();
         let res = contract.funders.entry(account_id.clone()).or_default();
         let res = res.saturating_add(deposit);
@@ -133,7 +128,7 @@ mod tests {
     #[test]
     fn contract_v0_interactions() {
         let mut contract = {
-            let mut funders = LookupMap::new(b"f");
+            let mut funders = UnorderedMap::new(b"f");
             funders.insert(bob(), UncToken::from_attounc(8));
             VersionedContract::V0(ContractV0 { funders })
         };

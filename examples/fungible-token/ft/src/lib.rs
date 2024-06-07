@@ -24,17 +24,15 @@ use unc_contract_standards::fungible_token::{
 use unc_contract_standards::storage_management::{
     StorageBalance, StorageBalanceBounds, StorageManagement,
 };
-use unc_sdk::borsh::{BorshDeserialize, BorshSerialize};
+use unc_sdk::borsh::BorshSerialize;
 use unc_sdk::collections::LazyOption;
 use unc_sdk::json_types::U128;
 use unc_sdk::{
-    env, log, require, unc_bindgen, AccountId, BorshStorageKey, PanicOnDefault, PromiseOrValue,
-    UncToken,
+    env, log, unc, require, AccountId, BorshStorageKey, UncToken, PanicOnDefault, PromiseOrValue,
 };
 
-#[unc_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[borsh(crate = "unc_sdk::borsh")]
+#[derive(PanicOnDefault)]
+#[unc(contract_state)]
 pub struct Contract {
     token: FungibleToken,
     metadata: LazyOption<FungibleTokenMetadata>,
@@ -49,7 +47,7 @@ enum StorageKey {
     Metadata,
 }
 
-#[unc_bindgen]
+#[unc]
 impl Contract {
     /// Initializes the contract with the given total supply owned by the given `owner_id` with
     /// default metadata (for example purposes only).
@@ -60,7 +58,7 @@ impl Contract {
             total_supply,
             FungibleTokenMetadata {
                 spec: FT_METADATA_SPEC.to_string(),
-                name: "Example utility fungible token".to_string(),
+                name: "Example Utility fungible token".to_string(),
                 symbol: "EXAMPLE".to_string(),
                 icon: Some(DATA_IMAGE_SVG_UNC_ICON.to_string()),
                 reference: None,
@@ -94,7 +92,7 @@ impl Contract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl FungibleTokenCore for Contract {
     #[payable]
     fn ft_transfer(&mut self, receiver_id: AccountId, amount: U128, memo: Option<String>) {
@@ -121,7 +119,7 @@ impl FungibleTokenCore for Contract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl FungibleTokenResolver for Contract {
     #[private]
     fn ft_resolve_transfer(
@@ -139,7 +137,7 @@ impl FungibleTokenResolver for Contract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl StorageManagement for Contract {
     #[payable]
     fn storage_deposit(
@@ -175,7 +173,7 @@ impl StorageManagement for Contract {
     }
 }
 
-#[unc_bindgen]
+#[unc]
 impl FungibleTokenMetadataProvider for Contract {
     fn ft_metadata(&self) -> FungibleTokenMetadata {
         self.metadata.get().unwrap()
