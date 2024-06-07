@@ -73,7 +73,7 @@ impl VersionedContract {
     pub fn deposit(&mut self) {
         let account_id = env::predecessor_account_id();
         let deposit = env::attached_deposit();
-        log!("{} deposited {} yUNC", account_id, deposit);
+        log!("{} deposited {} atto-UNC", account_id, deposit);
         let contract = self.contract_mut();
         let res = contract.funders.entry(account_id.clone()).or_default();
         let res = res.saturating_add(deposit);
