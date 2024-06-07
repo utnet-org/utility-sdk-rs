@@ -96,7 +96,8 @@ impl TryFrom<PublicKey> for unc_crypto::PublicKey {
 ///             .parse()
 ///             .unwrap();
 /// ```
-#[derive(Debug, Clone, PartialEq, PartialOrd, Ord, Eq, BorshSerialize, Hash)]
+#[unc(inside_uncsdk)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Ord, Eq, Hash)]
 pub struct PublicKey {
     data: Vec<u8>,
 }
@@ -174,14 +175,6 @@ impl serde::Serialize for PublicKey {
         S: serde::Serializer,
     {
         serializer.serialize_str(&String::from(self))
-    }
-}
-
-impl BorshDeserialize for PublicKey {
-    fn deserialize_reader<R: io::Read>(reader: &mut R) -> io::Result<Self> {
-        <Vec<u8> as BorshDeserialize>::deserialize_reader(reader).and_then(|s| {
-            Self::try_from(s).map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
-        })
     }
 }
 
