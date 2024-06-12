@@ -21,7 +21,7 @@ use crate::IntoStorageKey;
 /// - `above`/`below`:          O(log(N))
 /// - `range` of K elements:    O(Klog(N))
 ///
-#[deprecated(since = "4.1.0", note = "Use unc_sdk::collections::TreeMap")]
+#[deprecated(since = "2.1.0", note = "Use unc_sdk::collections::TreeMap")]
 #[unc(inside_uncsdk)]
 pub struct LegacyTreeMap<K, V> {
     root: u64,

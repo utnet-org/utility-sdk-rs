@@ -7,9 +7,9 @@ pub use unc_vm_runner::logic::types::{PromiseResult as VmPromiseResult, ReturnDa
 pub struct PromiseIndex(pub(crate) u64);
 
 /// An index of Receipt to append an action
-#[deprecated(since = "4.1.0", note = "type not used within SDK, use u64 directly or another alias")]
+#[deprecated(since = "2.1.0", note = "type not used within SDK, use u64 directly or another alias")]
 pub type ReceiptIndex = u64;
-#[deprecated(since = "4.1.0", note = "type not used within SDK, use u64 directly or another alias")]
+#[deprecated(since = "2.1.0", note = "type not used within SDK, use u64 directly or another alias")]
 pub type IteratorIndex = u64;
 
 /// When there is a callback attached to one or more contract calls the execution results of these
