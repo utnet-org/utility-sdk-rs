@@ -1,4 +1,4 @@
-use unc_sdk::store::UnorderedMap;
+use unc_sdk::store::IterableMap;
 use unc_sdk::{env, log, unc, AccountId, UncToken};
 
 /// An example of a versioned contract. This is a simple contract that tracks how much
@@ -30,7 +30,7 @@ impl VersionedContract {
         }
     }
 
-    fn funders(&self) -> &UnorderedMap<AccountId, UncToken> {
+    fn funders(&self) -> &IterableMap<AccountId, UncToken> {
         match self {
             Self::V0(contract) => &contract.funders,
             Self::V1(contract) => &contract.funders,
@@ -46,24 +46,24 @@ impl Default for VersionedContract {
 
 #[unc]
 pub struct ContractV0 {
-    funders: UnorderedMap<AccountId, UncToken>,
+    funders: IterableMap<AccountId, UncToken>,
 }
 
 impl Default for ContractV0 {
     fn default() -> Self {
-        Self { funders: UnorderedMap::new(b"f") }
+        Self { funders: IterableMap::new(b"f") }
     }
 }
 
 #[unc]
 pub struct Contract {
-    funders: UnorderedMap<AccountId, UncToken>,
+    funders: IterableMap<AccountId, UncToken>,
     nonce: u64,
 }
 
 impl Default for Contract {
     fn default() -> Self {
-        Self { funders: UnorderedMap::new(b"f"), nonce: 0 }
+        Self { funders: IterableMap::new(b"f"), nonce: 0 }
     }
 }
 
@@ -128,7 +128,7 @@ mod tests {
     #[test]
     fn contract_v0_interactions() {
         let mut contract = {
-            let mut funders = UnorderedMap::new(b"f");
+            let mut funders = IterableMap::new(b"f");
             funders.insert(bob(), UncToken::from_attounc(8));
             VersionedContract::V0(ContractV0 { funders })
         };

@@ -185,7 +185,7 @@ pub fn input() -> Option<Vec<u8>> {
 }
 
 /// Current block index.
-#[deprecated(since = "4.0.0", note = "Use block_height instead")]
+#[deprecated(since = "2.0.0", note = "Use block_height instead")]
 pub fn block_index() -> BlockHeight {
     block_height()
 }
@@ -848,7 +848,7 @@ pub fn value_return(value: &[u8]) {
 }
 /// Terminates the execution of the program with the UTF-8 encoded message.
 /// [`panic_str`] should be used as the bytes are required to be UTF-8
-#[deprecated(since = "4.0.0", note = "Use env::panic_str to panic with a message.")]
+#[deprecated(since = "2.0.0", note = "Use env::panic_str to panic with a message.")]
 pub fn panic(message: &[u8]) -> ! {
     unsafe { sys::panic_utf8(message.len() as _, message.as_ptr() as _) }
 }
@@ -883,7 +883,7 @@ pub fn log_str(message: &str) {
 }
 
 /// Log the UTF-8 encodable message.
-#[deprecated(since = "4.0.0", note = "Use env::log_str for logging messages.")]
+#[deprecated(since = "2.0.0", note = "Use env::log_str for logging messages.")]
 pub fn log(message: &[u8]) {
     #[cfg(all(debug_assertions, not(target_arch = "wasm32")))]
     eprintln!("{}", String::from_utf8_lossy(message));

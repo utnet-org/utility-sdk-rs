@@ -11,7 +11,7 @@ pub use integers::{I128, I64, U128, U64};
 pub use vector::Base64VecU8;
 
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "ValidAccountId is no longer maintained, and AccountId should be used instead"
 )]
 pub type ValidAccountId = AccountId;
@@ -20,13 +20,13 @@ pub type ValidAccountId = AccountId;
 // but will likely work in the future. Also included just to note that it is
 // indeed deprecated and not just a random export.
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "This import is deprecated. Best to import directly from unc_sdk"
 )]
 pub use crate::types::CurveType;
 
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "PublicKey type is now unified with Base58PublicKey. It is \
             recommended to use PublicKey going forward to avoid using \
             similar sounding types for the same thing."

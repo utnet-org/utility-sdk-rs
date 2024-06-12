@@ -291,7 +291,7 @@ pub fn unc(attr: TokenStream, item: TokenStream) -> TokenStream {
 ///    #[event_version("2.0.0")]
 ///    StringEvent(String),
 ///
-///    #[event_version("3.0.0")]
+///    #[event_version("2.1.0")]
 ///    EmptyEvent
 /// }
 ///
@@ -510,34 +510,34 @@ pub fn ext_contract(attr: TokenStream, item: TokenStream) -> TokenStream {
 
 /// `callback` is a marker attribute it does not generate code by itself.
 #[proc_macro_attribute]
-#[deprecated(since = "4.0.0", note = "Case is handled internally by macro, no need to import")]
+#[deprecated(since = "2.0.0", note = "Case is handled internally by macro, no need to import")]
 pub fn callback(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
 
 /// `callback_args_vec` is a marker attribute it does not generate code by itself.
-#[deprecated(since = "4.0.0", note = "Case is handled internally by macro, no need to import")]
+#[deprecated(since = "2.0.0", note = "Case is handled internally by macro, no need to import")]
 #[proc_macro_attribute]
 pub fn callback_vec(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
 
 /// `serializer` is a marker attribute it does not generate code by itself.
-#[deprecated(since = "4.0.0", note = "Case is handled internally by macro, no need to import")]
+#[deprecated(since = "2.0.0", note = "Case is handled internally by macro, no need to import")]
 #[proc_macro_attribute]
 pub fn serializer(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
 
 /// `result_serializer` is a marker attribute it does not generate code by itself.
-#[deprecated(since = "4.0.0", note = "Case is handled internally by macro, no need to import")]
+#[deprecated(since = "2.0.0", note = "Case is handled internally by macro, no need to import")]
 #[proc_macro_attribute]
 pub fn result_serializer(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
 
 /// `init` is a marker attribute it does not generate code by itself.
-#[deprecated(since = "4.0.0", note = "Case is handled internally by macro, no need to import")]
+#[deprecated(since = "2.0.0", note = "Case is handled internally by macro, no need to import")]
 #[proc_macro_attribute]
 pub fn init(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item

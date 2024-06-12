@@ -110,7 +110,7 @@ pub fn promise_result_as_success() -> Option<Vec<u8>> {
 ///
 /// [`GlobalAllocator`]: std::alloc::GlobalAlloc
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "Allocator is already initialized with the default `wee_alloc` feature set. \
             Please make sure you don't disable default features on the SDK or set the global \
             allocator manually."

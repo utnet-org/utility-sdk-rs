@@ -15,7 +15,7 @@ pub fn carol() -> AccountId {
 
 /// Updates the blockchain interface with the config passed in.
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "Use `testing_env!` macro to initialize with specific VMConfig"
 )]
 pub fn setup_with_config(vm_config: unc_parameters::vm::Config) {
@@ -24,7 +24,7 @@ pub fn setup_with_config(vm_config: unc_parameters::vm::Config) {
 
 /// Setup the blockchain interface with a default configuration.
 #[deprecated(
-    since = "4.0.0",
+    since = "2.0.0",
     note = "Mocked blockchain is now setup by default, use `testing_env!`"
 )]
 pub fn setup() {
