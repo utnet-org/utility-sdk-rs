@@ -9,16 +9,16 @@ where
     #[event_version("1.0.0")]
     Swap { token_in: AccountId, token_out: AccountId, amount_in: u128, amount_out: u128, test: T },
 
-    #[event_version("2.0.0")]
+    #[event_version("1.1.0")]
     StringEvent(String),
 
-    #[event_version("3.0.0")]
+    #[event_version("1.2.0")]
     EmptyEvent,
 
-    #[event_version("4.0.0")]
+    #[event_version("2.0.0")]
     LifetimeTestA(&'a str),
 
-    #[event_version("5.0.0")]
+    #[event_version("2.1.0")]
     LifetimeTestB(&'b str),
 }
 
@@ -59,19 +59,19 @@ fn test_json_emit() {
     );
     assert_eq!(
         logs[1],
-        r#"EVENT_JSON:{"standard":"test_standard","version":"2.0.0","event":"string_event","data":"string"}"#
+        r#"EVENT_JSON:{"standard":"test_standard","version":"1.1.0","event":"string_event","data":"string"}"#
     );
     assert_eq!(
         logs[2],
-        r#"EVENT_JSON:{"standard":"test_standard","version":"3.0.0","event":"empty_event"}"#
+        r#"EVENT_JSON:{"standard":"test_standard","version":"1.2.0","event":"empty_event"}"#
     );
     assert_eq!(
         logs[3],
-        r#"EVENT_JSON:{"standard":"test_standard","version":"4.0.0","event":"lifetime_test_a","data":"lifetime"}"#
+        r#"EVENT_JSON:{"standard":"test_standard","version":"2.0.0","event":"lifetime_test_a","data":"lifetime"}"#
     );
     assert_eq!(
         logs[4],
-        r#"EVENT_JSON:{"standard":"test_standard","version":"5.0.0","event":"lifetime_test_b","data":"lifetime_b"}"#
+        r#"EVENT_JSON:{"standard":"test_standard","version":"2.1.0","event":"lifetime_test_b","data":"lifetime_b"}"#
     );
     assert_eq!(
         logs[5],

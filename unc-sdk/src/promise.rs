@@ -189,7 +189,7 @@ impl PromiseJoint {
 /// * When they need to return `Promise`.
 ///
 ///   In the following code if someone calls method `ContractA::a` they will internally cause an
-///   execution of method `ContractB::b` of `bob_unc` account, and the return value of `ContractA::a`
+///   execution of method `ContractB::b` of `bob` account, and the return value of `ContractA::a`
 ///   will be what `ContractB::b` returned.
 /// ```no_run
 /// # use unc_sdk::{ext_contract, unc, Promise, Gas};
@@ -205,7 +205,7 @@ impl PromiseJoint {
 /// #[unc]
 /// impl ContractA {
 ///     pub fn a(&self) -> Promise {
-///         contract_b::ext("bob_unc".parse().unwrap()).b()
+///         contract_b::ext("bob".parse().unwrap()).b()
 ///     }
 /// }
 /// ```
@@ -215,9 +215,9 @@ impl PromiseJoint {
 ///
 /// ```no_run
 /// # use unc_sdk::{Promise, env, test_utils::VMContextBuilder, testing_env, Gas, UncToken};
-/// # testing_env!(VMContextBuilder::new().signer_account_id("bob_unc".parse().unwrap())
+/// # testing_env!(VMContextBuilder::new().signer_account_id("bob".parse().unwrap())
 /// #               .account_balance(UncToken::from_attounc(1000)).prepaid_gas(Gas::from_gas(1_000_000)).build());
-/// Promise::new("bob_unc".parse().unwrap())
+/// Promise::new("bob".parse().unwrap())
 ///   .create_account()
 ///   .transfer(UncToken::from_attounc(1000))
 ///   .add_full_access_key(env::signer_account_pk());
@@ -351,7 +351,7 @@ impl Promise {
         )
     }
 
-    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance instead")]
+    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance instead")]
     pub fn add_access_key(
         self,
         public_key: PublicKey,
@@ -381,7 +381,7 @@ impl Promise {
         })
     }
 
-    #[deprecated(since = "5.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
+    #[deprecated(since = "2.0.0", note = "Use add_access_key_allowance_with_nonce instead")]
     pub fn add_access_key_with_nonce(
         self,
         public_key: PublicKey,
@@ -418,8 +418,8 @@ impl Promise {
     ///
     /// ```no_run
     /// # use unc_sdk::{Promise, testing_env};
-    /// let p1 = Promise::new("bob_unc".parse().unwrap()).create_account();
-    /// let p2 = Promise::new("carol_unc".parse().unwrap()).create_account();
+    /// let p1 = Promise::new("bob".parse().unwrap()).create_account();
+    /// let p2 = Promise::new("carol".parse().unwrap()).create_account();
     /// let p3 = p1.and(p2);
     /// // p3.create_account();
     /// ```
@@ -436,13 +436,13 @@ impl Promise {
 
     /// Schedules execution of another promise right after the current promise finish executing.
     ///
-    /// In the following code `bob_unc` and `dave_unc` will be created concurrently. `carol_unc`
-    /// creation will wait for `bob_unc` to be created, and `eva_unc` will wait for both `carol_unc`
+    /// In the following code `bob` and `dave_unc` will be created concurrently. `carol`
+    /// creation will wait for `bob` to be created, and `eva_unc` will wait for both `carol`
     /// and `dave_unc` to be created first.
     /// ```no_run
     /// # use unc_sdk::{Promise, VMContext, testing_env};
-    /// let p1 = Promise::new("bob_unc".parse().unwrap()).create_account();
-    /// let p2 = Promise::new("carol_unc".parse().unwrap()).create_account();
+    /// let p1 = Promise::new("bob".parse().unwrap()).create_account();
+    /// let p2 = Promise::new("carol".parse().unwrap()).create_account();
     /// let p3 = Promise::new("dave_unc".parse().unwrap()).create_account();
     /// let p4 = Promise::new("eva_unc".parse().unwrap()).create_account();
     /// p1.then(p2).and(p3).then(p4);
@@ -481,11 +481,11 @@ impl Promise {
     /// #[unc]
     /// impl ContractA {
     ///     pub fn a1(&self) {
-    ///        contract_b::ext("bob_unc".parse().unwrap()).b().as_return();
+    ///        contract_b::ext("bob".parse().unwrap()).b().as_return();
     ///     }
     ///
     ///     pub fn a2(&self) -> Promise {
-    ///        contract_b::ext("bob_unc".parse().unwrap()).b()
+    ///        contract_b::ext("bob".parse().unwrap()).b()
     ///     }
     /// }
     /// ```
@@ -560,7 +560,7 @@ impl schemars::JsonSchema for Promise {
 /// let val: PromiseOrValue<bool> = if let Some(value) = value {
 ///     PromiseOrValue::Value(value)
 /// } else {
-///     contract_a::ext("bob_unc".parse().unwrap()).a().into()
+///     contract_a::ext("bob".parse().unwrap()).a().into()
 /// };
 /// ```
 #[derive(serde::Serialize)]

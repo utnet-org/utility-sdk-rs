@@ -667,7 +667,7 @@ pub(crate) fn migrate_to_allowance(allowance: UncToken) -> Allowance {
     Allowance::limited(allowance).unwrap_or(Allowance::Unlimited)
 }
 
-#[deprecated(since = "5.0.0", note = "Use add_access_key_allowance instead")]
+#[deprecated(since = "2.0.0", note = "Use add_access_key_allowance instead")]
 pub fn promise_batch_action_add_key_with_function_call(
     promise_index: PromiseIndex,
     public_key: &PublicKey,
@@ -1049,7 +1049,7 @@ mod tests {
             "system",
             "over.9000",
             "google.com",
-            "illia.cheapaccounts.unc",
+            "wick.cheapaccounts.unc",
             "0o0ooo00oo00o",
             "alex-skidanov",
             "10-4.8-2",

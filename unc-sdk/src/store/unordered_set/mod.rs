@@ -89,7 +89,7 @@ use std::fmt;
 /// [`LookupSet`]: crate::store::LookupSet
 #[derive(BorshDeserialize, BorshSerialize)]
 #[deprecated(
-    since = "5.0.0",
+    since = "2.0.0",
     note = "Suboptimal iteration performance. See performance considerations doc for details."
 )]
 pub struct UnorderedSet<T, H = Sha256>

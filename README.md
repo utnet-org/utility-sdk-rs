@@ -74,7 +74,7 @@ Writing unit tests is easy with `unc-sdk`:
 fn set_get_message() {
     let mut contract = StatusMessage::default();
     contract.set_status("hello".to_string());
-    assert_eq!("hello".to_string(), contract.get_status("bob_unc".to_string()).unwrap());
+    assert_eq!("hello".to_string(), contract.get_status("bob".to_string()).unwrap());
 }
 ```
 

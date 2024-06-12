@@ -40,7 +40,7 @@ mod tests {
 
     fn get_context(is_view: bool) -> VMContext {
         VMContextBuilder::new()
-            .signer_account_id("bob_unc".parse().unwrap())
+            .signer_account_id("bob".parse().unwrap())
             .is_view(is_view)
             .build()
     }
@@ -54,12 +54,12 @@ mod tests {
         // Flush the pending changes to avoid panic in the view method below due to the pending non-committed changes to the `store::LookupMap`:
         // HostError(ProhibitedInView { method_name: "storage_write" })
         contract.records.flush();
-        assert_eq!(get_logs(), vec!["bob_unc set_status with message hello"]);
+        assert_eq!(get_logs(), vec!["bob set_status with message hello"]);
 
         let context = get_context(true);
         testing_env!(context);
-        assert_eq!("hello", contract.get_status("bob_unc".parse().unwrap()).unwrap());
-        assert_eq!(get_logs(), vec!["get_status for account_id bob_unc"]);
+        assert_eq!("hello", contract.get_status("bob".parse().unwrap()).unwrap());
+        assert_eq!(get_logs(), vec!["get_status for account_id bob"]);
     }
 
     #[test]
