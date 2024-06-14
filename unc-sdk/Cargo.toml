@@ -39,7 +39,7 @@ wee_alloc = { version = "0.4.5", default-features = false, optional = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 schemars = { version = "0.8.8", optional = true }
-unc-abi = { version = "0.10.2", features = ["__chunked-entries"], optional = true }
+unc-abi = { version = "0.10.3", features = ["__chunked-entries"], optional = true }
 unc-vm-runner = { version = "0.10.2", optional = true }
 unc-primitives-core = { version = "0.10.2", optional = true }
 unc-primitives = { version = "0.10.2", optional = true }
@@ -59,7 +59,7 @@ hex = { version = "0.4.3", features = ["serde"] }
 getrandom = { version = "0.2", features = ["js"] }
 rand_chacha = "0.3.1"
 unc-rng = "0.1.0"
-unc-abi = { version = "0.10.2", features = ["__chunked-entries"] }
+unc-abi = { version = "0.10.3", features = ["__chunked-entries"] }
 symbolic-debuginfo = "12"
 
 [features]
