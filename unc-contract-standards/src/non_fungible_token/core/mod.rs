@@ -54,7 +54,7 @@ pub trait NonFungibleTokenCore {
     /// `receiver_id`.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security purposes
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security purposes
     /// * Contract MUST panic if called by someone other than token owner or,
     ///   if using Approval Management, one of the approved accounts
     /// * `approval_id` is for use with Approval Management,
@@ -89,7 +89,7 @@ pub trait NonFungibleTokenCore {
     /// receiver contract.
     ///
     /// Requirements:
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security
     ///   purposes
     /// * Contract MUST panic if called by someone other than token owner or,
     ///   if using Approval Management, one of the approved accounts

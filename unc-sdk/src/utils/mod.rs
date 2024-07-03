@@ -80,11 +80,11 @@ pub fn assert_self() {
     require!(env::predecessor_account_id() == env::current_account_id(), "Method is private");
 }
 
-/// Assert that 1 yoctoUNC was attached.
+/// Assert that 1 attoUNC was attached.
 pub fn assert_one_atto() {
     require!(
         env::attached_deposit() == UncToken::from_attounc(1),
-        "Requires attached deposit of exactly 1 yoctoUNC"
+        "Requires attached deposit of exactly 1 attoUNC"
     )
 }
 

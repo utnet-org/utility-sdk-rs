@@ -58,7 +58,7 @@ pub trait NonFungibleTokenApproval {
     /// Add an approved account for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of at least 1 yoctoⓃ for
+    /// * Caller of the method must attach a deposit of at least 1 attoⓃ for
     ///   security purposes
     /// * Contract MAY require caller to attach larger deposit, to cover cost of
     ///   storing approver data
@@ -87,7 +87,7 @@ pub trait NonFungibleTokenApproval {
     /// Revoke an approved account for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security
     ///   purposes
     /// * If contract requires >1yN deposit on `nft_approve`, contract
     ///   MUST refund associated storage deposit when owner revokes approval
@@ -101,7 +101,7 @@ pub trait NonFungibleTokenApproval {
     /// Revoke all approved accounts for a specific token.
     ///
     /// Requirements
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security
     ///   purposes
     /// * If contract requires >1yN deposit on `nft_approve`, contract
     ///   MUST refund all associated storage deposit when owner revokes approvals

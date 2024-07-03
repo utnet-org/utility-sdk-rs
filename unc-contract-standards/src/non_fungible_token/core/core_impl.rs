@@ -271,7 +271,7 @@ impl NonFungibleToken {
     ///
     /// Requirements:
     /// * Caller must be the `owner_id` set during contract initialization.
-    /// * Caller of the method must attach a deposit of 1 yoctoⓃ for security purposes.
+    /// * Caller of the method must attach a deposit of 1 attoⓃ for security purposes.
     /// * If contract is using Metadata extension (by having provided `metadata_prefix` during
     ///   contract initialization), `token_metadata` must be given.
     /// * token_id must be unique
