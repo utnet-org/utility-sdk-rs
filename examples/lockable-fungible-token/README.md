@@ -9,6 +9,7 @@ until Safes are implemented from (UIP#26).
 
 ## Testing
 To test run:
+
 ```bash
 cargo test --package lockable-fungible-token -- --nocapture
 ```
