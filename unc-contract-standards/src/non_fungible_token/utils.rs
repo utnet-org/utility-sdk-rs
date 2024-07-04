@@ -33,7 +33,7 @@ pub fn refund_deposit_to_account(storage_used: u64, account_id: AccountId) {
 
     require!(
         required_cost <= attached_deposit,
-        format!("Must attach {} attoUNC to cover storage", required_cost)
+        format!("Must attach {} attounc to cover storage", required_cost)
     );
 
     let refund = attached_deposit.saturating_sub(required_cost);

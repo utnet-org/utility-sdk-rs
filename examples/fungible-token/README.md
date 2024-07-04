@@ -30,7 +30,7 @@ cargo test --package fungible-token -- --nocapture
 
 ## Deploy
 
-Set contract account $CONTRACT_ID
+This smart contract will get deployed to your Utility Net account. For this example, please create a new Utility Net account. Because Utility Net allows the ability to upgrade contracts on the same account, initialization functions must be cleared. If you'd like to run this example on a Utility Net account that has had prior contracts deployed, please use the `unc-cli` command `unc delete`, and then recreate it in Wallet. To create (or recreate) an account, please follow the directions in [Utility Net Wallet](https://chromewebstore.google.com/detail/mywallets-v1/poljcmobchfooceghefdokchdkfmlcbk) or [Cli wallet](https://github.com/utnet-org/utility-cli-rs/releases/tag/v0.15.0).
 
 ```sh
 # create account and import account in testnet
@@ -58,13 +58,13 @@ FT contract should be initialized before usage.
 The next command will initialize the contract using the `new` method:
 
 ```bash
-unc contract call-function as-transaction $CONTRACT_ID new json-args '{"owner_id": "'$CONTRACT_ID'", "total_supply": "1000000000000000", "metadata": { "spec": "ft-1.0.0", "name": "Example Token Name", "symbol": "EXLT", "decimals": 8 }}' prepaid-gas '300 TeraGas' attached-deposit '0 unc' sign-as $CONTRACT_ID network-config testnet sign-with-legacy-keychain send
+unc contract call-function as-transaction $CONTRACT_ID new json-args '{"owner_id": "'$CONTRACT_ID'", "total_supply": "1000000000000000", "metadata": { "spec": "ft-1.0.0", "name": "Example Token Name", "symbol": "AI", "decimals": 8 }}' prepaid-gas '300 TeraGas' attached-deposit '0 unc' sign-as $CONTRACT_ID network-config testnet sign-with-legacy-keychain send
 ```
 
 To get the fungible token metadata:
 
 ```bash
-unc contract call-function as-read-only 039b331bede0513d50e3edd083800fc9057da0a519aaf5a26efa2ef2e3c236a4 ft_metadata text-args '' network-config testnet now
+unc contract call-function as-read-only $CONTRACT_ID ft_metadata text-args '' network-config testnet now
 ```
 
 ## Transfer
@@ -105,7 +105,7 @@ unc contract call-function as-read-only $CONTRACT_ID ft_balance_of text-args '{"
 Transfer tokens to Bob from the contract that minted these fungible tokens, exactly 1 attoUNC of deposit should be attached:
 
 ```sh
-unc contract call-function as-transaction $CONTRACT_ID ft_transfer json-args '{"receiver_id": "'$BOB_ACCOUNT'", "amount": "19"}' prepaid-gas '300 TeraGas' attached-deposit '0.000000000000000000000001 unc' sign-as $CONTRACT_ID network-config testnet sign-with-legacy-keychain send
+unc contract call-function as-transaction $CONTRACT_ID ft_transfer json-args '{"receiver_id": "'$BOB_ACCOUNT'", "amount": "19"}' prepaid-gas '300 TeraGas' attached-deposit '1 attounc' sign-as $CONTRACT_ID network-config testnet sign-with-legacy-keychain send
 
 ```
 
