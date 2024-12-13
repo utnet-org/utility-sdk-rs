@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.2](https://github.com/utnet-org/utility-sdk-rs/compare/unc-contract-standards-v2.3.1...unc-contract-standards-v2.3.2) - 2024-07-03
+
+### Other
+- Update deposit units in code to use attoUNC
+
 ## [2.1.0](https://github.com/utnet-org/utility-sdk-rs/compare/unc-contract-standards-v2.0.2...unc-contract-standards-v2.1.0) - 2024-05-28
 
 ### Added

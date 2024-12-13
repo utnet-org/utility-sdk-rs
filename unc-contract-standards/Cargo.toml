@@ -13,7 +13,7 @@ Utility smart contracts standard library.
 """
 
 [dependencies]
-unc-sdk = { path = "../unc-sdk", version = "2.2.1", default-features = false, features = ["legacy"] }
+unc-sdk = { path = "../unc-sdk", version = "2.3.2", default-features = false, features = ["legacy"] }
 
 [dev-dependencies]
 unc-sdk = { path = "../unc-sdk", default-features = false, features = ["unit-testing"] }
